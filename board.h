@@ -8,6 +8,12 @@
 
 #include "cells_dir/barrier_cell.h"
 #include "cells_dir/empty_cell.h"
+#include "cells_dir/goal_cell.h"
+#include "cells_dir/kill_cell.h"
+#include "cells_dir/spawn_cell.h"
+#include "cells_dir/move_cell.h"
+#include "cells_dir/turn_cell.h"
+
 #include <vector>
 #include <iostream>
 #include <string>
@@ -33,7 +39,7 @@ private:
     /// may come handy later
     unsigned counter;
     /// cell array used to store current level state
-    std::vector<cell> level;
+    std::vector<cell*> level;
 };
 
 

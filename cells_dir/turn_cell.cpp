@@ -13,11 +13,11 @@ turn_cell::turn_cell(direction turnDirection) : cell(false, true),
                                                 turn_direction(turnDirection) {}
 
 void turn_cell::show_in_console_unicode() {
-    if (turn_direction == left) std::wcout << cc(green) << L"\x2B9C ";
+    if (turn_direction == left) std::wcout << cc(blue) << L"\x2B9C ";
 
-    else if (turn_direction == right) std::wcout << cc(green) << L"\x2B9E ";
+    else if (turn_direction == right) std::wcout << cc(blue) << L"\x2B9E ";
 
-    else if (turn_direction == up)std::wcout << cc(green) << L"\x2B9D ";
+    else if (turn_direction == up)std::wcout << cc(blue) << L"\x2B9D ";
 
-    else if (turn_direction == down)std::wcout << cc(green) << L"\x2B9F ";
+    else if (turn_direction == down)std::wcout << cc(blue) << L"\x2B9F ";
 }
