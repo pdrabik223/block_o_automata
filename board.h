@@ -27,8 +27,13 @@ public:
     /// for now, later it will be moved to different class
     void show_level_win_console();
 
-
+    /// \return pointer to a chosen cell in level
+    /// \param width of a chosen cell
+    /// \param wight  of a chosen cell
+    cell & get_cell(unsigned height, unsigned width);
 private:
+    unsigned transform(unsigned int height, unsigned int width);
+
 
     /// both width and height include frames around level
     /// width in cells
@@ -40,6 +45,7 @@ private:
     unsigned counter;
     /// cell array used to store current level state
     std::vector<cell*> level;
+
 };
 
 

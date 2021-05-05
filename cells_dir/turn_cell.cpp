@@ -21,3 +21,4 @@ void turn_cell::show_in_console_unicode() {
 
     else if (turn_direction == down)std::wcout << cc(blue) << L"\x2B9F ";
 }
+

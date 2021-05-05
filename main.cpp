@@ -24,7 +24,7 @@ int main(){
     std::wcout<<cc(blue)<<"turn_cell\t"<<L"\x2B9E\n\t\t\x2B9C \n\t\t\x2B9D \n\t\t\x2B9f\n";
 
 
-    std::wcout<<cc(purple)<<"goal_cell\t"<<L"\x2B24 \n";
+    std::wcout<<cc(purple,red)<<"goal_cell\t"<<L"\x2B24 \n";
 
 
 

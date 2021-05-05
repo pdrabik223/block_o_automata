@@ -15,6 +15,8 @@ public:
 
     void show_in_console_unicode() override;
 
+    turn_cell &operator=(const turn_cell &other) = default;
+
 protected:
     /// how many rotations can cell preform
     unsigned rotations_left;

@@ -16,6 +16,8 @@ public:
 
     void show_in_console_unicode() override;
 
+    kill_cell &operator=(const kill_cell &other) = default;
+
 protected:
     /// how many hits cells an take
     unsigned int lives;

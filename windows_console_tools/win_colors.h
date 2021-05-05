@@ -37,7 +37,7 @@ enum color {
 
 };
 /// console color
-/// changes the console colors to geven in constructor
+/// changes the console colors to given in constructor
 class cc{
 public:
     cc(color text, color background);

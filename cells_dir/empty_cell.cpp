@@ -8,5 +8,5 @@ empty_cell::empty_cell( bool locked) : cell(false, true), locked(locked) {}
 
 void empty_cell::show_in_console_unicode() {
     if(locked)std::wcout<<"  ";
-    else std::wcout<<cc(gray)<<". ";
+    else std::wcout<<cc(gray)<<L"\x2022 ";
 }

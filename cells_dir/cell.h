@@ -28,6 +28,8 @@ public:
 
     cell(bool movable, bool hollow);
 
+   virtual  cell& operator=(const cell& other) = default;
+
     bool isMovable() const;
 
     void setMovable(bool movable);
@@ -37,6 +39,7 @@ public:
     bool isHollow() const;
 
     virtual void show_in_console_unicode(){}
+
 
 protected:
     /// can be moved/rotated by other cells
