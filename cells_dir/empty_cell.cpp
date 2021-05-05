@@ -5,3 +5,8 @@
 #include "empty_cell.h"
 
 empty_cell::empty_cell( bool locked) : cell(false, true), locked(locked) {}
+
+void empty_cell::show_in_console_unicode() {
+    if(locked)std::wcout<<"  ";
+    else std::wcout<<cc(gray)<<". ";
+}

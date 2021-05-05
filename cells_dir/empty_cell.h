@@ -11,6 +11,8 @@ class empty_cell: public cell{
 public:
     empty_cell( bool locked);
 
+    void show_in_console_unicode() override;
+
 protected:
     /// can player put cells in place this one
     bool locked;

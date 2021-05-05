@@ -13,6 +13,8 @@ public:
 
     turn_cell(direction turnDirection);
 
+    void show_in_console_unicode() override;
+
 protected:
     /// how many rotations can cell preform
     unsigned rotations_left;

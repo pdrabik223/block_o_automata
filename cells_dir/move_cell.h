@@ -12,6 +12,8 @@ class move_cell: public cell{
 public:
     move_cell(direction moveDirection);
 
+    void show_in_console_unicode() override;
+
 protected:
 direction move_direction;
 };

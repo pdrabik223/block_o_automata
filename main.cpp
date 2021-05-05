@@ -4,9 +4,9 @@
 
 /// the first approach
 
+
 #include "windows_console_tools/win_colors.h"
-
-
+#include "board.h"
 
 int main(){
     /// allow using chart in console
@@ -24,7 +24,15 @@ int main(){
     std::wcout<<cc(blue)<<"turn_cell\t"<<L"\x2B9E\n\t\t\x2B9C \n\t\t\x2B9D \n\t\t\x2B9f\n";
 
 
-    std::wcout<<cc(purple)<<"turn_cell\t"<<L"\x2B24 \n";
+    std::wcout<<cc(purple)<<"goal_cell\t"<<L"\x2B24 \n";
+
+
+
+    board first(10,10);
+    first.show_level_win_console();
+
+
+
 
     return 0;
 }

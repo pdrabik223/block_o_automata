@@ -14,6 +14,7 @@ public:
 
     spawn_cell(bool movable,  direction spawnDirection);
 
+    void show_in_console_unicode() override;
 
 protected:
     /// how many more cells can be spawned

@@ -7,6 +7,8 @@
 
 #include "cell.h"
 class goal_cell :public cell{
+public:
+    void show_in_console_unicode() override;
 
 public:
     goal_cell();

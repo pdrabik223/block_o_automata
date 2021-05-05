@@ -14,6 +14,8 @@ public:
 
     kill_cell();
 
+    void show_in_console_unicode() override;
+
 protected:
     /// how many hits cells an take
     unsigned int lives;
