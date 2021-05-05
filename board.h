@@ -31,6 +31,12 @@ public:
     /// \param width of a chosen cell
     /// \param wight  of a chosen cell
     cell & get_cell(unsigned height, unsigned width);
+
+
+    /// \brief the heart of this game
+    void iterate();
+
+
 private:
     unsigned transform(unsigned int height, unsigned int width);
 

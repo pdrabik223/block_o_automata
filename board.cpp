@@ -19,7 +19,6 @@ board::board(unsigned int w, unsigned int h) : w(w), h(h), counter(0) {
     level[transform(3, 5)] = new kill_cell();
 
 
-
     level[transform(5, 8)] = new turn_cell(down);
 
     level[transform(0, 7)] = new barrier_cell(true);
@@ -65,4 +64,17 @@ cell &board::get_cell(unsigned int height, unsigned int width) {
 
 unsigned board::transform(unsigned int height, unsigned int width) {
     return height * w + width;
+}
+
+
+void board::iterate() {
+
+    std::vector<cell*> level_copy(w*h);
+
+    for(int i=0;i<level.size();++i){
+
+
+    }
+
+
 }

@@ -4,9 +4,13 @@
 
 #include "cell.h"
 
-cell::cell(bool movable, bool hollow) : movable(movable), hollow(hollow) {}
+cell::cell(bool movable, bool hollow) : movable(movable), hollow(hollow),local_creation_time(creation_order) {
+    ++creation_order;
+}
 
-cell::cell():movable(true),hollow(true) {}
+cell::cell():movable(true),hollow(true), local_creation_time(creation_order) {
+        ++creation_order;
+}
 
 bool cell::isMovable() const {
     return movable;

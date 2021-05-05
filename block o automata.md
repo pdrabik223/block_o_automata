@@ -113,11 +113,11 @@ ikona:
 
 ## przykładowy poziom :
 
-![img.png](demo_level.png)
+![img.png](images/demo_level.png)
 
 przed takim zadaniem staje gracz na początku każdej rundy
 celem jest ustawienie "move" pionka tak by bezpiecznie dotarł do pola goal
 
 rozwiązanie:
 
-![img.png](solved.png)
+![img.png](images/solved.png)

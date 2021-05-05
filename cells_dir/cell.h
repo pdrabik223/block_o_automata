@@ -9,6 +9,8 @@
 
 #include "../windows_console_tools/win_colors.h"
 
+static unsigned creation_order =0;
+
 /// used by few of the cells
 /// the plane is always orientated the same way
 /// so up is north on plane
@@ -41,12 +43,14 @@ public:
     virtual void show_in_console_unicode(){}
 
 
+
 protected:
     /// can be moved/rotated by other cells
     bool movable;
     /// can other cells enter this one
     bool hollow;
 
+    unsigned local_creation_time;
 };
 
 
