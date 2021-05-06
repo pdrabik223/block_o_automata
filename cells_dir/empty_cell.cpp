@@ -10,3 +10,5 @@ void empty_cell::show_in_console_unicode() {
     if(locked)std::wcout<<"  ";
     else std::wcout<<cc(gray)<<L"\x2022 ";
 }
+
+void empty_cell::action(std::vector<cell *> &plane, unsigned h, unsigned w, coord position_in_plane) {}

@@ -33,6 +33,10 @@ public:
     cell & get_cell(unsigned height, unsigned width);
 
 
+    /// \return pointer to a chosen cell in level
+    /// \param position coordinates of wanted cell
+    cell & get_cell(coord position);
+
     /// \brief the heart of this game
     void iterate();
 

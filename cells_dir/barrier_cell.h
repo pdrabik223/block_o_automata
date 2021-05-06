@@ -13,6 +13,16 @@ public:
     barrier_cell(bool movable);
 
     void show_in_console_unicode() override;
+
+    barrier_cell &operator=(const barrier_cell &other)  = default;
+
+    void action(std::vector<cell *> &plane, unsigned h, unsigned w, coord position_in_plane) override;
+
+    void move(std::vector<cell *> &plane, direction move_to, unsigned int h, unsigned int w,
+              coord position_in_plane) override;
+
+protected:
+    std::string cell_name = "barrier";
 };
 
 

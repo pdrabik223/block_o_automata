@@ -14,8 +14,14 @@ public:
 
     void show_in_console_unicode() override;
 
+    move_cell &operator=(const move_cell &other)  = default;
+
+
+    void action(std::vector<cell *> &plane, unsigned h, unsigned w, coord position_in_plane) override;
+
 protected:
 direction move_direction;
+    std::string cell_name = "move";
 };
 
 

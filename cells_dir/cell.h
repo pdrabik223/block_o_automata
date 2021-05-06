@@ -4,8 +4,9 @@
 
 #ifndef BLOCK_O_AUTOMATA_CELL_H
 #define BLOCK_O_AUTOMATA_CELL_H
-
+#include <cassert>
 #include <iostream>
+#include <vector>
 
 #include "../windows_console_tools/win_colors.h"
 
@@ -22,13 +23,24 @@ enum direction {
     down
 };
 
+
+struct coord{
+    coord(unsigned int x, unsigned int y): x(x), y(y) {}
+    unsigned x;
+    unsigned y;
+};
+
+unsigned toUint(coord position, unsigned w){
+    return position.x*w+position.y;
+
+}
 class cell {
 
 
 public:
     cell();
 
-    cell(bool movable, bool hollow);
+    cell(bool movable, bool killable);
 
    virtual  cell& operator=(const cell& other) = default;
 
@@ -36,21 +48,26 @@ public:
 
     void setMovable(bool movable);
 
-    void setHollow(bool hollow);
+    void setKillable(bool killable);
 
-    bool isHollow() const;
+    bool isKillable() const;
 
     virtual void show_in_console_unicode(){}
 
+    virtual void move(std::vector<cell *> &plane, direction move_to, unsigned h, unsigned w, coord position_in_plane) {assert(false);};
+    virtual void action(std::vector<cell *> &plane, unsigned h, unsigned w, coord position_in_plane) {};
 
+    const std::string &getCellName() const;
 
 protected:
     /// can be moved/rotated by other cells
     bool movable;
-    /// can other cells enter this one
-    bool hollow;
+    /// can this cell be killed
+    bool killable;
 
     unsigned local_creation_time;
+    std::string cell_name = "cell";
+
 };
 
 

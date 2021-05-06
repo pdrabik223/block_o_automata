@@ -4,7 +4,6 @@
 
 #include "board.h"
 
-
 board::board(unsigned int w, unsigned int h) : w(w), h(h), counter(0) {
 
     // level.reserve(w * h);
@@ -61,6 +60,10 @@ void board::show_level_win_console() {
 cell &board::get_cell(unsigned int height, unsigned int width) {
     return *level[height * w + width];
 }
+cell &board::get_cell(coord position) {
+    return *level[position.x * w + position.y];
+}
+
 
 unsigned board::transform(unsigned int height, unsigned int width) {
     return height * w + width;
@@ -72,7 +75,7 @@ void board::iterate() {
     std::vector<cell*> level_copy(w*h);
 
     for(int i=0;i<level.size();++i){
-
+        level[i]->action(level,h,w,{i/w,i%w});
 
     }
 

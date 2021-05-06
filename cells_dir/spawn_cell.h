@@ -16,13 +16,14 @@ public:
 
     void show_in_console_unicode() override;
 
+
 protected:
     /// how many more cells can be spawned
     unsigned lives;
     /// the place where cell be spawned
     direction spawn_direction;
 
-
+    std::string cell_name = "spawn";
 };
 
 

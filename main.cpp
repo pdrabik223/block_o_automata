@@ -8,6 +8,22 @@
 #include "windows_console_tools/win_colors.h"
 #include "board.h"
 
+
+/// the plan
+/// todo requ move move
+/// todo testing place <- it's like this admin file
+/// todo make special class for displaying stuff
+/// todo create whole game sequence:
+    /// - info screen
+    /// - chose level screen
+    /// - play level screen
+        /// - get input
+        /// -main game loop
+        /// - update best time and best blocks cost
+    /// - level creator
+    /// - save level in place
+        /// - info about challenges and stuff
+
 int main(){
     /// allow using chart in console
     _setmode(_fileno(stdout), _O_U16TEXT);
@@ -30,7 +46,7 @@ int main(){
 
     board first(10,10);
     first.show_level_win_console();
-
+    first.iterate();
 
 
 

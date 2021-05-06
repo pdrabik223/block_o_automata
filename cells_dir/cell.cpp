@@ -4,11 +4,11 @@
 
 #include "cell.h"
 
-cell::cell(bool movable, bool hollow) : movable(movable), hollow(hollow),local_creation_time(creation_order) {
+cell::cell(bool movable, bool killable) : movable(movable), killable(killable), local_creation_time(creation_order) {
     ++creation_order;
 }
 
-cell::cell():movable(true),hollow(true), local_creation_time(creation_order) {
+cell::cell(): movable(true), killable(true), local_creation_time(creation_order) {
         ++creation_order;
 }
 
@@ -16,14 +16,22 @@ bool cell::isMovable() const {
     return movable;
 }
 
-bool cell::isHollow() const {
-    return hollow;
+bool cell::isKillable() const {
+    return killable;
 }
 
 void cell::setMovable(bool movable) {
     cell::movable = movable;
 }
 
-void cell::setHollow(bool hollow) {
-    cell::hollow = hollow;
+
+
+const std::string &cell::getCellName() const {
+    return cell_name;
 }
+
+void cell::setKillable(bool killable) {
+    cell::killable = killable
+}
+
+

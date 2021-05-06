@@ -6,13 +6,20 @@
 #define BLOCK_O_AUTOMATA_GOAL_CELL_H
 
 #include "cell.h"
-class goal_cell :public cell{
-public:
-    void show_in_console_unicode() override;
 
+class goal_cell : public cell {
 public:
     goal_cell();
 
+    void show_in_console_unicode() override;
+
+    goal_cell &operator=(const goal_cell &other) = default;
+
+    void action(std::vector<cell *> &plane, unsigned h, unsigned w, coord position_in_plane);
+
+
+protected:
+    std::string cell_name = "goal";
 };
 
 

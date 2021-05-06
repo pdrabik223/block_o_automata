@@ -1,12 +1,12 @@
-## block o automata 
+# Block o automata 
 
 To minimalistyczna gra logiczna 
 opierająca się na zasadach rządzących cellular automatą.
 
-###cel gry
+## Cel gry
 celem gry jest zdobyć punkt kontrolny (najechać na niego blokiem gracza) lub wyeliminować wszystkich wrogów
 
-###sposób gry 
+## Sposób gry 
 Na początku rozgrywki trwa faza przygotowawcza
 
 Gracz ma za zadanie ustawić swoje komórki na legalnych polach
@@ -25,7 +25,7 @@ gracz przegrywa i musi wrócić do fazy planowania
 
 Za każdy poziom gracz może zdobyć trzy trofea
 
-### trofea
+## Trofea
 trofea przyzanawane są za spełnienie poniższych wymagań
 
 - ukończenie poziomu 
@@ -34,39 +34,39 @@ trofea przyzanawane są za spełnienie poniższych wymagań
 
 twórca poziomu decyduje o trudności zdobywania gwiazdek
 
-### edytor poziomów
+# Edytor poziomów
 do dyspozycji gracza oddawany jest także edytor poziomów,
 narzędzie pozwalające twozyć własne łamigłówki 
 
-### rodzaje komórek 
+# Rodzaje komórek 
 
 gra rozpoznaje 7 rodzajów komórek
 
 i dwa typy pól 
 
-#### ściana 
+## Wall 
 ikona:
-![img.png](images/wall.png)
+![wall.png](images/wall.png)
 
 - jest nieruchomym blokiem
 
-#### ruchoma ściana
+## Movable wall
 ikona:
-![img.png](images/movable_wall.png)
+![Mwall.png](images/movable_wall.png)
 
 - jest ruchomym blokiem
 - nie może zostać zabita przez enemy cell
 
-#### enemy
+## Enemy
 ikona:
-![img.png](images/enemy.png)
+![enemypng](images/enemy.png)
 
 - zabija komórki nacierające na niego 
 - może byc poruszony, ale tylko za pośrednictwem ruchomej ściany 
 
-#### move 
+## Move 
 ikona:
-![img.png](images/move.png)
+![move.png](images/move.png)
 
 - jest ruchomym blokiem
 - co iteracje (jeżeli nie jest zablokowana) przesuwa się na pole komórki przed nią samą 
@@ -74,24 +74,24 @@ ikona:
 - może zostać zabita przez enemy 
 - porusza się jedynie wzdłuż i wszerz poziomu 
 
-#### direction  
+## Curve  
 ikona:
-![img.png](images/turn.png)
+![curve.png](images/turn.png)
 
 - jest nieruchomym blokiem
 - obraca wszystkie nacierające na niego bloki, tak by wskazywały wyznaczony kierunek
 
-#### goal
+## Goal
 ikona:
-![img.png](images/goal.png)
+![goal.png](images/goal.png)
 
 - jest ruchomym blokiem
 - może byc poruszony, ale tylko za pośrednictwem ruchomej ściany 
 - jeżeli zostanie poruszona cel gry zostaje zaliczony a ona sama znika z planszy 
 
-#### clone 
+## Clone 
 ikona:
-![img.png](images/clone.png)
+![clone.png](images/clone.png)
 
 - jest ruchomym blokiem
 - może byc poruszony, ale tylko za pośrednictwem ruchomej ściany 
@@ -100,24 +100,24 @@ albo gdy zostanie poruszona pod kontem prostym do niej samej
 - co iterację gry przesuwa bloki przed sobą i w miejsce przesuniętego bloku 
     wstawiana jest kopia komórki stojącej za nią samą 
 
-#### puste pole
+## Puste pole
 - pole niedostępne dla gracza, nie ma możliwości postawienia pionka na etapie przygotowania
 - nie ma symbolu 
 
-#### legalne pole 
+## Legalne pole 
 
 ikona:
-![img.png](images/empty_space.png)
+![legalspot.png](images/empty_space.png)
 
 - na etapie przygotowania gracz ma prawo w to pole wstawić dowolną figurę 
 
-## przykładowy poziom :
+## Przykładowy poziom:
 
-![img.png](images/demo_level.png)
+![level1.png](images/demo_level.png)
 
 przed takim zadaniem staje gracz na początku każdej rundy
 celem jest ustawienie "move" pionka tak by bezpiecznie dotarł do pola goal
 
 rozwiązanie:
 
-![img.png](images/solved.png)
+![level1solved.png](images/solved.png)

@@ -23,6 +23,7 @@ protected:
     /// the direction that incoming cell will leave with
     direction turn_direction;
 
+    std::string cell_name = "turn";
 };
 
 
