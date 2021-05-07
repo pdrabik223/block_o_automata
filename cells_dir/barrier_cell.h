@@ -16,13 +16,16 @@ public:
 
     barrier_cell &operator=(const barrier_cell &other)  = default;
 
-    void action(std::vector<cell *> &plane, unsigned h, unsigned w, coord position_in_plane) override;
+    void action(std::vector<cell *> &plane, unsigned w, coord curr_pos) override;
 
-    void move(std::vector<cell *> &plane, direction move_to, unsigned int h, unsigned int w,
-              coord position_in_plane) override;
+    void move(std::vector<cell *> &plane, direction move_dir, unsigned int w, coord curr_pos) override;
+
+    bool operator==(const type rhs) const override;
+
+    bool operator!=(const type &rhs) const override;
 
 protected:
-    std::string cell_name = "barrier";
+    type cell_type = t_barrier;
 };
 
 

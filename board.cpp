@@ -60,6 +60,7 @@ void board::show_level_win_console() {
 cell &board::get_cell(unsigned int height, unsigned int width) {
     return *level[height * w + width];
 }
+
 cell &board::get_cell(coord position) {
     return *level[position.x * w + position.y];
 }
@@ -72,11 +73,10 @@ unsigned board::transform(unsigned int height, unsigned int width) {
 
 void board::iterate() {
 
-    std::vector<cell*> level_copy(w*h);
+    std::vector<cell *> level_copy(w * h);
 
-    for(int i=0;i<level.size();++i){
-        level[i]->action(level,h,w,{i/w,i%w});
-
+    for (int i = 0; i < level.size(); ++i) {
+        level[i]->action(level, w, {i / w, i % w});
     }
 
 

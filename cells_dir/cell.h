@@ -4,36 +4,21 @@
 
 #ifndef BLOCK_O_AUTOMATA_CELL_H
 #define BLOCK_O_AUTOMATA_CELL_H
+
 #include <cassert>
 #include <iostream>
 #include <vector>
 
 #include "../windows_console_tools/win_colors.h"
 
-static unsigned creation_order =0;
+#include "../cell_tools.h"
 
-/// used by few of the cells
-/// the plane is always orientated the same way
-/// so up is north on plane
-/// there can be made some transformation
-enum direction {
-    left,
-    right,
-    up,
-    down
-};
+static unsigned creation_order = 0;
 
 
-struct coord{
-    coord(unsigned int x, unsigned int y): x(x), y(y) {}
-    unsigned x;
-    unsigned y;
-};
 
-unsigned toUint(coord position, unsigned w){
-    return position.x*w+position.y;
 
-}
+
 class cell {
 
 
@@ -42,7 +27,7 @@ public:
 
     cell(bool movable, bool killable);
 
-   virtual  cell& operator=(const cell& other) = default;
+    virtual cell &operator=(const cell &other) = default;
 
     bool isMovable() const;
 
@@ -52,12 +37,17 @@ public:
 
     bool isKillable() const;
 
-    virtual void show_in_console_unicode(){}
+    virtual void show_in_console_unicode() { assert(false); };
 
-    virtual void move(std::vector<cell *> &plane, direction move_to, unsigned h, unsigned w, coord position_in_plane) {assert(false);};
-    virtual void action(std::vector<cell *> &plane, unsigned h, unsigned w, coord position_in_plane) {};
+    virtual void move(std::vector<cell *> &plane, direction move_dir, unsigned int w, coord curr_pos) {
+        assert(false);
+    };
 
-    const std::string &getCellName() const;
+    virtual void action(std::vector<cell *> &plane, unsigned w, coord curr_pos) {assert(false);};
+
+   virtual bool operator==(const type &rhs) const;
+
+   virtual  bool operator!=(const type &rhs) const;
 
 protected:
     /// can be moved/rotated by other cells
@@ -66,7 +56,8 @@ protected:
     bool killable;
 
     unsigned local_creation_time;
-    std::string cell_name = "cell";
+
+    type cell_type = t_cell;
 
 };
 

@@ -25,13 +25,15 @@ void cell::setMovable(bool movable) {
 }
 
 
-
-const std::string &cell::getCellName() const {
-    return cell_name;
-}
-
 void cell::setKillable(bool killable) {
-    cell::killable = killable
+    cell::killable = killable;
 }
 
+bool cell::operator==(const type rhs) const {
+    return cell_type == rhs;
+}
+
+bool cell::operator!=(const type &rhs) const {
+    return cell_type != rhs;
+}
 

@@ -17,13 +17,21 @@ public:
 
     turn_cell &operator=(const turn_cell &other) = default;
 
+    void move(std::vector<cell *> &plane, direction move_dir, unsigned int w, coord curr_pos) override;
+
+    void action(std::vector<cell *> &plane, unsigned w, coord curr_pos) override;
+
+    bool operator==(const type rhs) const override;
+
+    bool operator!=(const type &rhs) const override;
+
 protected:
     /// how many rotations can cell preform
     unsigned rotations_left;
     /// the direction that incoming cell will leave with
     direction turn_direction;
 
-    std::string cell_name = "turn";
+    type cell_type = t_turn;
 };
 
 
