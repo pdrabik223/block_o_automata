@@ -14,6 +14,8 @@ public:
 
     void show_in_console_unicode() override;
 
+    icon get_unicode() override;
+
     barrier_cell &operator=(const barrier_cell &other)  = default;
 
     void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;

@@ -129,3 +129,12 @@ coord coord::go(direction dir) const {
             break;
     }
 }
+
+bool coord::operator==(const coord &rhs) const {
+    return y == rhs.y &&
+           x == rhs.x;
+}
+
+bool coord::operator!=(const coord &rhs) const {
+    return !(rhs == *this);
+}

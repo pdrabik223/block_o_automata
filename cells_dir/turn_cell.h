@@ -20,11 +20,17 @@ public:
     void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
               unsigned int w) override;
 
+    icon get_unicode() override;
+
     void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
 
     bool operator==(const type& rhs) const override;
 
     bool operator!=(const type &rhs) const override;
+
+    direction getTurnDirection() const;
+
+    void setTurnDirection(direction turnDirection);
 
 protected:
     /// how many rotations can cell preform

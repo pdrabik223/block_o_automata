@@ -16,6 +16,7 @@ public:
 
     move_cell &operator=(const move_cell &other) = default;
 
+    icon get_unicode() override;
 
     void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
 
@@ -28,6 +29,7 @@ public:
 
     void setMoveDirection(direction moveDirection);
 
+    direction getMoveDirection() const;
 
 protected:
     direction move_direction;

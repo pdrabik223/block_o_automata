@@ -25,6 +25,8 @@ public:
 
     bool operator==(const type &rhs) const override;
 
+    icon get_unicode() override;
+
     bool operator!=(const type &rhs) const override;
 
 protected:

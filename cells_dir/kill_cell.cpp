@@ -48,3 +48,7 @@ bool kill_cell::operator!=(const type &rhs) const {
     return cell_type != rhs;
 }
 
+icon kill_cell::get_unicode() {
+    return {L"\x2716 ", red};
+}
+

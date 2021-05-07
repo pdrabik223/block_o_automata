@@ -9,15 +9,21 @@ move_cell::move_cell(direction moveDirection) : cell(true, true),
                                                 move_direction(moveDirection) {}
 
 void move_cell::show_in_console_unicode() {
-    if (move_direction == left) std::wcout << cc(yellow) << L"\x2B9C ";
+    switch (move_direction) {
 
-    else if (move_direction == right) std::wcout << cc(yellow) << L"\x2B9E ";
-
-    else if (move_direction == up)std::wcout << cc(yellow) << L"\x2B9D ";
-
-    else if (move_direction == down)std::wcout << cc(yellow) << L"\x2B9F ";
-
-
+        case left:
+            std::wcout << cc(yellow) << L"\x2B9C ";
+            break;
+        case right :
+            std::wcout << cc(yellow) << L"\x2B9E ";
+            break;
+        case up:
+            std::wcout << cc(yellow) << L"\x2B9D ";
+            break;
+        case down:
+            std::wcout << cc(yellow) << L"\x2B9F ";
+            break;
+    }
 }
 
 void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
@@ -45,8 +51,9 @@ void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
 
 }
 
-void move_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-                     unsigned int w) {
+void
+move_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+                unsigned int w) {
     has_been_moved = true;
     plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
@@ -72,4 +79,29 @@ bool move_cell::operator!=(const type &rhs) const {
 
 void move_cell::setMoveDirection(direction moveDirection) {
     move_direction = moveDirection;
+}
+
+icon move_cell::get_unicode() {
+
+    switch (move_direction) {
+
+        case left:
+            return {L"\x2B9C ", yellow};
+
+        case right:
+            return {L"\x2B9E ", yellow};
+
+        case up:
+            return {L"\x2B9D ", yellow};
+
+        case down:
+            return {L"\x2B9F ", yellow};
+
+
+    }
+
+}
+
+direction move_cell::getMoveDirection() const {
+    return move_direction;
 }

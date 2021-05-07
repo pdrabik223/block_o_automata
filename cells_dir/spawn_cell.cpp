@@ -13,13 +13,20 @@ spawn_cell::spawn_cell(bool movable, direction spawnDirection) : cell(movable, t
                                                                  spawn_direction(spawnDirection) {}
 
 void spawn_cell::show_in_console_unicode() {
-    if (spawn_direction == left) std::wcout << cc(green) << L"\x2B9C ";
-
-    else if (spawn_direction == right) std::wcout << cc(green) << L"\x2B9E ";
-
-    else if (spawn_direction == up)std::wcout << cc(green) << L"\x2B9D ";
-
-    else if (spawn_direction == down)std::wcout << cc(green) << L"\x2B9F ";
+    switch (spawn_direction) {
+        case left:
+            std::wcout << cc(green) << L"\x2B9C ";
+            break;
+        case right:
+            std::wcout << cc(green) << L"\x2B9E ";
+            break;
+        case up:
+            std::wcout << cc(green) << L"\x2B9D ";
+            break;
+        case down :
+            std::wcout << cc(green) << L"\x2B9F ";
+            break;
+    }
 }
 
 void
@@ -28,9 +35,9 @@ spawn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos,
             move(plane, destination, spawn_direction, curr_pos.go(spawn_direction), w);
 
     if (*plane[curr_pos.go(spawn_direction, w)] == t_empty) {
-        // me                                      the one in front
+
         if (*plane[curr_pos.reverse(spawn_direction, w)] != t_empty) {
-         *destination[curr_pos.go(spawn_direction, w)] = *plane[curr_pos.reverse(spawn_direction, w)];
+            *destination[curr_pos.go(spawn_direction, w)] = *plane[curr_pos.reverse(spawn_direction, w)];
         }
     }
 }
@@ -52,4 +59,28 @@ bool spawn_cell::operator==(const type &rhs) const {
 
 bool spawn_cell::operator!=(const type &rhs) const {
     return cell_type != rhs;
+}
+
+icon spawn_cell::get_unicode() {
+
+    switch (spawn_direction) {
+        case left:
+            return {L"\x2B9C ", green};
+        case right:
+            return {L"\x2B9E ", green};
+        case up:
+            return {L"\x2B9E ", green};
+        case down:
+            return {L"\x2B9F ", green};
+
+    }
+
+}
+
+direction spawn_cell::getSpawnDirection() const {
+    return spawn_direction;
+}
+
+void spawn_cell::setSpawnDirection(direction spawnDirection) {
+    spawn_direction = spawnDirection;
 }

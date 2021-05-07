@@ -94,3 +94,27 @@ void board::iterate() {
 
 
 }
+
+void board::lock_cells() {
+    for (int i = 0; i < level.size(); i++){
+        if(*level[i] == t_empty)
+            level[i] = new empty_cell(true);
+
+    }
+}
+
+unsigned int board::getW() const {
+    return w;
+}
+
+void board::setW(unsigned int w) {
+    board::w = w;
+}
+
+unsigned int board::getH() const {
+    return h;
+}
+
+void board::setH(unsigned int h) {
+    board::h = h;
+}

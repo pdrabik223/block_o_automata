@@ -16,9 +16,6 @@
 static unsigned creation_order = 0;
 
 
-
-
-
 class cell {
 
 
@@ -39,16 +36,25 @@ public:
 
     virtual void show_in_console_unicode() { assert(false); };
 
-    virtual void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos, unsigned int w) {
+    virtual icon get_unicode() {
+        assert(false);
+        return {L"  ", black};
+    };
+
+    virtual void
+    move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+         unsigned int w) {
         assert(false);
     };
 
     virtual void
-    action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {assert(false);};
+    action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
+        assert(false);
+    };
 
-   virtual bool operator==(const type &rhs) const;
+    virtual bool operator==(const type &rhs) const;
 
-   virtual  bool operator!=(const type &rhs) const;
+    virtual bool operator!=(const type &rhs) const;
 
 protected:
     /// can be moved/rotated by other cells

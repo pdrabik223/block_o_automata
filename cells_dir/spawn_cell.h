@@ -16,6 +16,8 @@ public:
 
     void show_in_console_unicode() override;
 
+    icon get_unicode() override;
+
     void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
 
     void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
@@ -24,6 +26,10 @@ public:
     bool operator==(const type &rhs) const override;
 
     bool operator!=(const type &rhs) const override;
+
+    direction getSpawnDirection() const;
+
+    void setSpawnDirection(direction spawnDirection);
 
 protected:
     /// how many more cells can be spawned

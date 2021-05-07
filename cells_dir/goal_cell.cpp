@@ -18,8 +18,8 @@ void goal_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &dest
                      unsigned int w) {
 
     if(plane[curr_pos.reverse(move_dir,w)]->isKillable()){
-        destination[curr_pos.reverse(move_dir,w)] = new empty_cell(false);
-        destination[curr_pos.toUint(w)] = new empty_cell(false);
+        destination[curr_pos.reverse(move_dir,w)] = new empty_cell(true);
+        destination[curr_pos.toUint(w)] = new empty_cell(true);
         return;
     }else {
 
@@ -38,4 +38,9 @@ bool goal_cell::operator==(const type& rhs) const {
 
 bool goal_cell::operator!=(const type &rhs) const {
     return cell_type != rhs;
+}
+
+icon goal_cell::get_unicode() {
+
+    return {L"\x2B24 ", purple};
 }

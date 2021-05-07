@@ -40,6 +40,21 @@ public:
     /// \brief the heart of this game
     void iterate();
 
+    ///\brief changes state of all empty cells to locked
+    /// so player can't access them, also board looks way better that way
+    void lock_cells();
+
+    /// \return width of the played level
+    unsigned int getW() const;
+
+    /// \return set width of the played level
+    void setW(unsigned int w);
+
+    /// return height of the played level
+    unsigned int getH() const;
+
+    /// \return set height of the played level
+    void setH(unsigned int h);
 
 private:
     unsigned transform(unsigned int height, unsigned int width);

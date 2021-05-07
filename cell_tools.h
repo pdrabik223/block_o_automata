@@ -6,6 +6,7 @@
 #define BLOCK_O_AUTOMATA_COORD_H
 
 #include <cassert>
+#include "windows_console_tools/win_colors.h"
 
 /// type of the cell, used to identify cell by it's role
 enum type {
@@ -29,7 +30,14 @@ enum direction {
     up,
     down
 };
+struct icon{
 
+    icon(const std::wstring &image, color iconColor) : image(image), icon_color(iconColor) {}
+
+    std::wstring image;
+    color icon_color;
+
+};
 
 
 /// coord is a public class that handles movement and positioning on the grid
@@ -60,6 +68,11 @@ public:
     /// \return 1d representation of the coord
     /// \param w given width of a 2D representation of nn plane
     unsigned toUint(unsigned w) const;
+
+
+    bool operator==(const coord &rhs) const;
+
+    bool operator!=(const coord &rhs) const;
 
     unsigned y;
     unsigned x;

@@ -20,6 +20,8 @@ public:
     void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
               unsigned int w) override;
 
+    icon get_unicode() override;
+
     bool operator==(const type &rhs) const override;
 
     bool operator!=(const type &rhs) const override;
