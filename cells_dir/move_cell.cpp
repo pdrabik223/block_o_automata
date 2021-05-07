@@ -20,23 +20,23 @@ void move_cell::show_in_console_unicode() {
 
 }
 
-void move_cell::action(std::vector<cell *> &plane, unsigned w, coord curr_pos) {
+void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
 
     if (!has_been_moved) {
-        plane[curr_pos.go(move_direction, w)]->move(plane, move_direction, w,
-                                                    curr_pos.go(move_direction));
+        plane[curr_pos.go(move_direction, w)]->move(plane, destination, move_direction,
+                                                    curr_pos.go(move_direction), w);
 
         if (*plane[curr_pos.go(move_direction, w)] == t_empty) {
             // me                                      the one in front
-            std::swap(plane[curr_pos.toUint(w)], plane[curr_pos.go(move_direction, w)]);
+            std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
         }
     }
 
     if (*plane[curr_pos.go(move_direction, w)] == t_empty) {
         // me                                      the one in front
-        cell temp = *plane[curr_pos.go(move_direction, w)];
-        *plane[curr_pos.go(move_direction, w)] = *plane[curr_pos.toUint(w)];
-        *plane[curr_pos.toUint(w)] = temp;
+        cell temp = *destination[curr_pos.go(move_direction, w)];
+        *destination[curr_pos.go(move_direction, w)] = *destination[curr_pos.toUint(w)];
+        *destination[curr_pos.toUint(w)] = temp;
         std::wcout << "here!";
     }
 
@@ -45,26 +45,31 @@ void move_cell::action(std::vector<cell *> &plane, unsigned w, coord curr_pos) {
 
 }
 
-void move_cell::move(std::vector<cell *> &plane, direction move_dir, unsigned int w, coord curr_pos) {
+void move_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+                     unsigned int w) {
     has_been_moved = true;
-    plane[curr_pos.go(move_dir, w)]->move(plane, move_dir, w, curr_pos.go(move_dir));
+    plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
 
     if (*plane[curr_pos.go(move_dir, w)] == t_empty) {
         // me                                      the one in front
 
-        cell temp = *plane[curr_pos.go(move_dir, w)];
-        *plane[curr_pos.go(move_dir, w)] = *plane[curr_pos.toUint(w)];
-        *plane[curr_pos.toUint(w)] = temp;
+        cell temp = *destination[curr_pos.go(move_dir, w)];
+        *destination[curr_pos.go(move_dir, w)] = *destination[curr_pos.toUint(w)];
+        *destination[curr_pos.toUint(w)] = temp;
 
     }
 
 }
 
-bool move_cell::operator==(const type rhs) const {
+bool move_cell::operator==(const type &rhs) const {
     return cell_type == rhs;
 }
 
 bool move_cell::operator!=(const type &rhs) const {
     return cell_type != rhs;
+}
+
+void move_cell::setMoveDirection(direction moveDirection) {
+    move_direction = moveDirection;
 }

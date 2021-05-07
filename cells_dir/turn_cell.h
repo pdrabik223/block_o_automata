@@ -17,11 +17,12 @@ public:
 
     turn_cell &operator=(const turn_cell &other) = default;
 
-    void move(std::vector<cell *> &plane, direction move_dir, unsigned int w, coord curr_pos) override;
+    void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+              unsigned int w) override;
 
-    void action(std::vector<cell *> &plane, unsigned w, coord curr_pos) override;
+    void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
 
-    bool operator==(const type rhs) const override;
+    bool operator==(const type& rhs) const override;
 
     bool operator!=(const type &rhs) const override;
 

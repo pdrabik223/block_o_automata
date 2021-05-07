@@ -73,11 +73,24 @@ unsigned board::transform(unsigned int height, unsigned int width) {
 
 void board::iterate() {
 
-    std::vector<cell *> level_copy(w * h);
+    std::vector<cell *> level_copy;
+    for (auto i:level)
+        level_copy.push_back(i);
+
+
+
+
+//fixme use the copy u dumbass
+// it's easy but also easy to make terrible mistake
+//
 
     for (int i = 0; i < level.size(); ++i) {
-        level[i]->action(level, w, {i / w, i % w});
+
+        level[i]->action(level, w, {i / w, i % w}, level_copy);
+
     }
+    for (int i = 0; i < level.size(); i++)
+        level[i] = level_copy[i];
 
 
 }

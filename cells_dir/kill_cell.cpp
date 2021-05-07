@@ -13,33 +13,34 @@ void kill_cell::show_in_console_unicode() {
     std::wcout<<cc(red)<<L"\x2716 ";
 }
 
-void kill_cell::action(std::vector<cell *> &plane, unsigned w, coord curr_pos) {
+void kill_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
 
 }
  // todo position inplane must be changed to current position
  // this idea of look backward go forward update if one before moved is nice
  // but this chank of code must! be minimised
- void kill_cell::move(std::vector<cell *> &plane, direction move_dir, unsigned int w, coord curr_pos) {
+ void kill_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+                      unsigned int w) {
      if(plane[curr_pos.reverse(move_dir,w)]->isKillable()){
-         plane[curr_pos.reverse(move_dir,w)] = new empty_cell(false);
+         destination[curr_pos.reverse(move_dir,w)] = new empty_cell(false);
        --lives;
        if(lives == 0) {
-           plane[curr_pos.toUint(w)] = new empty_cell(false);
+           destination[curr_pos.toUint(w)] = new empty_cell(false);
        }
          return;
      }else {
 
-         plane[curr_pos.go(move_dir, w)]->move(plane, move_dir, w, curr_pos.go(move_dir));
+         plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
          if (*plane[curr_pos.go(move_dir, w)] == t_empty) {
              // me                                      the one in front
-             std::swap(plane[curr_pos.toUint(w)], plane[curr_pos.go(move_dir, w)]);
+             std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_dir, w)]);
          }
      }
 
 }
 
-bool kill_cell::operator==(const type rhs) const {
+bool kill_cell::operator==(const type& rhs) const {
     return cell_type == rhs;
 }
 

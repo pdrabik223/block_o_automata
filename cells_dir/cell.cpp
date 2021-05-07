@@ -29,7 +29,7 @@ void cell::setKillable(bool killable) {
     cell::killable = killable;
 }
 
-bool cell::operator==(const type rhs) const {
+bool cell::operator==(const type& rhs) const {
     return cell_type == rhs;
 }
 

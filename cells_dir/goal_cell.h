@@ -15,11 +15,12 @@ public:
 
     goal_cell &operator=(const goal_cell &other) = default;
 
-    void action(std::vector<cell *> &plane, unsigned w, coord curr_pos);
+    void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination);
 
-    void move(std::vector<cell *> &plane, direction move_dir, unsigned int w, coord curr_pos) override;
+    void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+              unsigned int w) override;
 
-    bool operator==(const type rhs) const override;
+    bool operator==(const type &rhs) const override;
 
     bool operator!=(const type &rhs) const override;
 
