@@ -9,7 +9,7 @@ coord cursor_position = {0, 0};
 
 board game(10, 10);
 
-#define ERROR(x) std::cout << cc(red, black) << "\n error, "<<x<< cc(white, black)<<std::endl
+#define ERROR(x) std::wcout << cc(red, black) << "\n error, "<<x<< cc(white, black)<<std::endl
 
 #include <conio.h>
 
@@ -42,7 +42,7 @@ int main() {
         admin_view(game);
 
         key = getch();
-        if (key == '\\')  analyze_command();
+        if (key == '-')  analyze_command();
         else analyze_movement(key);
 
     }
@@ -70,10 +70,10 @@ void admin_view(board &game) {
 void analyze_command() {
     // todo color the correct syntax
 
-    std::cout << cc(yellow, black) << "\n> " << cc(light_yellow);
+    std::wcout << cc(yellow, black) << "\n> " << cc(light_yellow);
     std::string current_command;
     std::cin >> current_command;
-    std::cout << "\n";
+    std::wcout << "\n";
     if (current_command == "add" ||
         current_command == "a") {
         cell_picker();
@@ -84,7 +84,7 @@ void analyze_command() {
 
 
     } else if (current_command == "help") {
-    std::cout<<"here comes help";
+    std::wcout<<"here comes help";
 
     } else if (current_command == "clear") {
         for (int i = 0; i < game.getH(); i++) {
@@ -184,13 +184,13 @@ void analyze_movement(char key) {
 
 void cell_picker() {
     std::string current_command;
-    std::cout << cc(yellow, black) << "\n> " << cc(light_yellow);
+    std::wcout << cc(yellow, black) << "\ncell type> " << cc(light_yellow);
     std::cin >> current_command;
 
 
     if (current_command == "barrier" ||
         current_command == "b") {
-        std::cout << cc(yellow, black) << "\nmovable> " << cc(light_yellow);
+        std::wcout << cc(yellow, black) << "\nmovable> " << cc(light_yellow);
         std::cin >> current_command;
 
         if (current_command == "y" ||
@@ -223,7 +223,7 @@ void cell_picker() {
     if (current_command == "kill" ||
         current_command == "k") {
         int kills;
-        std::cout << cc(yellow, black) << "\nkills> " << cc(light_yellow);
+        std::wcout << cc(yellow, black) << "\nkills> " << cc(light_yellow);
         std::cin >> kills;
 
         game.get_cell(cursor_position) = kill_cell(kills);
@@ -232,7 +232,7 @@ void cell_picker() {
 
     if (current_command == "move" ||
         current_command == "m") {
-        std::cout << cc(yellow, black) << "\ndirection> " << cc(light_yellow);
+        std::wcout << cc(yellow, black) << "\ndirection> " << cc(light_yellow);
         std::cin >> current_command;
 
         if (current_command == "l" ||
@@ -254,7 +254,7 @@ void cell_picker() {
 
     if (current_command == "spawn" ||
         current_command == "s") {
-        std::cout << cc(yellow, black) << "\ndirection> " << cc(light_yellow);
+        std::wcout << cc(yellow, black) << "\ndirection> " << cc(light_yellow);
         std::cin >> current_command;
 
         if (current_command == "l" ||
@@ -277,7 +277,7 @@ void cell_picker() {
 
     if (current_command == "turn" ||
         current_command == "t") {
-        std::cout << cc(yellow, black) << "\ndirection> " << cc(light_yellow);
+        std::wcout << cc(yellow, black) << "\ndirection> " << cc(light_yellow);
         std::cin >> current_command;
 
         if (current_command == "l" ||
