@@ -12,6 +12,14 @@ spawn_cell::spawn_cell(bool movable, direction spawnDirection) : cell(movable, t
                                                                  lives(-1),
                                                                  spawn_direction(spawnDirection) {}
 
+
+spawn_cell::spawn_cell(direction spawnDirection): cell(true, true),
+lives(-1),
+spawn_direction(spawnDirection){
+
+}
+
+
 void spawn_cell::show_in_console_unicode() {
     switch (spawn_direction) {
         case left:
@@ -84,3 +92,4 @@ direction spawn_cell::getSpawnDirection() const {
 void spawn_cell::setSpawnDirection(direction spawnDirection) {
     spawn_direction = spawnDirection;
 }
+

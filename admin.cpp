@@ -9,6 +9,8 @@ coord cursor_position = {0, 0};
 
 board game(10, 10);
 
+#define ERROR(x) std::cout << cc(red, black) << "\n error, "<<x<< cc(white, black)<<std::endl
+
 #include <conio.h>
 
 void admin_view(board &game);
@@ -17,6 +19,7 @@ void analyze_command();
 
 void analyze_movement(char key);
 
+void cell_picker();
 
 int main() {
     _setmode(_fileno(stdout), _O_U16TEXT);
@@ -39,7 +42,7 @@ int main() {
         admin_view(game);
 
         key = getch();
-        if (key == '\\') void analyze_command();
+        if (key == '\\')  analyze_command();
         else analyze_movement(key);
 
     }
@@ -70,21 +73,20 @@ void analyze_command() {
     std::cout << cc(yellow, black) << "\n> " << cc(light_yellow);
     std::string current_command;
     std::cin >> current_command;
+    std::cout << "\n";
     if (current_command == "add" ||
         current_command == "a") {
+        cell_picker();
 
-    }
-    if (current_command == "del" ||
-        current_command == "d") {
+    } else if (current_command == "del" ||
+               current_command == "d") {
         game.get_cell(cursor_position) = empty_cell(true);
 
 
-    }
-    if (current_command == "help") {
+    } else if (current_command == "help") {
+    std::cout<<"here comes help";
 
-
-    }
-    if (current_command == "clear") {
+    } else if (current_command == "clear") {
         for (int i = 0; i < game.getH(); i++) {
             for (int j = 0; j < game.getW(); j++) {
                 game.get_cell(i, j) = empty_cell(true);
@@ -92,9 +94,8 @@ void analyze_command() {
             }
         }
 
-    }
-    if (current_command == "rotate" ||
-        current_command == "r") {
+    } else if (current_command == "rotate" ||
+               current_command == "r") {
         if (game.get_cell(cursor_position) == t_move) {
             auto dir = ((move_cell *) &game.get_cell(cursor_position))->getMoveDirection();
             switch (dir) {
@@ -113,8 +114,7 @@ void analyze_command() {
 
             }
 
-        }
-        else if (game.get_cell(cursor_position) == t_spawn) {
+        } else if (game.get_cell(cursor_position) == t_spawn) {
             auto dir = ((spawn_cell *) &game.get_cell(cursor_position))->getSpawnDirection();
             switch (dir) {
                 case left:
@@ -131,8 +131,7 @@ void analyze_command() {
                     break;
             }
 
-        }
-        else if (game.get_cell(cursor_position) == t_turn){
+        } else if (game.get_cell(cursor_position) == t_turn) {
             auto dir = ((turn_cell *) &game.get_cell(cursor_position))->getTurnDirection();
             switch (dir) {
                 case left:
@@ -151,7 +150,8 @@ void analyze_command() {
 
         }
 
-    }
+    } else
+        ERROR("unknown command");
 
 }
 
@@ -170,7 +170,9 @@ void analyze_movement(char key) {
         case 'd':
             cursor_position.y++;
             break;
-
+        default:
+            ERROR("unknown key");
+            break;
     }
     if (cursor_position.y >= game.getW()) cursor_position.y = 0;
     if (cursor_position.x >= game.getH()) cursor_position.x = 0;
@@ -180,3 +182,119 @@ void analyze_movement(char key) {
 
 }
 
+void cell_picker() {
+    std::string current_command;
+    std::cout << cc(yellow, black) << "\n> " << cc(light_yellow);
+    std::cin >> current_command;
+
+
+    if (current_command == "barrier" ||
+        current_command == "b") {
+        std::cout << cc(yellow, black) << "\nmovable> " << cc(light_yellow);
+        std::cin >> current_command;
+
+        if (current_command == "y" ||
+            current_command == "t" ||
+            current_command == "true") {
+
+            game.get_cell(cursor_position) = barrier_cell(true);
+
+
+        } else if (current_command == "n" ||
+                   current_command == "f" ||
+                   current_command == "false") {
+
+            game.get_cell(cursor_position) = barrier_cell(false);
+
+        } else
+            ERROR("unknown argument");
+
+
+    } else
+        ERROR("unknown command");
+
+    if (current_command == "goal" ||
+        current_command == "g") {
+        game.get_cell(cursor_position) = goal_cell();
+
+    } else
+        ERROR("unknown command");
+
+    if (current_command == "kill" ||
+        current_command == "k") {
+        int kills;
+        std::cout << cc(yellow, black) << "\nkills> " << cc(light_yellow);
+        std::cin >> kills;
+
+        game.get_cell(cursor_position) = kill_cell(kills);
+    } else
+        ERROR("unknown command");
+
+    if (current_command == "move" ||
+        current_command == "m") {
+        std::cout << cc(yellow, black) << "\ndirection> " << cc(light_yellow);
+        std::cin >> current_command;
+
+        if (current_command == "l" ||
+            current_command == "left") {
+            game.get_cell(cursor_position) = move_cell(left);
+        } else if (current_command == "r" ||
+                   current_command == "right") {
+            game.get_cell(cursor_position) = barrier_cell(right);
+        } else if (current_command == "u" ||
+                   current_command == "up") {
+            game.get_cell(cursor_position) = barrier_cell(up);
+        } else if (current_command == "d" ||
+                   current_command == "down") {
+            game.get_cell(cursor_position) = barrier_cell(down);
+        } else
+            ERROR("unknown argument");
+    } else
+        ERROR("unknown command");
+
+    if (current_command == "spawn" ||
+        current_command == "s") {
+        std::cout << cc(yellow, black) << "\ndirection> " << cc(light_yellow);
+        std::cin >> current_command;
+
+        if (current_command == "l" ||
+            current_command == "left") {
+            game.get_cell(cursor_position) = spawn_cell(left);
+        } else if (current_command == "r" ||
+                   current_command == "right") {
+            game.get_cell(cursor_position) = spawn_cell(right);
+        } else if (current_command == "u" ||
+                   current_command == "up") {
+            game.get_cell(cursor_position) = spawn_cell(up);
+        } else if (current_command == "d" ||
+                   current_command == "down") {
+            game.get_cell(cursor_position) = spawn_cell(down);
+        } else
+            ERROR("unknown argument");
+
+    } else
+        ERROR("unknown command");
+
+    if (current_command == "turn" ||
+        current_command == "t") {
+        std::cout << cc(yellow, black) << "\ndirection> " << cc(light_yellow);
+        std::cin >> current_command;
+
+        if (current_command == "l" ||
+            current_command == "left") {
+            game.get_cell(cursor_position) = turn_cell(left);
+        } else if (current_command == "r" ||
+                   current_command == "right") {
+            game.get_cell(cursor_position) = turn_cell(right);
+        } else if (current_command == "u" ||
+                   current_command == "up") {
+            game.get_cell(cursor_position) = turn_cell(up);
+        } else if (current_command == "d" ||
+                   current_command == "down") {
+            game.get_cell(cursor_position) = turn_cell(down);
+        } else
+            ERROR("unknown argument");
+
+    } else
+        ERROR("unknown command");
+}

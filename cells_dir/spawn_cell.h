@@ -14,6 +14,8 @@ public:
 
     spawn_cell(bool movable,  direction spawnDirection);
 
+    spawn_cell( direction spawnDirection);
+
     void show_in_console_unicode() override;
 
     icon get_unicode() override;
