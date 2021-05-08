@@ -44,3 +44,7 @@ icon goal_cell::get_unicode() {
 
     return {L"\x2B24 ", purple};
 }
+
+type goal_cell::getCellType() const {
+    return cell_type;
+}

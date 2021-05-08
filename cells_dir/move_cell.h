@@ -31,6 +31,8 @@ public:
 
     direction getMoveDirection() const;
 
+    type getCellType() const override;
+
 protected:
     direction move_direction;
 

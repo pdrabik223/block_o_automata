@@ -56,6 +56,8 @@ public:
 
     virtual bool operator!=(const type &rhs) const;
 
+    virtual type getCellType() const;
+
 protected:
     /// can be moved/rotated by other cells
     bool movable;

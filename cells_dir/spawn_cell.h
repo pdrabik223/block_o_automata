@@ -16,6 +16,8 @@ public:
 
     spawn_cell( direction spawnDirection);
 
+    spawn_cell &operator=(const spawn_cell &other) = default;
+
     void show_in_console_unicode() override;
 
     icon get_unicode() override;
@@ -32,6 +34,8 @@ public:
     direction getSpawnDirection() const;
 
     void setSpawnDirection(direction spawnDirection);
+
+    type getCellType() const override;
 
 protected:
     /// how many more cells can be spawned

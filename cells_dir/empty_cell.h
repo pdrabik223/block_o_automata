@@ -11,6 +11,8 @@ class empty_cell: public cell{
 public:
     empty_cell( bool locked);
 
+    type getCellType() const override;
+
     void show_in_console_unicode() override;
 
     empty_cell &operator=(const empty_cell &other)  = default;

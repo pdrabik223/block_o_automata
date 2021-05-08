@@ -9,7 +9,7 @@ cell::cell(bool movable, bool killable) : movable(movable), killable(killable), 
 }
 
 cell::cell(): movable(true), killable(true), local_creation_time(creation_order) {
-        ++creation_order;
+    ++creation_order;
 }
 
 bool cell::isMovable() const {
@@ -35,5 +35,9 @@ bool cell::operator==(const type& rhs) const {
 
 bool cell::operator!=(const type &rhs) const {
     return cell_type != rhs;
+}
+
+type cell::getCellType() const {
+    return cell_type;
 }
 

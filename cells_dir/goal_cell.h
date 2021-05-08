@@ -22,6 +22,8 @@ public:
 
     icon get_unicode() override;
 
+    type getCellType() const override;
+
     bool operator==(const type &rhs) const override;
 
     bool operator!=(const type &rhs) const override;

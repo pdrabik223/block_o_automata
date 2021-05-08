@@ -14,6 +14,8 @@ public:
 
     void show_in_console_unicode() override;
 
+    type getCellType() const override;
+
     icon get_unicode() override;
 
     barrier_cell &operator=(const barrier_cell &other)  = default;

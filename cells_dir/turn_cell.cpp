@@ -86,3 +86,15 @@ void turn_cell::setTurnDirection(direction turnDirection) {
     turn_direction = turnDirection;
 }
 
+type turn_cell::getCellType() const {
+    return cell_type;
+}
+
+unsigned int turn_cell::getRotationsLeft() const {
+    return rotations_left;
+}
+
+void turn_cell::setRotationsLeft(unsigned int rotationsLeft) {
+    rotations_left = rotationsLeft;
+}
+

@@ -105,3 +105,7 @@ icon move_cell::get_unicode() {
 direction move_cell::getMoveDirection() const {
     return move_direction;
 }
+
+type move_cell::getCellType() const {
+    return cell_type;
+}

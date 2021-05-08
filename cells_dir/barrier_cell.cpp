@@ -45,3 +45,7 @@ icon barrier_cell::get_unicode() {
     else return {L"\x25A3 ",gray};
 }
 
+type barrier_cell::getCellType() const {
+    return cell_type;
+}
+

@@ -52,3 +52,15 @@ icon kill_cell::get_unicode() {
     return {L"\x2716 ", red};
 }
 
+type kill_cell::getCellType() const {
+    return cell_type;
+}
+
+unsigned int kill_cell::getLives() const {
+    return lives;
+}
+
+void kill_cell::setLives(unsigned int lives) {
+    kill_cell::lives = lives;
+}
+

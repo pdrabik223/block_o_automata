@@ -39,3 +39,7 @@ icon empty_cell::get_unicode() {
     else return {L"\x2022 ", gray};
 
 }
+
+type empty_cell::getCellType() const {
+    return cell_type;
+}

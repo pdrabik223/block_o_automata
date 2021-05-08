@@ -28,9 +28,15 @@ public:
 
     bool operator!=(const type &rhs) const override;
 
+    type getCellType() const override;
+
     direction getTurnDirection() const;
 
     void setTurnDirection(direction turnDirection);
+
+    unsigned int getRotationsLeft() const;
+
+    void setRotationsLeft(unsigned int rotationsLeft);
 
 protected:
     /// how many rotations can cell preform

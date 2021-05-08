@@ -27,6 +27,12 @@ public:
 
     icon get_unicode() override;
 
+    type getCellType() const override;
+
+    unsigned int getLives() const;
+
+    void setLives(unsigned int lives);
+
     bool operator!=(const type &rhs) const override;
 
 protected:

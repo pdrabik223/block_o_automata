@@ -49,7 +49,7 @@ int main() {
 
     std::wcout << cc(purple ) << "goal_cell\t" << L"\x2B24 \n";
 
-    std::wcout<<cc(red)<<0x2B9C;
+
 
     board first(10, 10);
     first.show_level_win_console();
