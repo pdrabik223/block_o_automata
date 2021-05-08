@@ -77,13 +77,6 @@ void board::iterate() {
     for (auto i:level)
         level_copy.push_back(i);
 
-
-
-
-//fixme use the copy u dumbass
-// it's easy but also easy to make terrible mistake
-//
-
     for (int i = 0; i < level.size(); ++i) {
 
         level[i]->action(level, w, {i / w, i % w}, level_copy);
@@ -96,8 +89,8 @@ void board::iterate() {
 }
 
 void board::lock_cells() {
-    for (int i = 0; i < level.size(); i++){
-        if(*level[i] == t_empty)
+    for (int i = 0; i < level.size(); i++) {
+        if (*level[i] == t_empty)
             level[i] = new empty_cell(true);
 
     }
@@ -117,4 +110,22 @@ unsigned int board::getH() const {
 
 void board::setH(unsigned int h) {
     board::h = h;
+}
+
+void board::set_cell(coord position, cell *piece) {
+  level[position.toUint(w)] = piece;
+}
+
+bool board::goal_cells_left() {
+    for (int i = 0; i < level.size(); i++) {
+        if (*level[i] == t_goal) return true;
+    }
+    return false;
+}
+
+bool board::kill_cells_left() {
+    for (int i = 0; i < level.size(); i++) {
+        if (*level[i] == t_kill) return true;
+    }
+    return false;
 }

@@ -18,6 +18,12 @@
 #include <iostream>
 #include <string>
 
+enum game_goal{
+    collect_all_goals,
+    kill_all_enemies
+
+};
+
 class board {
 public:
     board(unsigned int w, unsigned int h);
@@ -27,15 +33,19 @@ public:
     /// for now, later it will be moved to different class
     void show_level_win_console();
 
-    /// \return pointer to a chosen cell in level
+    /// \return reference to a chosen cell in level
     /// \param width of a chosen cell
     /// \param wight  of a chosen cell
     cell & get_cell(unsigned height, unsigned width);
 
-
-    /// \return pointer to a chosen cell in level
+    /// \return reference to a chosen cell in level
     /// \param position coordinates of wanted cell
-    cell & get_cell(coord position);
+    cell& get_cell(coord position);
+
+    /// \return puts piece cell in chosen place
+    /// \param destination coordinates
+    /// \param piece the desired cell
+    void set_cell(coord position, cell *piece);
 
     /// \brief the heart of this game
     void iterate();
@@ -55,6 +65,12 @@ public:
 
     /// \return set height of the played level
     void setH(unsigned int h);
+
+    /// \return true if there is at least one goal_cell left on level
+    bool goal_cells_left();
+
+    /// \return true if there is at least one kill_cell left on level
+    bool kill_cells_left();
 
 private:
     unsigned transform(unsigned int height, unsigned int width);
