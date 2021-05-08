@@ -21,11 +21,12 @@ void goal_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &dest
         destination[curr_pos.reverse(move_dir,w)] = new empty_cell(true);
         destination[curr_pos.toUint(w)] = new empty_cell(true);
         return;
+
     }else {
 
         plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
-        if (*plane[curr_pos.go(move_dir, w)] == t_empty) {
+        if (*destination[curr_pos.go(move_dir, w)] == t_empty) {
             // me                                      the one in front
             std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_dir, w)]);
         }

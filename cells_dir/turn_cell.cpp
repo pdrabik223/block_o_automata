@@ -40,7 +40,7 @@ turn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destinati
     plane[curr_pos.go(turn_direction, w)]->move(plane, destination, turn_direction, curr_pos.go(turn_direction), w);
 
 
-    if (*plane[curr_pos.go(turn_direction, w)] == t_empty) {
+    if (*destination[curr_pos.go(turn_direction, w)] == t_empty) {
 
         // me                                      the one in front
         std::swap(destination[curr_pos.reverse(move_dir, w)], destination[curr_pos.go(turn_direction, w)]);

@@ -110,7 +110,7 @@ spawn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destinat
                  unsigned int w) {
     plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
-    if (*plane[curr_pos.go(move_dir, w)] == t_empty) {
+    if (*destination[curr_pos.go(move_dir, w)] == t_empty) {
         // me                                      the one in front
         std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_dir, w)]);
     }

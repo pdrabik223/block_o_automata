@@ -28,7 +28,7 @@ void move_cell::show_in_console_unicode() {
 
 void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
 
-    if (!has_been_moved) {
+
         plane[curr_pos.go(move_direction, w)]->move(plane, destination, move_direction,
                                                     curr_pos.go(move_direction), w);
 
@@ -36,7 +36,7 @@ void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
             // me                                      the one in front
             std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
         }
-    }
+
 
     if (*plane[curr_pos.go(move_direction, w)] == t_empty) {
         // me                                      the one in front
@@ -47,18 +47,18 @@ void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
     }
 
 
-    has_been_moved = false;
+   // has_been_moved = false;
 
 }
 
 void
 move_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
                 unsigned int w) {
-    has_been_moved = true;
+   //  has_been_moved = true;
     plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
 
-    if (*plane[curr_pos.go(move_dir, w)] == t_empty) {
+    if (*destination[curr_pos.go(move_dir, w)] == t_empty) {
         // me                                      the one in front
 
         cell temp = *destination[curr_pos.go(move_dir, w)];
