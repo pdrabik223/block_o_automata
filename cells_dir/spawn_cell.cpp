@@ -132,7 +132,7 @@ icon spawn_cell::get_unicode() {
         case right:
             return {L"\x2B9E ", green};
         case up:
-            return {L"\x2B9E ", green};
+            return {L"\x2B9D ", green};
         case down:
             return {L"\x2B9F ", green};
 

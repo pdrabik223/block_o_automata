@@ -10,14 +10,16 @@
 
 /// type of the cell, used to identify cell by it's role
 enum type {
-    t_cell,
+
     t_barrier,
-    t_empty,
-    t_goal,
-    t_kill,
     t_move,
+    t_kill,
     t_spawn,
-    t_turn
+    t_turn,
+
+    t_cell,
+    t_empty,
+    t_goal
 };
 
 /// used by few of the cells

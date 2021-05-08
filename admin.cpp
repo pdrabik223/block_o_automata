@@ -85,7 +85,9 @@ void analyze_command() {
 
 
     } else if (current_command == "help") {
-        std::wcout << "here comes help";
+        std::wcout << "here comes help\n";
+        std::wcout << cc(blue, red) << "hege it comes\n";
+        std::wcout << cc(red, light_blue) << "and here it id\n";
 
     } else if (current_command == "clear") {
         for (unsigned i = 0; i < game.getH(); i++) {
@@ -173,9 +175,13 @@ void analyze_movement(char key) {
         case 'd':
             cursor_position.y++;
             break;
+        case 32:
+            game.iterate();
+            break;
         default:
             ERROR("unknown key");
             break;
+
     }
     if (cursor_position.y >= game.getW()) cursor_position.y = 0;
     if (cursor_position.x >= game.getH()) cursor_position.x = 0;

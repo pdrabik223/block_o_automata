@@ -43,7 +43,7 @@ void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
         cell temp = *destination[curr_pos.go(move_direction, w)];
         *destination[curr_pos.go(move_direction, w)] = *destination[curr_pos.toUint(w)];
         *destination[curr_pos.toUint(w)] = temp;
-        std::wcout << "here!";
+
     }
 
 
