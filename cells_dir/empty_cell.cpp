@@ -43,3 +43,30 @@ icon empty_cell::get_unicode() {
 type empty_cell::getCellType() const {
     return cell_type;
 }
+
+std::ostream &operator<<(std::ostream &out, const empty_cell &ref) {
+
+    out<<ref.getCellType();
+    out<<" ";
+    out<<ref.isLocked();
+    return out;
+}
+
+std::istream &operator>>(std::istream &in,  empty_cell &ref) {
+
+    bool locked;
+    in >> locked;
+    ref.setLocked(locked);
+    return in;
+
+}
+
+bool empty_cell::isLocked() const {
+    return locked;
+}
+
+void empty_cell::setLocked(bool locked) {
+    locked = locked;
+}
+
+

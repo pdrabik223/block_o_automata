@@ -35,6 +35,10 @@ public:
 
     bool operator!=(const type &rhs) const override;
 
+    friend std::ostream &operator<<(std::ostream &out, const kill_cell &ref);
+
+    friend std::istream &operator>>(std::istream &in,  kill_cell &ref);
+
 protected:
     /// how many hits cells an take
     unsigned int lives;

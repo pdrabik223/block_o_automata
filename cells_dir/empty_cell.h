@@ -24,9 +24,17 @@ public:
 
     icon get_unicode() override;
 
+    bool isLocked() const;
+
+    void setLocked(bool locked);
+
     bool operator==(const type& rhs) const override;
 
     bool operator!=(const type &rhs) const override;
+
+    friend std::ostream &operator<<(std::ostream &out, const empty_cell &ref);
+
+    friend std::istream &operator>>(std::istream &in,  empty_cell &ref);
 
 protected:
     /// can player put cells in place this one

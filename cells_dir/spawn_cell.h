@@ -37,6 +37,14 @@ public:
 
     type getCellType() const override;
 
+    friend std::ostream &operator<<(std::ostream &out, const spawn_cell &ref);
+
+    friend std::istream &operator>>(std::istream &in,  spawn_cell &ref);
+
+    unsigned int getLives() const;
+
+    void setLives(unsigned int lives);
+
 protected:
     /// how many more cells can be spawned
     unsigned lives;

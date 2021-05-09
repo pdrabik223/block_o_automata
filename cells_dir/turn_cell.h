@@ -38,6 +38,10 @@ public:
 
     void setRotationsLeft(unsigned int rotationsLeft);
 
+    friend std::ostream &operator<<(std::ostream &out, const turn_cell &ref);
+
+    friend std::istream &operator>>(std::istream &in,  turn_cell &ref);
+
 protected:
     /// how many rotations can cell preform
     unsigned rotations_left;

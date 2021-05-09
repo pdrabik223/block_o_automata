@@ -16,9 +16,7 @@ void kill_cell::show_in_console_unicode() {
 void kill_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
 
 }
- // todo position inplane must be changed to current position
- // this idea of look backward go forward update if one before moved is nice
- // but this chank of code must! be minimised
+
  void kill_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
                       unsigned int w) {
      if(plane[curr_pos.reverse(move_dir,w)]->isKillable()){
@@ -62,5 +60,19 @@ unsigned int kill_cell::getLives() const {
 
 void kill_cell::setLives(unsigned int lives) {
     kill_cell::lives = lives;
+}
+
+std::ostream &operator<<(std::ostream &out, const kill_cell &ref) {
+    out<<ref.getCellType();
+    out<<" ";
+    out<<ref.getLives();
+    return out;
+}
+
+std::istream &operator>>(std::istream &in, kill_cell &ref) {
+    int lives;
+    in>>lives;
+    ref.setLives(lives);
+    return in;
 }
 

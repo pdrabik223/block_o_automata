@@ -98,3 +98,24 @@ void turn_cell::setRotationsLeft(unsigned int rotationsLeft) {
     rotations_left = rotationsLeft;
 }
 
+std::ostream &operator<<(std::ostream &out, const turn_cell &ref) {
+    out << ref.getCellType();
+    out << " ";
+    out << ref.getTurnDirection();
+    out << " ";
+    out << ref.getRotationsLeft();
+    return out;
+}
+
+std::istream &operator>>(std::istream &in, turn_cell &ref) {
+
+    int SpawnDirection;
+    in >> SpawnDirection;
+    ref.setTurnDirection((direction) SpawnDirection);
+
+    int rotations_left;
+    in >> rotations_left;
+    ref.setRotationsLeft(rotations_left);
+    return in;
+
+}

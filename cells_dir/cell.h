@@ -15,6 +15,9 @@
 
 static unsigned creation_order = 0;
 
+//todo copy constructor
+// made it using clone() function
+//todo smart pointers to minimize mem leaks
 
 class cell {
 
@@ -41,6 +44,7 @@ public:
         return {L"  ", black};
     };
 
+
     virtual void
     move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
          unsigned int w) {
@@ -57,6 +61,8 @@ public:
     virtual bool operator!=(const type &rhs) const;
 
     virtual type getCellType() const;
+
+
 
 protected:
     /// can be moved/rotated by other cells

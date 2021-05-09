@@ -109,3 +109,19 @@ direction move_cell::getMoveDirection() const {
 type move_cell::getCellType() const {
     return cell_type;
 }
+
+std::ostream &operator<<(std::ostream &out, const move_cell &ref) {
+    out<<ref.getCellType();
+    out<<" ";
+    out<<ref.getMoveDirection();
+    return out;
+
+}
+
+std::istream &operator>>(std::istream &in, move_cell &ref) {
+    int moveDirection;
+    in>>moveDirection;
+
+    ref.setMoveDirection((direction) moveDirection);
+    return in;
+}

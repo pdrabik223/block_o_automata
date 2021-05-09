@@ -29,6 +29,11 @@ public:
 
     bool operator!=(const type &rhs) const override;
 
+
+    friend std::ostream &operator<<(std::ostream &out, const barrier_cell &ref);
+
+    friend std::istream &operator>>(std::istream &in,  barrier_cell &ref);
+
 protected:
     type cell_type = t_barrier;
 };

@@ -49,3 +49,13 @@ icon goal_cell::get_unicode() {
 type goal_cell::getCellType() const {
     return cell_type;
 }
+
+std::istream &operator>>(std::istream &in, goal_cell &ref) {
+    return in;
+}
+
+std::ostream &operator<<(std::ostream &out, const empty_cell &ref) {
+    out<<ref.getCellType();
+    out<<" ";
+    return out;
+}

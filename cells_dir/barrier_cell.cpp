@@ -49,3 +49,22 @@ type barrier_cell::getCellType() const {
     return cell_type;
 }
 
+std::istream &operator>>(std::istream &in, barrier_cell &ref) {
+    bool move;
+
+    in>>move;
+    ref.setMovable(move);
+
+
+    return in;
+}
+
+std::ostream &operator<<(std::ostream &out, const barrier_cell &ref) {
+    out<<ref.getCellType();
+    out<<" ";
+    out<<ref.isMovable();
+    out<<" ";
+
+    return out;
+}
+
