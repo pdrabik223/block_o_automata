@@ -15,12 +15,8 @@ spawn_cell::spawn_cell() : cell(true, true),
 
 
 
-spawn_cell::spawn_cell(bool movable, unsigned int lives, direction spawnDirection) : cell(movable, true),
-                                                                                     lives(lives),
-                                                                                     spawn_direction(spawnDirection) {}
-
-spawn_cell::spawn_cell(bool movable, direction spawnDirection) : cell(movable, true),
-                                                                 lives(-1),
+spawn_cell::spawn_cell(int lives, direction spawnDirection) : cell(true, true),
+                                                                 lives(lives),
                                                                  spawn_direction(spawnDirection) {}
 
 

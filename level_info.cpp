@@ -3,12 +3,6 @@
 //
 
 #include "level_info.h"
-#include "cells_dir/barrier_cell.h"
-#include "cells_dir/move_cell.h"
-#include "cells_dir/kill_cell.h"
-#include "cells_dir/spawn_cell.h"
-#include "cells_dir/turn_cell.h"
-#include "cells_dir/goal_cell.h"
 
 
 std::string current_date() {
@@ -203,7 +197,6 @@ void level_info::save() {
     for (char &i:date)
         if (i == ':') i = '_';
 
-    std::cout << date;
     std::string file_path = "C:\\Users\\pc\\Documents\\block_o_automata\\levels\\" + date + ".txt";
 
 
@@ -232,7 +225,7 @@ void level_info::save() {
     myfile << height << "\n";
 
     for (auto &i : level) {
-        myfile << i << " ";
+        myfile << *i << " ";
 
     }
     myfile.close();
@@ -250,7 +243,9 @@ void level_info::load(const std::string &path) {
 //        return;
 //    }
     myfile >> level_name; // every field is separated by new line
+
     myfile >> author;
+
     int temp_int;
     myfile >> temp_int;
     level_difficulty = (difficulty) temp_int;
@@ -273,44 +268,79 @@ void level_info::load(const std::string &path) {
 
 
     type cell_type;
-    for (int i = 0; i < width * height; i++) {
+    for (int i = 0; i < width * height; ++i) {
 
         myfile >> temp_int;
-        cell_type = (type) temp_int;
-        switch (cell_type) {
-            case t_barrier:
-                level.push_back(new barrier_cell());
-                break;
-            case t_move:
-                level.push_back(new move_cell());
-                break;
-            case t_kill:
-                level.push_back(new kill_cell());
-                break;
-            case t_spawn:
-                level.push_back(new spawn_cell());
-                break;
-            case t_turn:
-                level.push_back(new turn_cell());
 
+        switch ((type) temp_int) {
+            case t_barrier: {
+                bool is_movable;
+                myfile >> is_movable;
+
+                level.push_back(new barrier_cell(is_movable));
+            }
                 break;
-            case t_cell:
+            case t_move: {
+                int move_direction;
+                myfile >> move_direction;
+
+                level.push_back(new move_cell((direction) move_direction));
+            }
+                break;
+            case t_kill: {
+
+                int lives;
+                myfile >> lives;
+                level.push_back(new kill_cell(lives));
+
+            }
+                break;
+            case t_spawn: {
+
+                int spawn_direction;
+                myfile >> spawn_direction;
+
+                int lives;
+                myfile >> lives;
+                level.push_back(new spawn_cell(lives, (direction) spawn_direction));
+            }
+                break;
+            case t_turn: {
+
+                int turn_direction;
+                myfile >> turn_direction;
+
+                int rotations;
+                myfile >> rotations;
+                level.push_back(new turn_cell(rotations, (direction) rotations));
+
+            }
+                break;
+            case t_cell: {
+
                 assert(false);
                 /// here comes exception
 
+            }
                 break;
-            case t_empty:
-                level.push_back(new empty_cell());
+            case t_empty: {
+                bool locked;
+                myfile >> locked;
+                level.push_back(new empty_cell(locked));
 
+            }
                 break;
-            case t_goal:
+            case t_goal: {
+
                 level.push_back(new goal_cell());
+
+            }
                 break;
             default:
                 assert(false);
                 /// here comes exception
         }
-        myfile >> *level.back();
+
 
     }
 
@@ -318,3 +348,23 @@ void level_info::load(const std::string &path) {
     myfile.close();
 }
 
+
+cell &level_info::get_cell(unsigned int height, unsigned int width) {
+    return *level[height * width + width];
+}
+
+cell &level_info::get_cell(coord position) {
+    return *level[position.x * width + position.y];
+}
+
+cell *&level_info::operator[](unsigned position) {
+    return level[position];
+}
+
+cell *&level_info::operator[](coord position) {
+    return level[position.x * width + position.y];
+}
+
+const std::vector<cell *> &level_info::getLevel() const {
+    return level;
+}

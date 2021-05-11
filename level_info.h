@@ -8,7 +8,12 @@
 // todo figure out if we should move all level creation stuff to this class and in board use level as level
 //
 #include "cells_dir/empty_cell.h"
-
+#include "cells_dir/barrier_cell.h"
+#include "cells_dir/move_cell.h"
+#include "cells_dir/kill_cell.h"
+#include "cells_dir/spawn_cell.h"
+#include "cells_dir/turn_cell.h"
+#include "cells_dir/goal_cell.h"
 
 #include <fstream>
 
@@ -61,11 +66,32 @@ public:
     /// \return resizes field without losing data
     void resize(unsigned int new_width, unsigned int new_height);
 
-
+    /// \brief save current state of the level on drive
     void save();
 
-    void load(const std::string& path);
+    /// load level to memory
+    /// \param path to a desired level
+    void load(const std::string &path);
 
+    void push_back(cell *new_cell) {
+        level.push_back(new_cell);
+    }
+
+    /// \return reference to a chosen cell in level
+    /// \param width of a chosen cell
+    /// \param wight  of a chosen cell
+    cell &get_cell(unsigned height, unsigned width);
+
+    /// \return reference to a chosen cell in level
+    /// \param position coordinates of wanted cell
+    cell &get_cell(coord position);
+
+
+    cell *&operator[](unsigned position);
+
+    cell *&operator[](coord position);
+
+    unsigned size() { return width * height; }
 
     /// a lot of setters
 
@@ -113,6 +139,8 @@ public:
     bool isMaxPieceCostBeaten() const;
 
     game_goal getGoalOfTheLevel() const;
+
+    const std::vector<cell *> &getLevel() const;
 
 protected:
 

@@ -17,11 +17,6 @@
 #define WAIT(x) std::this_thread::sleep_for(std::chrono::milliseconds(x))
 
 
-#include <string>
-#include <iostream>
-#include <filesystem>
-
-#include <windows.h>
 #include <conio.h>
 
 typedef std::vector<std::string> stringvec;
@@ -51,10 +46,18 @@ int main() {
     stringvec v;
     levelvec l;
 
-    read_directory("C:\\Users\\pc\\Documents\\block_o_automata\\levels", v);
-    load_levels(v, l);
     level_info new_level;
+    new_level.setLevelBeaten(true);
+    new_level.setMaxPieceCostBeaten(false);
+    new_level.setMaxIterationBeaten(true);
     new_level.save();
+
+
+
+    read_directory("C:\\Users\\pc\\Documents\\block_o_automata\\levels", v);
+
+    load_levels(v, l);
+
 
     ui(l);
 
@@ -84,11 +87,11 @@ void ui(levelvec &levels) {
 
             if (i == j) {
                 std::cout << cc(red, gray) << " " << j << ".   ";
-                std::wcout << cc(yellow, gray) << levels[j].get_info() << std::endl;
+                std::wcout << cc(yellow, gray) << levels[j].get_info() ;
                 std::cout << cc(white, black);
             } else {
                 std::cout << cc(red, black) << j << ".   ";
-                std::wcout << cc(yellow, black) << levels[j].get_info() << std::endl;
+                std::wcout << cc(yellow, black) << levels[j].get_info() ;
                 std::cout << cc(white, black);
             }
         }
