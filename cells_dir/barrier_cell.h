@@ -10,6 +10,7 @@
 
 class barrier_cell:public cell {
 public:
+    barrier_cell();
     barrier_cell(bool movable);
 
     void show_in_console_unicode() override;

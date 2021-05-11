@@ -6,6 +6,10 @@
 #include "move_cell.h"
 
 
+turn_cell::turn_cell(): cell(false, true),
+                        rotations_left(-1),
+                        turn_direction(left) {}
+
 turn_cell::turn_cell(unsigned int rotationsLeft, direction turnDirection) : cell(false, true),
                                                                             rotations_left(rotationsLeft),
                                                                             turn_direction(turnDirection) {}
@@ -119,3 +123,4 @@ std::istream &operator>>(std::istream &in, turn_cell &ref) {
     return in;
 
 }
+

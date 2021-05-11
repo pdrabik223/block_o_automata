@@ -62,6 +62,9 @@ public:
 
     virtual type getCellType() const;
 
+    friend std::ostream &operator<<(std::ostream &out, const cell &ref){return out;};
+
+    friend std::istream &operator>>(std::istream &in, cell &ref){return in;};
 
 
 protected:

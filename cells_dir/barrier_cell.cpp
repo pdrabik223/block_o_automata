@@ -4,6 +4,9 @@
 
 #include "barrier_cell.h"
 
+barrier_cell::barrier_cell() :cell(false,false){}
+
+
 barrier_cell::barrier_cell(bool movable) : cell(movable, false) {}
 
 void barrier_cell::show_in_console_unicode() {
@@ -67,4 +70,5 @@ std::ostream &operator<<(std::ostream &out, const barrier_cell &ref) {
 
     return out;
 }
+
 

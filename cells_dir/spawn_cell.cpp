@@ -9,6 +9,12 @@
 #include "move_cell.h"
 #include "turn_cell.h"
 
+spawn_cell::spawn_cell() : cell(true, true),
+                           lives(-1),
+                           spawn_direction(left){}
+
+
+
 spawn_cell::spawn_cell(bool movable, unsigned int lives, direction spawnDirection) : cell(movable, true),
                                                                                      lives(lives),
                                                                                      spawn_direction(spawnDirection) {}

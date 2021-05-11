@@ -3,6 +3,8 @@
 //
 
 #include "empty_cell.h"
+empty_cell::empty_cell(): cell(false, true), locked(true){};
+
 
 empty_cell::empty_cell(bool locked) : cell(false, true), locked(locked) {}
 
@@ -68,5 +70,4 @@ bool empty_cell::isLocked() const {
 void empty_cell::setLocked(bool locked) {
     locked = locked;
 }
-
 

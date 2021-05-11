@@ -9,6 +9,8 @@
 
 class turn_cell : public cell{
 public:
+
+    turn_cell();
     turn_cell(unsigned int rotationsLeft, direction turnDirection);
 
     turn_cell(direction turnDirection);

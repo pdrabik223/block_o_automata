@@ -5,6 +5,9 @@
 #include "move_cell.h"
 #include "empty_cell.h"
 
+move_cell::move_cell() : cell(true, true),
+                         move_direction(left) {}
+
 move_cell::move_cell(direction moveDirection) : cell(true, true),
                                                 move_direction(moveDirection) {}
 
@@ -125,3 +128,5 @@ std::istream &operator>>(std::istream &in, move_cell &ref) {
     ref.setMoveDirection((direction) moveDirection);
     return in;
 }
+
+

@@ -54,7 +54,7 @@ std::istream &operator>>(std::istream &in, goal_cell &ref) {
     return in;
 }
 
-std::ostream &operator<<(std::ostream &out, const empty_cell &ref) {
+std::ostream &operator<<(std::ostream &out, const goal_cell &ref) {
     out<<ref.getCellType();
     out<<" ";
     return out;

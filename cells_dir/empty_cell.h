@@ -9,6 +9,7 @@
 class empty_cell: public cell{
 
 public:
+    empty_cell();
     empty_cell( bool locked);
 
     type getCellType() const override;

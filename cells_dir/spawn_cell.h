@@ -10,6 +10,9 @@
 
 class spawn_cell: public cell {
 public:
+
+    spawn_cell( );
+
     spawn_cell(bool movable,  unsigned int lives, direction spawnDirection);
 
     spawn_cell(bool movable,  direction spawnDirection);

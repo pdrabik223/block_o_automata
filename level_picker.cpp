@@ -3,6 +3,7 @@
 //
 
 #include "windows_console_tools/win_colors.h"
+#include "level_info.h"
 
 #include <string>
 #include <iostream>
@@ -16,7 +17,6 @@
 #define WAIT(x) std::this_thread::sleep_for(std::chrono::milliseconds(x))
 
 
-
 #include <string>
 #include <iostream>
 #include <filesystem>
@@ -25,12 +25,15 @@
 #include <conio.h>
 
 typedef std::vector<std::string> stringvec;
+typedef std::vector<level_info> levelvec;
 
-void ui(stringvec &v);
+void ui(levelvec &levels);
+
+void load_levels(stringvec &file_paths, levelvec &levels);
 
 void read_directory(const std::string &name, stringvec &v) {
     std::string pattern(name);
-    pattern.append("\\*");
+    pattern.append("\\*.txt");
     WIN32_FIND_DATA data;
     HANDLE hFind;
     if ((hFind = FindFirstFile(pattern.c_str(), &data)) != INVALID_HANDLE_VALUE) {
@@ -46,53 +49,71 @@ void read_directory(const std::string &name, stringvec &v) {
 
 int main() {
     stringvec v;
+    levelvec l;
 
     read_directory("C:\\Users\\pc\\Documents\\block_o_automata\\levels", v);
+    load_levels(v, l);
+    level_info new_level;
+    new_level.save();
 
-    ui(v);
+    ui(l);
+
 
 }
+
+void load_levels(stringvec &file_paths, levelvec &levels) {
+    std::string directory_path = "C:\\Users\\pc\\Documents\\block_o_automata\\levels\\";
+    levels.clear();
+    for (auto i:file_paths) {
+        levels.push_back(level_info());
+        levels.back().load(directory_path + i);
+    }
+}
+
 // todo better key presses
 //  arrows to move around
 //  enter and esc
-void ui(stringvec &v) {
+void ui(levelvec &levels) {
+    stringvec v;
     int i = 0;
     char k;
     while (2 > 1) {
-        system("cls");
-        std::cout<<std::endl;
-        for (int j = 0; j < v.size(); j++) {
+        //  system("cls");
+        std::cout << std::endl;
+        for (int j = 0; j < levels.size(); j++) {
 
             if (i == j) {
-                std::cout << cc(red, gray) <<" "<< j << ".   ";
-                std::cout << cc(yellow, gray) << v[j] << std::endl;
-                std::cout << cc(white,black);
+                std::cout << cc(red, gray) << " " << j << ".   ";
+                std::wcout << cc(yellow, gray) << levels[j].get_info() << std::endl;
+                std::cout << cc(white, black);
             } else {
                 std::cout << cc(red, black) << j << ".   ";
-                std::cout << cc(yellow, black) << v[j] << std::endl;
-                std::cout << cc(white,black);
+                std::wcout << cc(yellow, black) << levels[j].get_info() << std::endl;
+                std::cout << cc(white, black);
             }
         }
-  //      WAIT(50);
+        //      WAIT(50);
         k = getch();
         switch (k) {
             case 'w':
                 --i;
-                if (i < 0) i = v.size() - 1; // keep i in range of vector
+                if (i < 0) i = levels.size() - 1; // keep i in range of vector
                 break;
             case 's':
                 ++i;
-                if (i >= v.size()) i = 0;
+                if (i >= levels.size()) i = 0;
                 break;
             case 'r':
+                levels.clear();
                 v.clear();
                 read_directory("C:\\Users\\pc\\Documents\\block_o_automata\\levels", v);
+                load_levels(v,levels);
                 break;
             case 'q':
             case 27:
                 return;
             case 13:
-                std::cout<<cc(red)<<"u chosen "<<i;
+                std::cout << cc(red) << "u chosen " << i;
                 break;
             default:
                 break;
