@@ -10,15 +10,13 @@ action select_level(level_info &level) {
     levelvec l;
     std::string directory_path = "C:\\Users\\pc\\Documents\\block_o_automata\\levels";
 
-    read_directory(directory_path, v);
-
-    load_levels(v, l, directory_path);
-
+    directory_path.append("\\\\");
     std::string path;
 
     path = ui(directory_path);
 
     if (path == "quit") return quit_game;
+    else if(path == "creator") return enter_editor;
 
     level.load(directory_path + path);
 

@@ -6,17 +6,6 @@
 #define BLOCK_O_AUTOMATA_WIN_CONSOLE_UI_H
 
 #include "board.h"
-class win_console_ui {
-
-    win_console_ui(){};
-
-    void play(){
-
-
-
-    }
-
-};
 
 
 #endif //BLOCK_O_AUTOMATA_WIN_CONSOLE_UI_H
