@@ -77,15 +77,18 @@ public:
         level.push_back(new_cell);
     }
 
+
+    void set_cell(coord position, cell* target);
+    void copy_cell(coord position, cell* target);
+
     /// \return reference to a chosen cell in level
-    /// \param width of a chosen cell
+    /// \param w of a chosen cell
     /// \param wight  of a chosen cell
-    cell &get_cell(unsigned height, unsigned width);
+    cell &get_cell(unsigned h, unsigned w);
 
     /// \return reference to a chosen cell in level
     /// \param position coordinates of wanted cell
     cell &get_cell(coord position);
-
 
     cell *&operator[](unsigned position);
 
@@ -93,59 +96,14 @@ public:
 
     unsigned size() { return width * height; }
 
-    /// a lot of setters
 
-    void setLevelName(const std::string &levelName);
-
-    void setAuthor(const std::string &author);
-
-    void setLevelDifficulty(difficulty levelDifficulty);
-
-    void setLevelBeaten(bool levelBeaten);
-
-    void setMaxIteration(unsigned int maxIteration);
-
-    void setMaxIterationBeaten(bool maxIterationBeaten);
-
-    void setMaxPieceCost(unsigned int maxPieceCost);
-
-    void setMaxPieceCostBeaten(bool maxPieceCostBeaten);
-
-    void setGoalOfTheLevel(game_goal goalOfTheLevel);
-
-    void setNumberOfPawns(const std::array<int, 5> &numberOfPawns);
-
-
-    /// this class requires a lot of set and get functions
-    /// we wanna make sure that this data want be changed
     unsigned int getWidth() const;
 
     unsigned int getHeight() const;
 
-    const std::string &getLevelName() const;
-
-    const std::string &getAuthor() const;
-
-    difficulty getLevelDifficulty() const;
-
-    bool isLevelBeaten() const;
-
-    unsigned int getMaxIteration() const;
-
-    bool isMaxIterationBeaten() const;
-
-    unsigned int getMaxPieceCost() const;
-
-    bool isMaxPieceCostBeaten() const;
-
-    game_goal getGoalOfTheLevel() const;
 
     const std::vector<cell *> &getLevel() const;
 
-protected:
-
-    unsigned width;
-    unsigned height;
     std::string level_name;
     std::string author;
     difficulty level_difficulty;
@@ -157,6 +115,11 @@ protected:
     unsigned max_piece_cost;
     bool max_piece_cost_beaten;
     game_goal goal_of_the_level;
+
+protected:
+
+    unsigned width;
+    unsigned height;
 
     std::array<int, 5> number_of_pawns;
     std::vector<cell *> level;

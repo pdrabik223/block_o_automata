@@ -47,81 +47,6 @@ unsigned int level_info::getHeight() const {
     return height;
 }
 
-const std::string &level_info::getLevelName() const {
-    return level_name;
-}
-
-const std::string &level_info::getAuthor() const {
-    return author;
-}
-
-difficulty level_info::getLevelDifficulty() const {
-    return level_difficulty;
-}
-
-bool level_info::isLevelBeaten() const {
-    return level_beaten;
-}
-
-unsigned int level_info::getMaxIteration() const {
-    return max_iteration;
-}
-
-bool level_info::isMaxIterationBeaten() const {
-    return max_iteration_beaten;
-}
-
-unsigned int level_info::getMaxPieceCost() const {
-    return max_piece_cost;
-}
-
-bool level_info::isMaxPieceCostBeaten() const {
-    return max_piece_cost_beaten;
-}
-
-game_goal level_info::getGoalOfTheLevel() const {
-    return goal_of_the_level;
-}
-
-void level_info::setLevelName(const std::string &levelName) {
-    level_name = levelName;
-}
-
-void level_info::setAuthor(const std::string &author) {
-    level_info::author = author;
-}
-
-void level_info::setLevelDifficulty(difficulty levelDifficulty) {
-    level_difficulty = levelDifficulty;
-}
-
-void level_info::setLevelBeaten(bool levelBeaten) {
-    level_beaten = levelBeaten;
-}
-
-void level_info::setMaxIteration(unsigned int maxIteration) {
-    max_iteration = maxIteration;
-}
-
-void level_info::setMaxIterationBeaten(bool maxIterationBeaten) {
-    max_iteration_beaten = maxIterationBeaten;
-}
-
-void level_info::setMaxPieceCost(unsigned int maxPieceCost) {
-    max_piece_cost = maxPieceCost;
-}
-
-void level_info::setMaxPieceCostBeaten(bool maxPieceCostBeaten) {
-    max_piece_cost_beaten = maxPieceCostBeaten;
-}
-
-void level_info::setGoalOfTheLevel(game_goal goalOfTheLevel) {
-    goal_of_the_level = goalOfTheLevel;
-}
-
-void level_info::setNumberOfPawns(const std::array<int, 5> &numberOfPawns) {
-    number_of_pawns = numberOfPawns;
-}
 
 level_info::level_info(unsigned int width, unsigned int height) : width(width), height(height) {
 
@@ -141,8 +66,16 @@ level_info::level_info(unsigned int width, unsigned int height) : width(width), 
 
     number_of_pawns = {999, 999, 999, 999, 999};
 
-    for (int i = 0; i < width * height; i++)
-        level.push_back(new empty_cell(true));
+    for (int i = 0; i < width * height; i++) {
+
+        if (i % width == 0 ||
+            i / width == 0 ||
+            i / width == (height - 1) ||
+            i % width == (height - 1))
+            level.push_back(new barrier_cell(false));
+
+        else level.push_back(new empty_cell(true));
+    }
 
 }
 
@@ -174,10 +107,10 @@ level_info::level_info() {
     level_beaten = false;
 
     max_iteration = 0;
-    max_iteration_beaten = 0;
+    max_iteration_beaten = false;
 
     max_piece_cost = 0;
-    max_piece_cost_beaten = 0;
+    max_piece_cost_beaten = false;
 
     goal_of_the_level = collect_all_goals;
 
@@ -340,17 +273,14 @@ void level_info::load(const std::string &path) {
                 assert(false);
                 /// here comes exception
         }
-
-
     }
-
 
     myfile.close();
 }
 
 
-cell &level_info::get_cell(unsigned int height, unsigned int width) {
-    return *level[height * width + width];
+cell &level_info::get_cell(unsigned int h, unsigned int w) {
+    return *level[h * width + w];
 }
 
 cell &level_info::get_cell(coord position) {
@@ -368,3 +298,48 @@ cell *&level_info::operator[](coord position) {
 const std::vector<cell *> &level_info::getLevel() const {
     return level;
 }
+
+void level_info::set_cell(coord position, cell *target) {
+    level[position.x * width + position.y] = target;
+}
+
+
+void level_info::copy_cell(coord position, cell *target) {
+    // todo clone this shit
+
+    switch (target->getCellType()) {
+        case t_barrier:
+            level[position.x * width + position.y] = new barrier_cell(target->isMovable());
+            break;
+        case t_move:
+            level[position.x * width + position.y] =
+                    new move_cell(((move_cell *) target)->getMoveDirection());
+
+            break;
+        case t_kill:
+            level[position.x * width + position.y] =
+                    new kill_cell(((kill_cell *) target)->getLives());
+            break;
+        case t_spawn:
+            level[position.x * width + position.y] =
+                    new spawn_cell(((spawn_cell *) target)->getLives(), ((spawn_cell *) target)->getSpawnDirection());
+            break;
+        case t_turn:
+            level[position.x * width + position.y] = new turn_cell(((turn_cell *) target)->getRotationsLeft(),
+                                                                   ((turn_cell *) target)->getTurnDirection());
+            break;
+        case t_goal:
+            level[position.x * width + position.y] = new goal_cell();
+            break;
+        case t_empty:
+            level[position.x * width + position.y] = new empty_cell(((empty_cell *) target)->isLocked());
+            break;
+        case t_cell:
+
+        default :
+            assert(false);
+    }
+
+}
+
+

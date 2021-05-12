@@ -17,9 +17,10 @@ enum type {
     t_spawn,
     t_turn,
 
+    t_goal,
     t_cell,
-    t_empty,
-    t_goal
+    t_empty
+
 };
 
 /// used by few of the cells
