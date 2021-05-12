@@ -43,9 +43,8 @@ enum difficulty {
 
 
 };
-// todo
-//  save on disk in binary form
-//  strong and safe copy constructor
+
+//  todo strong and safe copy constructor
 
 
 
@@ -79,6 +78,7 @@ public:
 
 
     void set_cell(coord position, cell* target);
+
     void copy_cell(coord position, cell* target);
 
     /// \return reference to a chosen cell in level

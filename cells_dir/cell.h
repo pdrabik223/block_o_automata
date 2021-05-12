@@ -13,7 +13,6 @@
 
 #include "../cell_tools.h"
 
-static unsigned creation_order = 0;
 
 //todo copy constructor
 // made it using clone() function
@@ -34,6 +33,8 @@ public:
     void setMovable(bool movable);
 
     void setKillable(bool killable);
+
+    virtual void rotateRight()  noexcept {assert(false);};
 
     bool isKillable() const;
 

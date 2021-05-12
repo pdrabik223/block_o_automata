@@ -71,4 +71,3 @@ std::ostream &operator<<(std::ostream &out, const barrier_cell &ref) {
     return out;
 }
 
-

@@ -27,6 +27,8 @@ public:
 
     bool isLocked() const;
 
+    void rotateRight()  noexcept override{};
+
     void setLocked(bool locked);
 
     bool operator==(const type& rhs) const override;
@@ -35,7 +37,6 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const empty_cell &ref);
 
-    friend std::istream &operator>>(std::istream &in,  empty_cell &ref);
 
 protected:
     /// can player put cells in place this one

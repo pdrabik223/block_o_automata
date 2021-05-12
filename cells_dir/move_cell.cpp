@@ -10,7 +10,7 @@ move_cell::move_cell() : cell(true, true),
 
 move_cell::move_cell(direction moveDirection) : cell(true, true),
                                                 move_direction(moveDirection) {}
-
+///
 void move_cell::show_in_console_unicode() {
     switch (move_direction) {
 
@@ -114,6 +114,27 @@ std::ostream &operator<<(std::ostream &out, const move_cell &ref) {
     out<<" ";
     out<<ref.getMoveDirection();
     return out;
+
+}
+
+void move_cell::rotateRight()  noexcept {
+
+    switch (move_direction) {
+        case left:
+            move_direction = up;
+            break;
+        case right:
+            move_direction = down;
+            break;
+        case down:
+            move_direction=left;
+            break;
+        case up:
+            move_direction = right;
+            break;
+
+    }
+
 
 }
 

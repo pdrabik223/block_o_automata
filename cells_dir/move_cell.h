@@ -37,7 +37,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const move_cell &ref);
 
-
+    void rotateRight()  noexcept override;
 
 
 protected:

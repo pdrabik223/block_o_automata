@@ -159,3 +159,21 @@ std::ostream &operator<<(std::ostream &out, const spawn_cell &ref) {
     return out;
 }
 
+void spawn_cell::rotateRight() noexcept {
+    switch (spawn_direction) {
+        case left:
+            spawn_direction = up;
+            break;
+        case right:
+            spawn_direction = down;
+            break;
+        case down:
+            spawn_direction=left;
+            break;
+        case up:
+            spawn_direction = right;
+            break;
+
+    }
+}
+

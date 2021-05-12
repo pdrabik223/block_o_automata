@@ -32,7 +32,8 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const kill_cell &ref);
 
-    friend std::istream &operator>>(std::istream &in,  kill_cell &ref);
+
+    void rotateRight() noexcept override {};
 
 protected:
 

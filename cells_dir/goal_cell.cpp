@@ -59,3 +59,4 @@ std::ostream &operator<<(std::ostream &out, const goal_cell &ref) {
     out<<" ";
     return out;
 }
+

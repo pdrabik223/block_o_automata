@@ -101,3 +101,21 @@ std::ostream &operator<<(std::ostream &out, const turn_cell &ref) {
     return out;
 }
 
+void turn_cell::rotateRight() noexcept {
+    switch (turn_direction) {
+        case left:
+            turn_direction = up;
+            break;
+        case right:
+            turn_direction = down;
+            break;
+        case down:
+            turn_direction=left;
+            break;
+        case up:
+            turn_direction = right;
+            break;
+
+    }
+}
+

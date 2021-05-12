@@ -47,9 +47,9 @@ int main() {
     levelvec l;
 
     level_info new_level;
-    new_level.setLevelBeaten(true);
-    new_level.setMaxPieceCostBeaten(false);
-    new_level.setMaxIterationBeaten(true);
+    new_level.level_beaten=true;
+    new_level.max_piece_cost_beaten=false;
+    new_level.max_iteration_beaten = true;
     new_level.save();
 
 

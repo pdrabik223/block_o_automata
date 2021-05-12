@@ -24,13 +24,14 @@ public:
 
     type getCellType() const override;
 
+    void rotateRight()  noexcept override{};
+
     bool operator==(const type &rhs) const override;
 
     bool operator!=(const type &rhs) const override;
 
     friend std::ostream &operator<<(std::ostream &out, const goal_cell &ref);
 
-    friend std::istream &operator>>(std::istream &in,  goal_cell &ref);
 
 protected:
     const type cell_type = Goal;

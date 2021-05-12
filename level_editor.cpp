@@ -107,61 +107,7 @@ int analyze_movement(char key, level_info &level) {
             break;
         case 'r':
             // todo rotate right
-            if (level.get_cell(cursor_position) == Move) {
-
-                auto dir = ((move_cell *) &level.get_cell(cursor_position))->getMoveDirection();
-
-                switch (dir) {
-                    case left:
-                        ((move_cell *) &level.get_cell(cursor_position))->setMoveDirection(up);
-                        break;
-                    case right:
-                        ((move_cell *) &level.get_cell(cursor_position))->setMoveDirection(down);
-                        break;
-                    case down:
-                        ((move_cell *) &level.get_cell(cursor_position))->setMoveDirection(left);
-                        break;
-                    case up:
-                        ((move_cell *) &level.get_cell(cursor_position))->setMoveDirection(right);
-                        break;
-
-                }
-
-            } else if (level.get_cell(cursor_position) == Spawn) {
-                auto dir = ((spawn_cell *) &level.get_cell(cursor_position))->getSpawnDirection();
-                switch (dir) {
-                    case left:
-                        ((spawn_cell *) &level.get_cell(cursor_position))->setSpawnDirection(up);
-                        break;
-                    case right:
-                        ((spawn_cell *) &level.get_cell(cursor_position))->setSpawnDirection(down);
-                        break;
-                    case down:
-                        ((spawn_cell *) &level.get_cell(cursor_position))->setSpawnDirection(left);
-                        break;
-                    case up:
-                        ((spawn_cell *) &level.get_cell(cursor_position))->setSpawnDirection(right);
-                        break;
-                }
-
-            } else if (level.get_cell(cursor_position) == Turn) {
-                auto dir = ((turn_cell *) &level.get_cell(cursor_position))->getTurnDirection();
-                switch (dir) {
-                    case left:
-                        ((turn_cell *) &level.get_cell(cursor_position))->setTurnDirection(up);
-                        break;
-                    case right:
-                        ((turn_cell *) &level.get_cell(cursor_position))->setTurnDirection(down);
-                        break;
-                    case down:
-                        ((turn_cell *) &level.get_cell(cursor_position))->setTurnDirection(left);
-                        break;
-                    case up:
-                        ((turn_cell *) &level.get_cell(cursor_position))->setTurnDirection(right);
-                        break;
-                }
-
-            }
+            level[cursor_position]->rotateRight();
 
             break;
         case 't':

@@ -38,6 +38,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const turn_cell &ref);
 
+    void rotateRight() noexcept override;
 
 protected:
 

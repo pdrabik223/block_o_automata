@@ -30,6 +30,7 @@ public:
 
     bool operator!=(const type &rhs) const override;
 
+    void rotateRight()  noexcept override{};
 
     friend std::ostream &operator<<(std::ostream &out, const barrier_cell &ref);
 

@@ -55,3 +55,4 @@ std::ostream &operator<<(std::ostream &out, const kill_cell &ref) {
 }
 
 
+

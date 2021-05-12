@@ -71,3 +71,5 @@ void empty_cell::setLocked(bool locked) {
     locked = locked;
 }
 
+
+

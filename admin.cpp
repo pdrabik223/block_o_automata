@@ -7,7 +7,7 @@
 
 coord cursor_position = {0, 0};
 
-level_info level{10,10};
+level_info level{10, 10};
 board game(level);
 bool close_admin = false;
 
@@ -26,18 +26,7 @@ void cell_picker();
 int main() {
     _setmode(_fileno(stdout), _O_U16TEXT);
 
-    //actions :
-    // add
-    //  goal
-    //  barier
-    //      movable
-    //      not
-    // del
-    // help
-    // rotate
-    // reload
-    // clear
-    // barier
+
 
     char key;
     while (2 > 1) {
@@ -47,7 +36,7 @@ int main() {
         key = getch();
         if (key == '-') analyze_command();
         else analyze_movement(key);
-        if(close_admin) return 1;
+        if (close_admin) return 1;
     }
     return 0;
 }
@@ -103,68 +92,13 @@ void analyze_command() {
 
     } else if (current_command == "rotate" ||
                current_command == "r") {
-        if (level.get_cell(cursor_position) == Move) {
+        level[cursor_position]->rotateRight();
 
-            auto dir = ((move_cell *) &level.get_cell(cursor_position))->getMoveDirection();
+    } else if (current_command == "quit" ||
+               current_command == "q") {
+        close_admin = true;
 
-            switch (dir) {
-                case left:
-                    ((move_cell *) &level.get_cell(cursor_position))->setMoveDirection(up);
-                    break;
-                case right:
-                    ((move_cell *) &level.get_cell(cursor_position))->setMoveDirection(down);
-                    break;
-                case down:
-                    ((move_cell *) &level.get_cell(cursor_position))->setMoveDirection(left);
-                    break;
-                case up:
-                    ((move_cell *) &level.get_cell(cursor_position))->setMoveDirection(right);
-                    break;
-
-            }
-
-        } else if (level.get_cell(cursor_position) == Spawn) {
-            auto dir = ((spawn_cell *) &level.get_cell(cursor_position))->getSpawnDirection();
-            switch (dir) {
-                case left:
-                    ((spawn_cell *) &level.get_cell(cursor_position))->setSpawnDirection(up);
-                    break;
-                case right:
-                    ((spawn_cell *) &level.get_cell(cursor_position))->setSpawnDirection(down);
-                    break;
-                case down:
-                    ((spawn_cell *) &level.get_cell(cursor_position))->setSpawnDirection(left);
-                    break;
-                case up:
-                    ((spawn_cell *) &level.get_cell(cursor_position))->setSpawnDirection(right);
-                    break;
-            }
-
-        } else if (level.get_cell(cursor_position) == Turn) {
-            auto dir = ((turn_cell *) &level.get_cell(cursor_position))->getTurnDirection();
-            switch (dir) {
-                case left:
-                    ((turn_cell *) &level.get_cell(cursor_position))->setTurnDirection(up);
-                    break;
-                case right:
-                    ((turn_cell *) &level.get_cell(cursor_position))->setTurnDirection(down);
-                    break;
-                case down:
-                    ((turn_cell *) &level.get_cell(cursor_position))->setTurnDirection(left);
-                    break;
-                case up:
-                    ((turn_cell *) &level.get_cell(cursor_position))->setTurnDirection(right);
-                    break;
-            }
-
-        }
-
-    }
-    else if(current_command == "quit"||
-            current_command == "q"  ) {
-                    close_admin = true;
-
-    }else
+    } else
         ERROR("unknown command");
 
 }
@@ -245,7 +179,7 @@ void cell_picker() {
         std::wcout << cc(yellow, black) << "kills> " << cc(light_yellow);
         std::cin >> kills;
 
-        level.set_cell(cursor_position, new kill_cell(kills));
+        level.set_cell(cursor_position, new kill_cell());
 
 
     } else if (current_command == "move" ||

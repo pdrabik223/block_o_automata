@@ -39,7 +39,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const spawn_cell &ref);
 
-
+    void rotateRight() noexcept override;
 
 protected:
 
