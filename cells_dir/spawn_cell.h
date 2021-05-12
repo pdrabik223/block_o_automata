@@ -13,7 +13,6 @@ public:
 
     spawn_cell( );
 
-    spawn_cell(int lives,  direction spawnDirection);
 
     spawn_cell( direction spawnDirection);
 
@@ -40,19 +39,14 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const spawn_cell &ref);
 
-    friend std::istream &operator>>(std::istream &in,  spawn_cell &ref);
 
-    unsigned int getLives() const;
-
-    void setLives(unsigned int lives);
 
 protected:
-    /// how many more cells can be spawned
-    unsigned lives;
+
     /// the place where cell be spawned
     direction spawn_direction;
 
-    type cell_type = t_spawn;
+  const   type cell_type = Spawn;
 };
 
 

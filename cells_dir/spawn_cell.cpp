@@ -10,18 +10,14 @@
 #include "turn_cell.h"
 
 spawn_cell::spawn_cell() : cell(true, true),
-                           lives(-1),
+
                            spawn_direction(left){}
 
 
 
-spawn_cell::spawn_cell(int lives, direction spawnDirection) : cell(true, true),
-                                                                 lives(lives),
-                                                                 spawn_direction(spawnDirection) {}
-
 
 spawn_cell::spawn_cell(direction spawnDirection) : cell(true, true),
-                                                   lives(-1),
+
                                                    spawn_direction(spawnDirection) {
 
 }
@@ -46,45 +42,43 @@ void spawn_cell::show_in_console_unicode() {
 
 void
 spawn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
-    if (*plane[curr_pos.go(spawn_direction, w)] != t_empty)
+    if (*plane[curr_pos.go(spawn_direction, w)] != Empty)
         plane[curr_pos.go(spawn_direction, w)]->
                 move(plane, destination, spawn_direction, curr_pos.go(spawn_direction), w);
 
-    if (*destination[curr_pos.go(spawn_direction, w)] == t_empty &&
-        *destination[curr_pos.reverse(spawn_direction, w)] != t_empty) {
+    if (*destination[curr_pos.go(spawn_direction, w)] == Empty &&
+        *destination[curr_pos.reverse(spawn_direction, w)] != Empty) {
 
         cell *cell_ptr = plane[curr_pos.reverse(spawn_direction, w)];
 
         switch (cell_ptr->getCellType()) {
-            case t_barrier: {
-
+            case Barrier: {
 
                 if ((barrier_cell *) (cell_ptr)->isMovable()) {
                     destination[curr_pos.go(spawn_direction, w)] = new barrier_cell(
                             (barrier_cell *) (cell_ptr)->isMovable());
                 }
-
                 break;
             }
-            case t_goal: {
+            case Goal: {
 
                 destination[curr_pos.go(spawn_direction, w)] = new goal_cell();
                 break;
             }
-            case t_kill: {
+            case Kill: {
 
-                destination[curr_pos.go(spawn_direction, w)] = new kill_cell(((kill_cell *) cell_ptr)->getLives());
+                destination[curr_pos.go(spawn_direction, w)] = new kill_cell();
 
                 break;
             }
-            case t_move: {
+            case Move: {
 
                 destination[curr_pos.go(spawn_direction, w)] = new move_cell(
                         ((move_cell *) cell_ptr)->getMoveDirection());
 
                 break;
             }
-            case t_spawn: {
+            case Spawn: {
 
 
                 destination[curr_pos.go(spawn_direction, w)] = new spawn_cell(
@@ -92,13 +86,12 @@ spawn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos,
 
                 break;
             }
-            case t_turn: {
+            case Turn: {
                 turn_cell temp = *((turn_cell *) cell_ptr);
-                destination[curr_pos.go(spawn_direction, w)] = new turn_cell(
-                        ((turn_cell *) cell_ptr)->getRotationsLeft(), ((turn_cell *) cell_ptr)->getTurnDirection());
+                destination[curr_pos.go(spawn_direction, w)] = new turn_cell(((turn_cell *) cell_ptr)->getTurnDirection());
                 break;
             }
-            case t_empty:
+            case Empty:
                 break;
 
             default:
@@ -116,7 +109,7 @@ spawn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destinat
                  unsigned int w) {
     plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
-    if (*destination[curr_pos.go(move_dir, w)] == t_empty) {
+    if (*destination[curr_pos.go(move_dir, w)] == Empty) {
         // me                                      the one in front
         std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_dir, w)]);
     }
@@ -141,9 +134,7 @@ icon spawn_cell::get_unicode() {
             return {L"\x2B9D ", green};
         case down:
             return {L"\x2B9F ", green};
-
     }
-
 }
 
 direction spawn_cell::getSpawnDirection() const {
@@ -158,34 +149,13 @@ type spawn_cell::getCellType() const {
     return cell_type;
 }
 
-unsigned int spawn_cell::getLives() const {
-    return lives;
-}
-
-void spawn_cell::setLives(unsigned int lives) {
-    spawn_cell::lives = lives;
-}
 
 
 std::ostream &operator<<(std::ostream &out, const spawn_cell &ref) {
     out << ref.getCellType();
     out << " ";
     out << ref.getSpawnDirection();
-    out << " ";
-    out << ref.getLives();
+
     return out;
 }
-
-std::istream &operator>>(std::istream &in, spawn_cell &ref) {
-    int SpawnDirection;
-    in >> SpawnDirection;
-    ref.setSpawnDirection((direction) SpawnDirection);
-    int lives_left;
-    in >> lives_left;
-    ref.setLives(lives_left);
-    return in;
-
-}
-
-
 

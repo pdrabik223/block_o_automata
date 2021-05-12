@@ -206,64 +206,63 @@ void level_info::load(const std::string &path) {
         myfile >> temp_int;
 
         switch ((type) temp_int) {
-            case t_barrier: {
+            case Barrier: {
                 bool is_movable;
                 myfile >> is_movable;
 
                 level.push_back(new barrier_cell(is_movable));
             }
                 break;
-            case t_move: {
+            case Move: {
                 int move_direction;
                 myfile >> move_direction;
-
                 level.push_back(new move_cell((direction) move_direction));
             }
                 break;
-            case t_kill: {
+            case Kill: {
 
                 int lives;
                 myfile >> lives;
-                level.push_back(new kill_cell(lives));
+                level.push_back(new kill_cell());
 
             }
                 break;
-            case t_spawn: {
+            case Spawn: {
 
                 int spawn_direction;
                 myfile >> spawn_direction;
 
                 int lives;
                 myfile >> lives;
-                level.push_back(new spawn_cell(lives, (direction) spawn_direction));
+                level.push_back(new spawn_cell((direction) spawn_direction));
             }
                 break;
-            case t_turn: {
+            case Turn: {
 
                 int turn_direction;
                 myfile >> turn_direction;
 
                 int rotations;
                 myfile >> rotations;
-                level.push_back(new turn_cell(rotations, (direction) rotations));
+                level.push_back(new turn_cell( (direction) rotations));
 
             }
                 break;
-            case t_cell: {
+            case Cell: {
 
                 assert(false);
                 /// here comes exception
 
             }
                 break;
-            case t_empty: {
+            case Empty: {
                 bool locked;
                 myfile >> locked;
                 level.push_back(new empty_cell(locked));
 
             }
                 break;
-            case t_goal: {
+            case Goal: {
 
                 level.push_back(new goal_cell());
 
@@ -308,33 +307,32 @@ void level_info::copy_cell(coord position, cell *target) {
     // todo clone this shit
 
     switch (target->getCellType()) {
-        case t_barrier:
+        case Barrier:
             level[position.x * width + position.y] = new barrier_cell(target->isMovable());
             break;
-        case t_move:
+        case Move:
             level[position.x * width + position.y] =
                     new move_cell(((move_cell *) target)->getMoveDirection());
 
             break;
-        case t_kill:
+        case Kill:
             level[position.x * width + position.y] =
-                    new kill_cell(((kill_cell *) target)->getLives());
+                    new kill_cell();
             break;
-        case t_spawn:
+        case Spawn:
             level[position.x * width + position.y] =
-                    new spawn_cell(((spawn_cell *) target)->getLives(), ((spawn_cell *) target)->getSpawnDirection());
+                    new spawn_cell( ((spawn_cell *) target)->getSpawnDirection());
             break;
-        case t_turn:
-            level[position.x * width + position.y] = new turn_cell(((turn_cell *) target)->getRotationsLeft(),
-                                                                   ((turn_cell *) target)->getTurnDirection());
+        case Turn:
+            level[position.x * width + position.y] = new turn_cell(((turn_cell *) target)->getTurnDirection());
             break;
-        case t_goal:
+        case Goal:
             level[position.x * width + position.y] = new goal_cell();
             break;
-        case t_empty:
+        case Empty:
             level[position.x * width + position.y] = new empty_cell(((empty_cell *) target)->isLocked());
             break;
-        case t_cell:
+        case Cell:
 
         default :
             assert(false);

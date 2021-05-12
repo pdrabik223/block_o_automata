@@ -11,7 +11,7 @@ class turn_cell : public cell{
 public:
 
     turn_cell();
-    turn_cell(unsigned int rotationsLeft, direction turnDirection);
+
 
     turn_cell(direction turnDirection);
 
@@ -36,21 +36,15 @@ public:
 
     void setTurnDirection(direction turnDirection);
 
-    unsigned int getRotationsLeft() const;
-
-    void setRotationsLeft(unsigned int rotationsLeft);
-
     friend std::ostream &operator<<(std::ostream &out, const turn_cell &ref);
 
-    friend std::istream &operator>>(std::istream &in,  turn_cell &ref);
 
 protected:
-    /// how many rotations can cell preform
-    unsigned rotations_left;
+
     /// the direction that incoming cell will leave with
     direction turn_direction;
 
-    type cell_type = t_turn;
+    type cell_type = Turn;
 };
 
 

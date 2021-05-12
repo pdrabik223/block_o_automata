@@ -7,15 +7,13 @@
 
 
 turn_cell::turn_cell(): cell(false, true),
-                        rotations_left(-1),
+
                         turn_direction(left) {}
 
-turn_cell::turn_cell(unsigned int rotationsLeft, direction turnDirection) : cell(false, true),
-                                                                            rotations_left(rotationsLeft),
-                                                                            turn_direction(turnDirection) {}
+
 
 turn_cell::turn_cell(direction turnDirection) : cell(false, true),
-                                                rotations_left(-1),
+
                                                 turn_direction(turnDirection) {}
 
 void turn_cell::show_in_console_unicode() {
@@ -44,12 +42,12 @@ turn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destinati
     plane[curr_pos.go(turn_direction, w)]->move(plane, destination, turn_direction, curr_pos.go(turn_direction), w);
 
 
-    if (*destination[curr_pos.go(turn_direction, w)] == t_empty ||curr_pos.go(turn_direction, w) == curr_pos.reverse(move_dir, w)) {
+    if (*destination[curr_pos.go(turn_direction, w)] == Empty || curr_pos.go(turn_direction, w) == curr_pos.reverse(move_dir, w)) {
 
         // me                                      the one in front
         std::swap(destination[curr_pos.reverse(move_dir, w)], destination[curr_pos.go(turn_direction, w)]);
 
-        if (*destination[curr_pos.go(turn_direction, w)] == t_move)
+        if (*destination[curr_pos.go(turn_direction, w)] == Move)
             destination[curr_pos.go(turn_direction, w)] = new move_cell(turn_direction);
 
     }
@@ -94,33 +92,12 @@ type turn_cell::getCellType() const {
     return cell_type;
 }
 
-unsigned int turn_cell::getRotationsLeft() const {
-    return rotations_left;
-}
-
-void turn_cell::setRotationsLeft(unsigned int rotationsLeft) {
-    rotations_left = rotationsLeft;
-}
 
 std::ostream &operator<<(std::ostream &out, const turn_cell &ref) {
     out << ref.getCellType();
     out << " ";
     out << ref.getTurnDirection();
-    out << " ";
-    out << ref.getRotationsLeft();
+
     return out;
-}
-
-std::istream &operator>>(std::istream &in, turn_cell &ref) {
-
-    int SpawnDirection;
-    in >> SpawnDirection;
-    ref.setTurnDirection((direction) SpawnDirection);
-
-    int rotations_left;
-    in >> rotations_left;
-    ref.setRotationsLeft(rotations_left);
-    return in;
-
 }
 

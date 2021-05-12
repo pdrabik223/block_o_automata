@@ -35,8 +35,12 @@ public:
 
     friend std::istream &operator>>(std::istream &in,  barrier_cell &ref);
 
+
+
+
 protected:
-    type cell_type = t_barrier;
+    const type cell_type = Barrier;
+
 };
 
 

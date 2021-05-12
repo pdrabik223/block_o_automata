@@ -10,7 +10,6 @@
 
 class kill_cell: public cell {
 public:
-    kill_cell( unsigned int lives);
 
     kill_cell();
 
@@ -29,10 +28,6 @@ public:
 
     type getCellType() const override;
 
-    unsigned int getLives() const;
-
-    void setLives(unsigned int lives);
-
     bool operator!=(const type &rhs) const override;
 
     friend std::ostream &operator<<(std::ostream &out, const kill_cell &ref);
@@ -40,10 +35,8 @@ public:
     friend std::istream &operator>>(std::istream &in,  kill_cell &ref);
 
 protected:
-    /// how many hits cells an take
-    unsigned int lives;
 
-    type cell_type = t_kill;
+  const   type cell_type = Kill;
 };
 
 

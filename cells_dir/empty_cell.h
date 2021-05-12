@@ -40,7 +40,7 @@ public:
 protected:
     /// can player put cells in place this one
     bool locked;
-    type cell_type = t_empty;
+    const  type cell_type = Empty;
 };
 
 

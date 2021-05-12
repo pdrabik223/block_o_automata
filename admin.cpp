@@ -103,7 +103,7 @@ void analyze_command() {
 
     } else if (current_command == "rotate" ||
                current_command == "r") {
-        if (level.get_cell(cursor_position) == t_move) {
+        if (level.get_cell(cursor_position) == Move) {
 
             auto dir = ((move_cell *) &level.get_cell(cursor_position))->getMoveDirection();
 
@@ -123,7 +123,7 @@ void analyze_command() {
 
             }
 
-        } else if (level.get_cell(cursor_position) == t_spawn) {
+        } else if (level.get_cell(cursor_position) == Spawn) {
             auto dir = ((spawn_cell *) &level.get_cell(cursor_position))->getSpawnDirection();
             switch (dir) {
                 case left:
@@ -140,7 +140,7 @@ void analyze_command() {
                     break;
             }
 
-        } else if (level.get_cell(cursor_position) == t_turn) {
+        } else if (level.get_cell(cursor_position) == Turn) {
             auto dir = ((turn_cell *) &level.get_cell(cursor_position))->getTurnDirection();
             switch (dir) {
                 case left:
@@ -206,7 +206,7 @@ void cell_picker() {
     std::cin >> current_command;
 
 
-    if (current_command == "barrier" ||
+    if (current_command == "Barrier" ||
         current_command == "b") {
 
         std::wcout << cc(yellow, black) << "movable> " << cc(light_yellow);

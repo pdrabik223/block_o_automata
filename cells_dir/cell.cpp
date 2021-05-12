@@ -4,13 +4,11 @@
 
 #include "cell.h"
 
-cell::cell(bool movable, bool killable) : movable(movable), killable(killable), local_creation_time(creation_order) {
-    ++creation_order;
+cell::cell(bool movable, bool killable) : movable(movable), killable(killable) {
+
 }
 
-cell::cell(): movable(true), killable(true), local_creation_time(creation_order) {
-    ++creation_order;
-}
+cell::cell(): movable(true), killable(true) {}
 
 bool cell::isMovable() const {
     return movable;

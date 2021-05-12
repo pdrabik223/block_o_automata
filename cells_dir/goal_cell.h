@@ -33,7 +33,7 @@ public:
     friend std::istream &operator>>(std::istream &in,  goal_cell &ref);
 
 protected:
-    type cell_type = t_goal;
+    const type cell_type = Goal;
 };
 
 

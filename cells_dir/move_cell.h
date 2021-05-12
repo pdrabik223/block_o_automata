@@ -37,15 +37,14 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const move_cell &ref);
 
-    friend std::istream &operator>>(std::istream &in,  move_cell &ref);
+
 
 
 protected:
     direction move_direction;
 
-    type cell_type = t_move;
+  const   type cell_type = Move;
 
-    bool has_been_moved = false;
 };
 
 

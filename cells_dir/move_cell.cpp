@@ -35,17 +35,15 @@ void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
         plane[curr_pos.go(move_direction, w)]->move(plane, destination, move_direction,
                                                     curr_pos.go(move_direction), w);
 
-        if (*plane[curr_pos.go(move_direction, w)] == t_empty) {
+        if (*plane[curr_pos.go(move_direction, w)] == Empty) {
             // me                                      the one in front
             std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
         }
 
 
-    if (*plane[curr_pos.go(move_direction, w)] == t_empty) {
+    if (*plane[curr_pos.go(move_direction, w)] == Empty) {
         // me                                      the one in front
-        cell temp = *destination[curr_pos.go(move_direction, w)];
-        *destination[curr_pos.go(move_direction, w)] = *destination[curr_pos.toUint(w)];
-        *destination[curr_pos.toUint(w)] = temp;
+        std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
 
     }
 
@@ -61,12 +59,10 @@ move_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destinati
     plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
 
-    if (*destination[curr_pos.go(move_dir, w)] == t_empty) {
+    if (*destination[curr_pos.go(move_dir, w)] == Empty) {
         // me                                      the one in front
 
-        cell temp = *destination[curr_pos.go(move_dir, w)];
-        *destination[curr_pos.go(move_dir, w)] = *destination[curr_pos.toUint(w)];
-        *destination[curr_pos.toUint(w)] = temp;
+        std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
 
     }
 
@@ -121,12 +117,5 @@ std::ostream &operator<<(std::ostream &out, const move_cell &ref) {
 
 }
 
-std::istream &operator>>(std::istream &in, move_cell &ref) {
-    int moveDirection;
-    in>>moveDirection;
-
-    ref.setMoveDirection((direction) moveDirection);
-    return in;
-}
 
 

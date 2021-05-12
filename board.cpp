@@ -43,7 +43,7 @@ void board::iterate() {
 
 void board::lock_cells() {
     for (int i = 0; i < level.size(); i++) {
-        if (*level[i] == t_empty)
+        if (*level[i] == Empty)
             level[i] = new empty_cell(true);
 
     }
@@ -52,14 +52,14 @@ void board::lock_cells() {
 
 bool board::goal_cells_left() {
     for (int i = 0; i < level.size(); i++) {
-        if (*level[i] == t_goal) return true;
+        if (*level[i] == Goal) return true;
     }
     return false;
 }
 
 bool board::kill_cells_left() {
     for (int i = 0; i < level.size(); i++) {
-        if (*level[i] == t_kill) return true;
+        if (*level[i] == Kill) return true;
     }
     return false;
 }

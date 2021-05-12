@@ -20,7 +20,7 @@ void
 empty_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
                  unsigned int w) {
 
-    if (*plane[curr_pos.go(move_dir, w)] == t_empty) {
+    if (*plane[curr_pos.go(move_dir, w)] == Empty) {
         // me                                      the one in front
         std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_dir, w)]);
     }

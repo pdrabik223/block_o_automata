@@ -107,7 +107,7 @@ int analyze_movement(char key, level_info &level) {
             break;
         case 'r':
             // todo rotate right
-            if (level.get_cell(cursor_position) == t_move) {
+            if (level.get_cell(cursor_position) == Move) {
 
                 auto dir = ((move_cell *) &level.get_cell(cursor_position))->getMoveDirection();
 
@@ -127,7 +127,7 @@ int analyze_movement(char key, level_info &level) {
 
                 }
 
-            } else if (level.get_cell(cursor_position) == t_spawn) {
+            } else if (level.get_cell(cursor_position) == Spawn) {
                 auto dir = ((spawn_cell *) &level.get_cell(cursor_position))->getSpawnDirection();
                 switch (dir) {
                     case left:
@@ -144,7 +144,7 @@ int analyze_movement(char key, level_info &level) {
                         break;
                 }
 
-            } else if (level.get_cell(cursor_position) == t_turn) {
+            } else if (level.get_cell(cursor_position) == Turn) {
                 auto dir = ((turn_cell *) &level.get_cell(cursor_position))->getTurnDirection();
                 switch (dir) {
                     case left:
@@ -165,10 +165,10 @@ int analyze_movement(char key, level_info &level) {
 
             break;
         case 't':
-            if (level.get_cell(cursor_position) == t_barrier) {
+            if (level.get_cell(cursor_position) == Barrier) {
                 auto dir = ((barrier_cell *) &level.get_cell(cursor_position));
                 dir->setMovable(!dir->isMovable());
-            } else if (level.get_cell(cursor_position) == t_empty) {
+            } else if (level.get_cell(cursor_position) == Empty) {
                 auto dir = ((empty_cell *) &level.get_cell(cursor_position));
                 dir->setLocked(!dir->isLocked());
             }

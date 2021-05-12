@@ -64,7 +64,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const cell &ref){return out;};
 
-    friend std::istream &operator>>(std::istream &in, cell &ref){return in;};
+
 
 
 protected:
@@ -73,9 +73,8 @@ protected:
     /// can this cell be killed
     bool killable;
 
-    unsigned local_creation_time;
 
-    type cell_type = t_cell;
+    const type cell_type = Cell;
 
 };
 

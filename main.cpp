@@ -72,7 +72,7 @@ int main() {
     level[{5, 8}] = new turn_cell(down);
 
     level[{0, 7}] = new barrier_cell(true);
-    level[{1, 7}] = new spawn_cell(false, down);
+    level[{1, 7}] = new spawn_cell( down);
 
     level[{1, 1}] = new turn_cell(right);
 
@@ -104,6 +104,7 @@ int main() {
     
     first.show_level_win_console();
     first.lock_cells();
+
     char k;
     int frame_counter = 0;
 
