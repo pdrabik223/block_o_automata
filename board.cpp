@@ -57,13 +57,15 @@ bool board::goal_cells_left() {
     return false;
 }
 
-bool board::kill_cells_left() {
-    for (int i = 0; i < level.size(); i++) {
-        if (*level[i] == Kill) return true;
-    }
-    return false;
-}
+
 
 board::board(level_info &played_level) {
 level = played_level;
+}
+
+bool board::put_piece(coord position, cell *target) {
+    if ( *level[position] != Empty) return false;
+    if(((empty_cell*)level[position])->isLocked()) return false;
+    level[position] = target;
+    return true;
 }

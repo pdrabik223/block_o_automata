@@ -77,9 +77,9 @@ public:
     }
 
 
-    void set_cell(coord position, cell* target);
+    void set_cell(coord position, cell *target);
 
-    void copy_cell(coord position, cell* target);
+    void copy_cell(coord position, cell *target);
 
     /// \return reference to a chosen cell in level
     /// \param w of a chosen cell
@@ -104,6 +104,8 @@ public:
 
     const std::vector<cell *> &getLevel() const;
 
+
+
     std::string level_name;
     std::string author;
     difficulty level_difficulty;
@@ -115,13 +117,15 @@ public:
     unsigned max_piece_cost;
     bool max_piece_cost_beaten;
     game_goal goal_of_the_level;
+    std::array<int, 5> number_of_pawns;
+
+//    std::array<std::pair<coord, cell *>, 3> players_saves;
 
 protected:
 
     unsigned width;
     unsigned height;
 
-    std::array<int, 5> number_of_pawns;
     std::vector<cell *> level;
 
 

@@ -33,6 +33,13 @@ public:
     /// \return true if there is at least one kill_cell left on level
     bool kill_cells_left();
 
+    /// safely ( only on allowed squares ) places target cell
+    ///
+    /// \param position position in level that target will replace
+    /// \param target will be in place after replacement
+    /// \return true if placement succeeded<br> false if not
+    bool put_piece(coord position, cell *target);
+
 private:
     unsigned transform(unsigned int height, unsigned int width);
 

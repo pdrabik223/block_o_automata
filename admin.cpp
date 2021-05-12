@@ -57,7 +57,7 @@ void controlled_view(level_info &level) {
         }
         std::wcout << "\n";
     }
-    std::wcout << "\n\n";
+    std::wcout << "\n";
 }
 
 void analyze_command() {
