@@ -32,8 +32,6 @@ typedef std::vector<level_info> levelvec;
 
 #include <conio.h>
 
-
-
 std::string ui(std::string &directory_path);
 
 void load_levels(stringvec &file_paths, levelvec &levels, std::string& directory_path);

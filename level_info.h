@@ -116,7 +116,8 @@ public:
 
     unsigned max_piece_cost;
     bool max_piece_cost_beaten;
-    game_goal goal_of_the_level;
+    game_goal goal_of_the_level = collect_all_goals;
+
     std::array<int, 5> number_of_pawns;
 
 //    std::array<std::pair<coord, cell *>, 3> players_saves;
