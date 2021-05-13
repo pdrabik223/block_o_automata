@@ -101,7 +101,6 @@ player_action level_play::analyze_movement(char key) {
             (*level)[cursor_position]->rotateRight();
 
             break;
-
         case '1':
             current_block = 0;
             break;

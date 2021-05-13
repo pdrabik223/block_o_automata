@@ -10,8 +10,6 @@
 #include <fcntl.h>
 #include <io.h>
 #include <stdio.h> /// for unicode purposes
-
-
 #include <iostream>
 #pragma once
 
