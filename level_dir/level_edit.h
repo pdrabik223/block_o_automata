@@ -13,7 +13,7 @@
 
 #define ERROR(x) std::wcout << cc(red, black) << "\n error, "<<x<< cc(white, black)<<std::endl
 namespace le {
-    enum player_choice {
+    enum action {
         nothing,
         quit_edit,
         run_simulation,
@@ -29,7 +29,7 @@ namespace le {
 
         void controlled_view();
 
-        player_choice analyze_movement(char key);
+        action analyze_movement(char key);
 
         int run_sim();
 

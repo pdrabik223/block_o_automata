@@ -4,6 +4,7 @@
 
 #include "level_edit.h"
 using namespace le;
+
 void level_edit::controlled_view() {
 
     for (int i = 0; i < level.getHeight(); i++) {
@@ -29,7 +30,7 @@ void level_edit::controlled_view() {
 }
 
 
-player_choice level_edit::analyze_movement(char key) {
+action level_edit::analyze_movement(char key) {
     switch (key) {
         case 'a':
             cursor_position.y--;
@@ -118,13 +119,13 @@ int level_edit::run_sim() {
 
 void level_edit::set_additional_info() {
 
-    std::cout << "\nlevel name :";
+    std::wcout << "\nlevel name :";
     std::cin >> level.level_name;
 
-    std::cout << "\nauthor :";
+    std::wcout << "\nauthor :";
     std::cin >> level.author;
 
-    std::cout << "\nset level difficulty 1-4 : ";
+    std::wcout << "\nset level difficulty 1-4 : ";
     int temp;
     std::cin >> temp;
 
@@ -133,23 +134,23 @@ void level_edit::set_additional_info() {
 
     level.level_difficulty = (difficulty) temp;
 
-    std::cout << "\nmax iterations  :";
+    std::wcout << "\nmax iterations  :";
     std::cin >> temp;
 
     if (temp >= 999) temp = 999;
     if (temp < 0) temp = 0;
     level.max_iteration = temp;
 
-    std::cout << "\nmax piece cost  :";
+    std::wcout << "\nmax piece cost  :";
     std::cin >> temp;
 
     if (temp >= 999) temp = 999;
     if (temp < 0) temp = 0;
     level.max_piece_cost = temp;
 
-    std::cout << "\n max number of pawns that user has at his disposal :";
+    std::wcout << "\n max number of pawns that user has at his disposal :\n";
     for (int i = 0; i < level.number_of_pawns.size(); i++) {
-        std::cout << "\nmax piece cost  :";
+        std::wcout << "max piece cost  :";
         std::cin >> temp;
 
         if (temp >= 999) temp = 999;
@@ -157,27 +158,29 @@ void level_edit::set_additional_info() {
 
         level.number_of_pawns[i] = temp;
     }
-    std::cout << "changes saved";
+    std::wcout << "changes saved";
 
 }
 
 
 void level_edit::main_loop() {
-    std::cout << "welcome to level_editor\n";
-//    std::cout << "specify size of your level: \n";
-//    std::cout << "height: ";
-//    unsigned height;
-//    std::cin >> height;
-//    std::cout << "width: ";
-//    unsigned width;
-//    std::cin >> width;
+    system("cls");
 
-//    level.resize(height, width);
+    std::cout << "welcome to level_editor\n";
+    std::cout << "specify size of your level: \n";
+    std::cout << "height: ";
+    unsigned height;
+    std::cin >> height;
+    std::cout << "width: ";
+    unsigned width;
+    std::cin >> width;
+
+    level.resize(height, width);
 
     _setmode(_fileno(stdout), _O_U16TEXT);
 
     char key_pressed = 0;
-    player_choice operation;
+    action operation;
 
     while (2 > 1) {
         system("cls");
@@ -187,6 +190,7 @@ void level_edit::main_loop() {
         key_pressed = getch();
 
         operation = analyze_movement(key_pressed);
+
         if (operation == quit_edit) break;
         if (operation == run_simulation) run_sim();
         if (operation == set_info) set_additional_info();

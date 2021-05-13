@@ -28,20 +28,12 @@
 /// \return current date in form of a string
 std::string current_date();
 
-enum game_goal {
-
-    collect_all_goals,
-    kill_all_enemies
-
-};
 enum difficulty {
     not_specified,
     easy,
     medium,
     hard,
     insane
-
-
 };
 
 //  todo strong and safe copy constructor
@@ -54,12 +46,13 @@ public:
     /// \return string containing basic info about level
     std::wstring get_info();
 
+
     /// \brief constructor is simple
     ///  all of the fields will be accessed by set adn get functions
     level_info(unsigned int width, unsigned int height);
 
     /// \brief no param constructor
-    ///     level will be as default as it gets
+    /// level will be as default as it gets
     level_info();
 
     /// \return resizes field without losing data
@@ -101,9 +94,7 @@ public:
 
     unsigned int getHeight() const;
 
-
     const std::vector<cell *> &getLevel() const;
-
 
 
     std::string level_name;
@@ -116,7 +107,8 @@ public:
 
     unsigned max_piece_cost;
     bool max_piece_cost_beaten;
-    game_goal goal_of_the_level = collect_all_goals;
+
+
 
     std::array<int, 5> number_of_pawns;
 

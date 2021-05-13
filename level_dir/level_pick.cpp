@@ -8,8 +8,6 @@ action level_pick::select_level() {
 
     stringvec v;
     levelvec l;
-    if(directory_path.back()!= '\\')
-        directory_path.append("\\\\");
 
     std::string path;
 
@@ -99,7 +97,6 @@ std::string level_pick::ui() {
 
             case 'e':
             case 13:
-
                 if (i < v.size())
                     return v[i];
                 else return "creator";
@@ -129,8 +126,6 @@ void read_directory(const std::string &name, stringvec &v) {
 }
 
 void load_levels(stringvec &file_paths, levelvec &levels, std::string &directory_path) {
-
-
 
     for (auto i:file_paths) {
         levels.push_back(level_info());

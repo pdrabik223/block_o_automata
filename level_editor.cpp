@@ -9,7 +9,7 @@
 int main() {
 
     le::level_edit edit;
-  edit.main_loop();
+    edit.main_loop();
 
     return 0;
 }

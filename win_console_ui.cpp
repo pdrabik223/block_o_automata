@@ -25,7 +25,7 @@ int main() {
             while (2 > 1) {
 
                 lp::level_play game(played_level);
-                game.main_loop();
+                if(game.main_loop() == lp::quit_game ) return 0;
 
             }
 

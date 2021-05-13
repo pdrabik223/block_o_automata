@@ -21,7 +21,7 @@ namespace lp {
     public:
         level_play(level_info &level) : level(&level) {}
 
-        void main_loop();
+        player_action main_loop();
 
         void controlled_view();
 

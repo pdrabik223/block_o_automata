@@ -7,7 +7,7 @@
 #include "level_play.h"
 #include "../board.h"
 using namespace lp;
-void level_play::main_loop() {
+player_action level_play::main_loop() {
     _setmode(_fileno(stdout), _O_U16TEXT);
 
     char key_pressed = 0;
@@ -21,7 +21,7 @@ void level_play::main_loop() {
         key_pressed = getch();
 
         operation = analyze_movement(key_pressed);
-        if (operation == quit_game) break;
+        if (operation == quit_game) return quit_game;
         if (operation == run_simulation) run_sim();
 
     }
@@ -33,6 +33,7 @@ void level_play::controlled_view() {
     for (int i = 0; i < level->getHeight(); i++) {
         for (int j = 0; j < level->getWidth(); j++) {
             color text_color = level->get_cell(i, j).get_unicode().icon_color;
+
             color background_color = black;
 
             if (cursor_position == coord(i, j))
@@ -46,6 +47,7 @@ void level_play::controlled_view() {
     for (unsigned i = 0; i < all_blocks.size(); i++) {
         if (i == current_block)std::wcout << cc(all_blocks[i]->get_unicode().icon_color, light_yellow);
         else std::wcout << cc(all_blocks[i]->get_unicode().icon_color, black);
+
         std::wcout << "  " << all_blocks[i]->get_unicode().image;
         std::wcout << cc(white, black);
     }
@@ -71,7 +73,8 @@ int level_play::run_sim() {
 
 }
 
-player_action level_play::analyze_movement(char key) {  switch (key) {
+player_action level_play::analyze_movement(char key) {
+    switch (key) {
         case 'a':
             cursor_position.y--;
             break;

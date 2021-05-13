@@ -57,16 +57,14 @@ level_info::level_info(unsigned int width, unsigned int height) : width(width), 
     level_beaten = false;
 
     max_iteration = 0;
-    max_iteration_beaten = 0;
+    max_iteration_beaten = false;
 
     max_piece_cost = 0;
-    max_piece_cost_beaten = 0;
-
-    goal_of_the_level = collect_all_goals;
+    max_piece_cost_beaten = false;
 
     number_of_pawns = {999, 999, 999, 999, 999};
 
-    for (int i = 0; i < width * height; i++) {
+    for (int i = 0; i < width * height; ++i) {
 
         if (i % width == 0 ||
             i / width == 0 ||
@@ -81,20 +79,21 @@ level_info::level_info(unsigned int width, unsigned int height) : width(width), 
 
 void level_info::resize(unsigned int new_width, unsigned int new_height) {
     std::vector<cell *> level_copy = level;
-    unsigned level_copy_elem = 0;
+    unsigned i = 0;
     level.clear();
 
     for (int x = 0; x < new_height; x++) {
         for (int y = 0; y < new_width; y++) {
             if (x < width && y < height) {
 
-                level.push_back(level_copy[level_copy_elem]);
-                ++level_copy_elem;
-            }
-            level.push_back(new empty_cell(true));
+                level.push_back(level_copy[i]);
+                ++i;
+
+            }else level.push_back(new empty_cell(true));
 
         }
     }
+
     width = new_width;
     height = new_height;
 }
@@ -112,12 +111,12 @@ level_info::level_info() {
     max_piece_cost = 0;
     max_piece_cost_beaten = false;
 
-    goal_of_the_level = collect_all_goals;
 
     number_of_pawns = {999, 999, 999, 999, 999};
 
     width = 1;
     height = 1;
+
     for (int i = 0; i < width * height; i++)
         level.push_back(new empty_cell(false));
 
@@ -126,7 +125,8 @@ level_info::level_info() {
 void level_info::save() {
 
     std::ofstream myfile;
-    std::string date = level_name.erase(0, 11);
+
+    std::string date = current_date().erase(0, 11);
     for (char &i:date)
         if (i == ':') i = '_';
 
@@ -148,7 +148,6 @@ void level_info::save() {
     myfile << max_piece_cost << "\n";
     myfile << max_piece_cost_beaten << "\n";
 
-    myfile << goal_of_the_level << "\n";
 
     for (int number_of_pawn : number_of_pawns)
         myfile << number_of_pawn << " ";
@@ -157,7 +156,7 @@ void level_info::save() {
     myfile << width << "\n";
     myfile << height << "\n";
 
-    for (auto &i : level) {
+    for (cell* &i : level) {
         myfile << *i << " ";
 
     }
@@ -168,13 +167,16 @@ void level_info::load(const std::string &path) {
     std::ifstream myfile;
     myfile.open(path);
     std::string file_header;
+
     if (!myfile.is_open()) std::cout << "\nfile is fucked ";
+
     // myfile>>file_header;
 //    if(file_header != "boa1"){
 //        myfile.close();
 //        delete this;
 //        return;
 //    }
+
     myfile >> level_name; // every field is separated by new line
 
     myfile >> author;
@@ -190,8 +192,6 @@ void level_info::load(const std::string &path) {
     myfile >> max_piece_cost;
     myfile >> max_piece_cost_beaten;
 
-    myfile >> temp_int;
-    goal_of_the_level = (game_goal) temp_int;
 
     for (int &number : number_of_pawns)
         myfile >> number;
@@ -200,13 +200,14 @@ void level_info::load(const std::string &path) {
     myfile >> height;
 
 
-    type cell_type;
+
     for (int i = 0; i < width * height; ++i) {
 
         myfile >> temp_int;
 
         switch ((type) temp_int) {
             case Barrier: {
+
                 bool is_movable;
                 myfile >> is_movable;
 
@@ -214,15 +215,15 @@ void level_info::load(const std::string &path) {
             }
                 break;
             case Move: {
+
                 int move_direction;
                 myfile >> move_direction;
+
                 level.push_back(new move_cell((direction) move_direction));
             }
                 break;
             case Kill: {
 
-                int lives;
-                myfile >> lives;
                 level.push_back(new kill_cell());
 
             }
@@ -232,8 +233,6 @@ void level_info::load(const std::string &path) {
                 int spawn_direction;
                 myfile >> spawn_direction;
 
-                int lives;
-                myfile >> lives;
                 level.push_back(new spawn_cell((direction) spawn_direction));
             }
                 break;
@@ -242,30 +241,23 @@ void level_info::load(const std::string &path) {
                 int turn_direction;
                 myfile >> turn_direction;
 
-                int rotations;
-                myfile >> rotations;
-                level.push_back(new turn_cell( (direction) rotations));
+                level.push_back(new turn_cell((direction) turn_direction));
 
-            }
-                break;
-            case Cell: {
-
-                assert(false);
-                /// here comes exception
-
-            }
-                break;
+            }break;
             case Empty: {
                 bool locked;
                 myfile >> locked;
                 level.push_back(new empty_cell(locked));
 
-            }
-                break;
+            }break;
             case Goal: {
 
                 level.push_back(new goal_cell());
 
+            }break;
+            case Cell: {
+                assert(false);
+                /// here comes exception
             }
                 break;
             default:
@@ -321,7 +313,7 @@ void level_info::copy_cell(coord position, cell *target) {
             break;
         case Spawn:
             level[position.x * width + position.y] =
-                    new spawn_cell( ((spawn_cell *) target)->getSpawnDirection());
+                    new spawn_cell(((spawn_cell *) target)->getSpawnDirection());
             break;
         case Turn:
             level[position.x * width + position.y] = new turn_cell(((turn_cell *) target)->getTurnDirection());

@@ -16,7 +16,6 @@ enum type {
     Kill,
     Spawn,
     Turn,
-
     Goal,
     Cell,
     Empty
