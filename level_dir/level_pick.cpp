@@ -3,53 +3,30 @@
 //
 
 #include "level_pick.h"
-
-action select_level(level_info &level) {
+using namespace lc;
+action level_pick::select_level() {
 
     stringvec v;
     levelvec l;
-    std::string directory_path = "C:\\Users\\pc\\Documents\\block_o_automata\\levels";
+    if(directory_path.back()!= '\\')
+        directory_path.append("\\\\");
 
-    directory_path.append("\\\\");
     std::string path;
 
-    path = ui(directory_path);
+    path = ui();
 
     if (path == "quit") return quit_game;
     else if(path == "creator") return enter_editor;
 
-    level.load(directory_path + path);
+    level->load(directory_path + path);
 
     return play_level;
 }
 
-void read_directory(const std::string &name, stringvec &v) {
-    std::string pattern(name);
-    pattern.append("\\*.txt");
-    WIN32_FIND_DATA data;
-    HANDLE hFind;
-    if ((hFind = FindFirstFile(pattern.c_str(), &data)) != INVALID_HANDLE_VALUE) {
-
-        do {
-            v.push_back(data.cFileName);
-        } while (FindNextFile(hFind, &data) != 0);
-        FindClose(hFind);
-
-    }
-}
-
-void load_levels(stringvec &file_paths, levelvec &levels, std::string &directory_path) {
-
-    directory_path.append("\\\\");
-
-    for (auto i:file_paths) {
-        levels.push_back(level_info());
-        levels.back().load(directory_path + i);
-    }
-}
 
 
-std::string ui(std::string &directory_path) {
+
+std::string level_pick::ui() {
 
     levelvec levels;
     stringvec v;
@@ -122,10 +99,9 @@ std::string ui(std::string &directory_path) {
 
             case 'e':
             case 13:
-                std::cout << "size " << v.size();
+
                 if (i < v.size())
                     return v[i];
-
                 else return "creator";
             default:
                 break;
@@ -133,4 +109,31 @@ std::string ui(std::string &directory_path) {
 
     }
 
+}
+
+
+
+void read_directory(const std::string &name, stringvec &v) {
+    std::string pattern(name);
+    pattern.append("*.txt");
+    WIN32_FIND_DATA data;
+    HANDLE hFind;
+    if ((hFind = FindFirstFile(pattern.c_str(), &data)) != INVALID_HANDLE_VALUE) {
+
+        do {
+            v.push_back(data.cFileName);
+        } while (FindNextFile(hFind, &data) != 0);
+        FindClose(hFind);
+
+    }
+}
+
+void load_levels(stringvec &file_paths, levelvec &levels, std::string &directory_path) {
+
+
+
+    for (auto i:file_paths) {
+        levels.push_back(level_info());
+        levels.back().load(directory_path + i);
+    }
 }

@@ -5,46 +5,37 @@
 #include <thread>
 
 #include "board.h"
-#include "level_pick.h"
-
-
+#include "level_dir/level_pick.h"
+#include "level_dir/level_edit.h"
+#include "level_dir/level_play.h"
 
 
 int main() {
-    action player_choice = play_level;
+    lc::action player_choice = lc::play_level;
 
 
     while (2 > 1) {
 
-
         level_info played_level;
-        player_choice = select_level(level);
+        lc::level_pick chose_for_directory(played_level);
+        player_choice = chose_for_directory.select_level();
 
-        if (player_choice == play_level) {
+        if (player_choice == lc::play_level) {
 
             while (2 > 1) {
 
-                win_console_ui(level);
-
-                while (2 > 1) {
-                    board game(played_level);
-                    game.iterate();
-                    if (!game.goal_cells_left()) break;
-                    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-                    system("cls");
-                    game.show_level_win_console();
-                }
+                lp::level_play game(played_level);
+                game.main_loop();
 
             }
 
         }
-        if (player_choice == enter_editor)
-            win_console_editor();
+        if (player_choice == lc::enter_editor) {
+            le::level_edit edytor;
+            edytor.main_loop();
+        }
 
-
-
-        if (player_choice == quit_game) break;
+        if (player_choice == lc::quit_game) break;
 
 
     }

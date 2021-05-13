@@ -6,7 +6,7 @@
 #define BLOCK_O_AUTOMATA_COORD_H
 
 #include <cassert>
-#include "windows_console_tools/win_colors.h"
+#include "../windows_console_tools/win_colors.h"
 
 /// type of the cell, used to identify cell by it's role
 enum type {

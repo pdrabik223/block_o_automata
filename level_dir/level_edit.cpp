@@ -3,7 +3,7 @@
 //
 
 #include "level_edit.h"
-
+using namespace le;
 void level_edit::controlled_view() {
 
     for (int i = 0; i < level.getHeight(); i++) {

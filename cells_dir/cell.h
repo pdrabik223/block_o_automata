@@ -11,7 +11,7 @@
 
 #include "../windows_console_tools/win_colors.h"
 
-#include "../cell_tools.h"
+#include "cell_tools.h"
 
 
 //todo copy constructor

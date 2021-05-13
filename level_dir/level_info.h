@@ -7,13 +7,13 @@
 
 // todo figure out if we should move all level creation stuff to this class and in board use level as level
 //
-#include "cells_dir/empty_cell.h"
-#include "cells_dir/barrier_cell.h"
-#include "cells_dir/move_cell.h"
-#include "cells_dir/kill_cell.h"
-#include "cells_dir/spawn_cell.h"
-#include "cells_dir/turn_cell.h"
-#include "cells_dir/goal_cell.h"
+#include "../cells_dir/empty_cell.h"
+#include "../cells_dir/barrier_cell.h"
+#include "../cells_dir/move_cell.h"
+#include "../cells_dir/kill_cell.h"
+#include "../cells_dir/spawn_cell.h"
+#include "../cells_dir/turn_cell.h"
+#include "../cells_dir/goal_cell.h"
 
 #include <fstream>
 

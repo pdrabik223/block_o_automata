@@ -5,7 +5,7 @@
 #ifndef BLOCK_O_AUTOMATA_BOARD_H
 #define BLOCK_O_AUTOMATA_BOARD_H
 
-#include "level_info.h"
+#include "level_dir/level_info.h"
 
 #include <vector>
 #include <iostream>

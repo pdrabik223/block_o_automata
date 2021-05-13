@@ -2,13 +2,13 @@
 // Created by pc on 12.05.2021.
 //
 
-#include "level_edit.h"
+#include "level_dir/level_edit.h"
 
 
 
 int main() {
 
-  level_edit edit;
+    le::level_edit edit;
   edit.main_loop();
 
     return 0;
