@@ -41,14 +41,6 @@ void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
         }
 
 
-    if (*plane[curr_pos.go(move_direction, w)] == Empty) {
-        // me                                      the one in front
-        std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
-
-    }
-
-
-   // has_been_moved = false;
 
 }
 
