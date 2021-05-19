@@ -29,25 +29,31 @@ set(ENGINE
         board.h
         board.cpp
         )
-add_executable(block_o_automata main.cpp
+add_executable(block_o_automata executables/main.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}
         ${ENGINE})
 
-add_executable(admin admin.cpp
+add_executable(admin executables/admin.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}
         ${ENGINE})
 
-add_executable(level_edit level_editor.cpp
+add_executable(level_edit executables/level_editor.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}
         ${ENGINE})
 
-add_executable(level_pick level_picker.cpp
+add_executable(level_pick executables/level_picker.cpp
+        ${CELL}
+        ${LEVEL}
+        ${WIN_COL_TOOLS}
+        ${ENGINE}
+        )
+add_executable(level_play executables/level_player.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}

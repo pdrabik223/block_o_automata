@@ -13,7 +13,7 @@
 
 #define ERROR(x) std::wcout << cc(red, black) << "\n error, "<<x<< cc(white, black)<<std::endl
 namespace le {
-    enum action {
+    enum player_action {
         nothing,
         quit_edit,
         run_simulation,
@@ -21,15 +21,15 @@ namespace le {
 
     };
 
-    class level_edit {
+    class level_edit: public level_info {
     public:
-        level_edit() : level(10, 10) {}
+        level_edit() : level_info(10, 10) {}
 
         void main_loop();
 
         void controlled_view();
 
-        action analyze_movement(char key);
+        player_action analyze_movement(char key);
 
         int run_sim();
 
@@ -39,8 +39,6 @@ namespace le {
 
         int current_block = 0;
 
-        level_info level;
-
         coord cursor_position = {0, 0};
 
         std::array<cell *, 6> all_blocks = {new barrier_cell(),
@@ -49,7 +47,6 @@ namespace le {
                                             new turn_cell(),
                                             new spawn_cell(),
                                             new goal_cell()};
-
 
     };
 }

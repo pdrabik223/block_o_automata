@@ -3,34 +3,82 @@
 //
 
 #include "level_edit.h"
+
 using namespace le;
 
 void level_edit::controlled_view() {
 
-    for (int i = 0; i < level.getHeight(); i++) {
-        for (int j = 0; j < level.getWidth(); j++) {
-            color text_color = level.get_cell(i, j).get_unicode().icon_color;
+    for (int i = 0; i <= getHeight()+1; i++) {
+
+        if(i < getHeight()) {
+            for (int j = 0; j < getWidth(); j++) {
+
+                color text_color = get_cell(i, j).get_unicode().icon_color;
+                color background_color = black;
+
+                if (cursor_position == coord(i, j))
+                    background_color = light_aqua;
+                std::wcout << cc(text_color, background_color) << get_cell(i, j).get_unicode().image;
+
+            }
+        }else {
+            color text_color = yellow;
             color background_color = black;
+            {
+                if (cursor_position.y == getWidth()) background_color = light_aqua;
 
-            if (cursor_position == coord(i, j))
-                background_color = light_aqua;
-            std::wcout << cc(text_color, background_color) << level.get_cell(i, j).get_unicode().image;
+                if (i % getHeight() == getHeight() / 2) std::wcout << cc(text_color, background_color) << "-";
+                else std::wcout << cc(text_color, background_color) << " ";
+            }
+            {
+                if (cursor_position.y == getWidth() + 1) background_color = light_aqua;
+
+                if (i % getHeight() == getHeight() / 2) std::wcout << cc(text_color, background_color) << "+";
+                else std::wcout << cc(text_color, background_color) << "  ";
 
 
+            }
         }
-        std::wcout << "\n";
+
+        std::wcout <<cc(white,black)<< "\n";
     }
+
+    for (unsigned i = 0; i < all_blocks.size(); i++) {
+
+        color text_color = yellow;
+        color background_color = black;
+        if (cursor_position.y == getWidth()) background_color = light_aqua;
+
+        if (i % getWidth() == getWidth() / 2) std::wcout << cc(text_color, background_color) << "-\n";
+        else std::wcout << cc(text_color, background_color) << "  ";
+
+    }
+
+    for (unsigned i = 0; i < all_blocks.size(); i++) {
+
+        color text_color = yellow;
+        color background_color = black;
+        if (cursor_position.y == getWidth()) background_color = light_aqua;
+
+        if (i % getWidth() == getWidth() / 2) std::wcout << cc(text_color, background_color) << "+\n";
+        else std::wcout << cc(text_color, background_color) << "  ";
+
+    }
+
+
     for (unsigned i = 0; i < all_blocks.size(); i++) {
         if (i == current_block)std::wcout << cc(all_blocks[i]->get_unicode().icon_color, light_yellow);
         else std::wcout << cc(all_blocks[i]->get_unicode().icon_color, black);
         std::wcout << "  " << all_blocks[i]->get_unicode().image;
         std::wcout << cc(white, black);
     }
+
+
     std::wcout << "\n";
 }
 
 
-action level_edit::analyze_movement(char key) {
+player_action level_edit::analyze_movement(char key) {
     switch (key) {
         case 'a':
             cursor_position.y--;
@@ -52,19 +100,19 @@ action level_edit::analyze_movement(char key) {
             return set_info;
         case 13:
             // set pawn in place
-            level.copy_cell(cursor_position, all_blocks[current_block]);
+            copy_cell(cursor_position, all_blocks[current_block]);
             break;
         case 'r':
 
-            level[cursor_position]->rotateRight();
+            level[cursor_position.toUint(getWidth())]->rotateRight();
 
             break;
         case 't':
-            if (level.get_cell(cursor_position) == Barrier) {
-                auto dir = ((barrier_cell *) &level.get_cell(cursor_position));
+            if (get_cell(cursor_position) == Barrier) {
+                auto dir = ((barrier_cell *) &get_cell(cursor_position));
                 dir->setMovable(!dir->isMovable());
-            } else if (level.get_cell(cursor_position) == Empty) {
-                auto dir = ((empty_cell *) &level.get_cell(cursor_position));
+            } else if (get_cell(cursor_position) == Empty) {
+                auto dir = ((empty_cell *) &get_cell(cursor_position));
                 dir->setLocked(!dir->isLocked());
             }
             break;
@@ -94,21 +142,21 @@ action level_edit::analyze_movement(char key) {
 
 
     }
-    if (cursor_position.y >= level.getWidth()) cursor_position.y = 0;
-    if (cursor_position.x >= level.getHeight()) cursor_position.x = 0;
+    if (cursor_position.y >= getWidth()) cursor_position.y = 0;
+    if (cursor_position.x >= getHeight()) cursor_position.x = 0;
 
-    if (cursor_position.y < 0) cursor_position.y = level.getWidth() - 1;
-    if (cursor_position.x < 0) cursor_position.x = level.getHeight() - 1;
+    if (cursor_position.y < 0) cursor_position.y = getWidth() - 1;
+    if (cursor_position.x < 0) cursor_position.x = getHeight() - 1;
     return nothing;
 }
 
 int level_edit::run_sim() {
 
-    board game(level);
+    board game(*this);
     while (2 > 1) {
 
         game.iterate();
-        if (!game.goal_cells_left()) return 1;
+       // if (!game.goal_cells_left()) return 1;
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         system("cls");
         game.show_level_win_console();
@@ -120,10 +168,10 @@ int level_edit::run_sim() {
 void level_edit::set_additional_info() {
 
     std::wcout << "\nlevel name :";
-    std::cin >> level.level_name;
+    std::cin >> level_name;
 
     std::wcout << "\nauthor :";
-    std::cin >> level.author;
+    std::cin >> author;
 
     std::wcout << "\nset level difficulty 1-4 : ";
     int temp;
@@ -132,31 +180,31 @@ void level_edit::set_additional_info() {
     if (temp >= 4) temp = 3;
     if (temp < 0) temp = 0;
 
-    level.level_difficulty = (difficulty) temp;
+    level_difficulty = (difficulty) temp;
 
     std::wcout << "\nmax iterations  :";
     std::cin >> temp;
 
     if (temp >= 999) temp = 999;
     if (temp < 0) temp = 0;
-    level.max_iteration = temp;
+    max_iteration = temp;
 
     std::wcout << "\nmax piece cost  :";
     std::cin >> temp;
 
     if (temp >= 999) temp = 999;
     if (temp < 0) temp = 0;
-    level.max_piece_cost = temp;
+    max_piece_cost = temp;
 
     std::wcout << "\n max number of pawns that user has at his disposal :\n";
-    for (int i = 0; i < level.number_of_pawns.size(); i++) {
+    for (int i = 0; i < number_of_pawns.size(); i++) {
         std::wcout << "max piece cost  :";
         std::cin >> temp;
 
         if (temp >= 999) temp = 999;
         if (temp < 0) temp = 0;
 
-        level.number_of_pawns[i] = temp;
+        number_of_pawns[i] = temp;
     }
     std::wcout << "changes saved";
 
@@ -167,20 +215,11 @@ void level_edit::main_loop() {
     system("cls");
 
     std::cout << "welcome to level_editor\n";
-    std::cout << "specify size of your level: \n";
-    std::cout << "height: ";
-    unsigned height;
-    std::cin >> height;
-    std::cout << "width: ";
-    unsigned width;
-    std::cin >> width;
-
-    level.resize(height, width);
 
     _setmode(_fileno(stdout), _O_U16TEXT);
 
     char key_pressed = 0;
-    action operation;
+    player_action operation;
 
     while (2 > 1) {
         system("cls");
@@ -194,7 +233,8 @@ void level_edit::main_loop() {
         if (operation == quit_edit) break;
         if (operation == run_simulation) run_sim();
         if (operation == set_info) set_additional_info();
+
     }
 
-    level.save();
+    save();
 }

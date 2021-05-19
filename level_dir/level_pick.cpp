@@ -4,7 +4,7 @@
 
 #include "level_pick.h"
 using namespace lc;
-action level_pick::select_level() {
+player_action level_pick::select_level() {
 
     stringvec v;
     levelvec l;
@@ -16,7 +16,7 @@ action level_pick::select_level() {
     if (path == "quit") return quit_game;
     else if(path == "creator") return enter_editor;
 
-    level->load(directory_path + path);
+    load(directory_path + path);
 
     return play_level;
 }
@@ -108,6 +108,9 @@ std::string level_pick::ui() {
 
 }
 
+level_info level_pick::get_level() {
+    return level_info(*this);
+}
 
 
 void read_directory(const std::string &name, stringvec &v) {

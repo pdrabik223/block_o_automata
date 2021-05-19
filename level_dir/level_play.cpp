@@ -30,15 +30,15 @@ player_action level_play::main_loop() {
 
 void level_play::controlled_view() {
 
-    for (int i = 0; i < level->getHeight(); i++) {
-        for (int j = 0; j < level->getWidth(); j++) {
-            color text_color = level->get_cell(i, j).get_unicode().icon_color;
+    for (int i = 0; i < getHeight(); i++) {
+        for (int j = 0; j < getWidth(); j++) {
+            color text_color = get_cell(i, j).get_unicode().icon_color;
 
             color background_color = black;
 
             if (cursor_position == coord(i, j))
                 background_color = light_aqua;
-            std::wcout << cc(text_color, background_color) << level->get_cell(i, j).get_unicode().image;
+            std::wcout << cc(text_color, background_color) << get_cell(i, j).get_unicode().image;
 
 
         }
@@ -58,7 +58,7 @@ void level_play::controlled_view() {
 int level_play::run_sim() {
 
 
-    board game(*level);
+    board game(*this);
     while (2 > 1) {
 
         game.iterate();
@@ -94,11 +94,11 @@ player_action level_play::analyze_movement(char key) {
 
         case 13:
             // set pawn in place
-            level->set_cell(cursor_position, all_blocks[current_block]);
+            set_cell(cursor_position, all_blocks[current_block]);
             break;
         case 'r':
 
-            (*level)[cursor_position]->rotateRight();
+            operator[](cursor_position)->rotateRight();
 
             break;
         case '1':
@@ -126,10 +126,10 @@ player_action level_play::analyze_movement(char key) {
 
 
     }
-    if (cursor_position.y >= level->getWidth()) cursor_position.y = 0;
-    if (cursor_position.x >= level->getHeight()) cursor_position.x = 0;
+    if (cursor_position.y >= getWidth()) cursor_position.y = 0;
+    if (cursor_position.x >= getHeight()) cursor_position.x = 0;
 
-    if (cursor_position.y < 0) cursor_position.y = level->getWidth() - 1;
-    if (cursor_position.x < 0) cursor_position.x = level->getHeight() - 1;
+    if (cursor_position.y < 0) cursor_position.y = getWidth() - 1;
+    if (cursor_position.x < 0) cursor_position.x = getHeight() - 1;
     return nothing;
 }

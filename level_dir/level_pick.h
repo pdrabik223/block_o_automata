@@ -30,28 +30,28 @@ void load_levels(stringvec &file_paths, levelvec &levels, std::string &directory
 
 
 namespace lc {
-    enum action {
+    enum player_action {
         play_level,
         enter_editor,
         quit_game
     };
 
 
-
-    class level_pick {
+    class level_pick : public level_info {
     public:
 
-        level_pick(level_info &level) {
-            this->level = &level;
-        }
+        level_pick():level_info(){}
 
-        action select_level();
+        player_action select_level();
+        level_info get_level();
+
 
     private :
+
         std::string ui();
 
         std::string directory_path = "C:\\Users\\pc\\Documents\\block_o_automata\\levels\\";
-        level_info *level;
+
     };
 
 }

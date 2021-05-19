@@ -17,9 +17,12 @@ namespace lp {
 
     };
 
-    class level_play {
+    class level_play:public level_info {
     public:
-        level_play(level_info &level) : level(&level) {}
+        level_play() : level_info() {}
+
+        level_play(const level_info& other) : level_info(other) {}
+
 
         player_action main_loop();
 
@@ -30,7 +33,6 @@ namespace lp {
         int run_sim();
 
     private:
-        level_info *level;
 
         int current_block = 0;
 
