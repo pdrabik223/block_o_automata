@@ -24,7 +24,7 @@ namespace lp {
 
         player_action main_loop();
 
-        void controlled_view();
+        virtual void controlled_view();
 
         virtual int run_sim();
 

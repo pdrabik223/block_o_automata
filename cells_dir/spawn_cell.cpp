@@ -112,6 +112,8 @@ icon spawn_cell::get_unicode() {
             return {L"\x2B9D ", green};
         case down:
             return {L"\x2B9F ", green};
+        default:
+            return icon();
     }
 }
 

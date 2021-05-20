@@ -55,7 +55,7 @@ unsigned coord::reverse(direction dir, unsigned int w) const {
 
         default:
             assert(false);
-            break;
+            return -1;
 
     }
 }
@@ -81,8 +81,7 @@ unsigned coord::go(direction dir, unsigned int w) const {
 
         default:
             assert(false);
-            break;
-
+            return -1;
     }
 }
 
@@ -104,7 +103,8 @@ coord coord::reverse(direction dir) const {
 
         default:
             assert(false);
-            break;
+            return {(unsigned)-1,(unsigned)-1};
+
     }
 }
 
@@ -126,7 +126,8 @@ coord coord::go(direction dir) const {
 
         default:
             assert(false);
-            break;
+            return {(unsigned)-1,(unsigned)-1};
+
     }
 }
 

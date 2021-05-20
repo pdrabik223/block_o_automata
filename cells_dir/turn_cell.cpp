@@ -59,6 +59,8 @@ icon turn_cell::get_unicode() {
 
         case down :
             return {L"\x2B9F ", blue};
+        default:
+            return icon();
     }
 
 }

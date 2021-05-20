@@ -32,7 +32,12 @@ enum direction {
     up,
     down
 };
-struct icon{
+
+struct icon {
+    icon() {
+        image = L"error";
+        icon_color = red;
+    }
 
     icon(const std::wstring &image, color iconColor) : image(image), icon_color(iconColor) {}
 
@@ -44,7 +49,6 @@ struct icon{
 
 /// coord is a public class that handles movement and positioning on the grid
 class coord {
-
 
 public:
     coord(unsigned int x, unsigned int y) : x(x), y(y) {}

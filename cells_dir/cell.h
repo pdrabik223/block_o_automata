@@ -40,7 +40,7 @@ public:
 
     virtual icon get_unicode() {
         assert(false);
-        return {L"  ", black};
+        return icon();
     };
 
 

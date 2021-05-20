@@ -69,7 +69,8 @@ icon move_cell::get_unicode() {
 
         case down:
             return {L"\x2B9F ", yellow};
-
+        default:
+            return icon();
 
     }
 
