@@ -8,7 +8,14 @@
 
 namespace win_console {
 class edit :public le::level_edit{
+public:
+    virtual void controlled_view();
 
+    virtual void run_sim();
+
+    void set_additional_info() override;
+
+    virtual unsigned char get_key();
     };
 }
 

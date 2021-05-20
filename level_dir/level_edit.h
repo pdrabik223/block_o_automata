@@ -32,7 +32,7 @@ namespace le {
     //  it would eliminate one of the virtual functions
     //  it is hard tho because we limit ourselves if we do
     //  and i dont want to be limited
-        virtual void controlled_view();
+        virtual void controlled_view(){};
 
         virtual void run_sim();
 
@@ -40,7 +40,7 @@ namespace le {
 
         virtual unsigned char get_key();
 
-    private:
+    protected:
 
         int current_block = 0;
 
