@@ -32,13 +32,15 @@ namespace le {
     //  it would eliminate one of the virtual functions
     //  it is hard tho because we limit ourselves if we do
     //  and i dont want to be limited
-        virtual void controlled_view(){};
+        virtual void controlled_view(){assert(false);};
 
-        virtual void run_sim();
+        virtual void run_sim(){assert(false);};
 
-        virtual void set_additional_info();
+        virtual void set_additional_info(){assert(false);};
 
-        virtual unsigned char get_key();
+        virtual unsigned char get_key(){
+            assert(false);
+            return -1;};
 
     protected:
 

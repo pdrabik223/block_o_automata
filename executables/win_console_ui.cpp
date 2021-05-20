@@ -3,10 +3,13 @@
 //
 
 #include <thread>
+#include <windows_console/edit.h>
+#include <windows_console/pick.h>
+#include <windows_console/play.h>
 
 #include "board.h"
 #include "level_dir/level_pick.h"
-#include "level_dir/level_edit.h"
+
 #include "level_dir/level_play.h"
 
 
@@ -17,7 +20,7 @@ int main() {
     while (2 > 1) {
 
         level_info played_level;
-        lc::level_pick chose_for_directory;
+        win_console::pick chose_for_directory;
 
         player_choice = chose_for_directory.select_level();
         played_level = chose_for_directory.get_level();
@@ -27,23 +30,22 @@ int main() {
 
             while (2 > 1) {
 
-                lp::level_play game(played_level);
+                win_console::play game(played_level);
+
+                game.main_loop();
                 if (game.main_loop() == lp::quit_game) return 0;
-
             }
-
         }
+
         if (player_choice == lc::enter_editor) {
 
-            le::level_edit editor;
+            win_console::edit editor;
             editor.main_loop();
         }
 
         if (player_choice == lc::quit_game) break;
 
-
     }
-
 
     return 0;
 }
