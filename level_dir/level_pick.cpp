@@ -8,7 +8,7 @@ using namespace lc;
 
 player_action level_pick::select_level() {
 
-    player_action command= ui();
+    player_action command = ui();
 
     if (command == quit_game) return quit_game;
     else if (command == enter_editor) return enter_editor;
@@ -27,14 +27,13 @@ player_action level_pick::ui() {
 
     load_levels(loaded_levels, levels, directory_path);
 
-
-    char k;
+    unsigned char k;
 
     while (2 > 1) {
 
         display_ui();
 
-        k = getch();
+        k = get_key();
 
 
         switch (k) {
@@ -43,7 +42,6 @@ player_action level_pick::ui() {
                 if (cursor_position < 0)
                     cursor_position = levels.size(); // keep cursor_position in (range of vector +1)
                 break;
-
 
             case 's':
                 ++cursor_position;
@@ -116,6 +114,10 @@ void level_pick::display_ui() {
         std::wcout << cc(yellow, black) << "create level...";
         std::cout << cc(white, black);
     }
+}
+
+unsigned char level_pick::get_key() {
+    return getch();
 }
 
 

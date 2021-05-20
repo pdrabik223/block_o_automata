@@ -48,6 +48,8 @@ namespace lc {
 
         void display_ui();
 
+        unsigned char get_key();
+
     private :
         /// player ui, it needs to be done better
         /// \return  path to chosen folder
