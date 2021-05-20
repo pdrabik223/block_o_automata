@@ -7,10 +7,6 @@
 
 kill_cell::kill_cell() : cell(false, true){}
 
-void kill_cell::show_in_console_unicode() {
-    std::wcout<<cc(red)<<L"\x2716 ";
-}
-
 void kill_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
 
 }

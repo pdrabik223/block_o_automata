@@ -7,10 +7,6 @@
 
 goal_cell::goal_cell() : cell(false, true) {}
 
-void goal_cell::show_in_console_unicode() {
-    std::wcout<<cc(purple)<<L"\x2B24 ";
-}
-
 void goal_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
 }
 

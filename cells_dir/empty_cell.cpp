@@ -8,11 +8,6 @@ empty_cell::empty_cell(): cell(false, true), locked(true){};
 
 empty_cell::empty_cell(bool locked) : cell(false, true), locked(locked) {}
 
-void empty_cell::show_in_console_unicode() {
-    if (locked)std::wcout << "  ";
-    else std::wcout << cc(gray) << L"\x2022 ";
-}
-
 void
 empty_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {}
 

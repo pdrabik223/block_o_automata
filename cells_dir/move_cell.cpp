@@ -10,24 +10,6 @@ move_cell::move_cell() : cell(true, true),
 
 move_cell::move_cell(direction moveDirection) : cell(true, true),
                                                 move_direction(moveDirection) {}
-///
-void move_cell::show_in_console_unicode() {
-    switch (move_direction) {
-
-        case left:
-            std::wcout << cc(yellow) << L"\x2B9C ";
-            break;
-        case right :
-            std::wcout << cc(yellow) << L"\x2B9E ";
-            break;
-        case up:
-            std::wcout << cc(yellow) << L"\x2B9D ";
-            break;
-        case down:
-            std::wcout << cc(yellow) << L"\x2B9F ";
-            break;
-    }
-}
 
 void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
 

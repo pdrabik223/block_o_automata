@@ -9,12 +9,6 @@ barrier_cell::barrier_cell() :cell(false,false){}
 
 barrier_cell::barrier_cell(bool movable) : cell(movable, false) {}
 
-void barrier_cell::show_in_console_unicode() {
-    if (movable) std::wcout << cc(gray) << L"\x25A2 ";
-    else std::wcout << cc(gray) << L"\x25A3 ";
-
-}
-
 void barrier_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
     return;
 }

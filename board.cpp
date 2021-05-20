@@ -4,7 +4,6 @@
 
 #include "board.h"
 
-
 void board::iterate() {
 
     std::vector<cell *> level_copy;
@@ -32,7 +31,6 @@ void board::lock_cells() {
     }
 }
 
-
 bool board::goal_cells_left() {
     for (int i = 0; i < level.size(); i++) {
         if (*level[i] == Goal) return true;
@@ -53,5 +51,3 @@ icon board::get_cell_icon(coord position) {
 unsigned int board::get_counter() const {
     return counter;
 }
-
-

@@ -14,8 +14,6 @@ public:
 
     move_cell(direction moveDirection);
 
-    void show_in_console_unicode() override;
-
     move_cell &operator=(const move_cell &other) = default;
 
     icon get_unicode() override;

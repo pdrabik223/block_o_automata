@@ -16,23 +16,6 @@ turn_cell::turn_cell(direction turnDirection) : cell(false, true),
 
                                                 turn_direction(turnDirection) {}
 
-void turn_cell::show_in_console_unicode() {
-    switch (turn_direction) {
-        case left:
-            std::wcout << cc(blue) << L"\x2B9C ";
-            break;
-        case right:
-            std::wcout << cc(blue) << L"\x2B9E ";
-            break;
-        case up:
-            std::wcout << cc(blue) << L"\x2B9D ";
-            break;
-        case down :
-            std::wcout << cc(blue) << L"\x2B9F ";
-            break;
-    }
-}
-
 void turn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {}
 
 void

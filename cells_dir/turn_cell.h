@@ -15,8 +15,6 @@ public:
 
     turn_cell(direction turnDirection);
 
-    void show_in_console_unicode() override;
-
     turn_cell &operator=(const turn_cell &other) = default;
 
     void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,

@@ -13,8 +13,6 @@ public:
 
     kill_cell();
 
-    void show_in_console_unicode() override;
-
     kill_cell &operator=(const kill_cell &other) = default;
 
     void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,

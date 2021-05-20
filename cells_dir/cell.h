@@ -38,8 +38,6 @@ public:
 
     bool isKillable() const;
 
-    virtual void show_in_console_unicode() { assert(false); };
-
     virtual icon get_unicode() {
         assert(false);
         return {L"  ", black};

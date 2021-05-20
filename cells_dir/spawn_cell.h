@@ -18,8 +18,6 @@ public:
 
     spawn_cell &operator=(const spawn_cell &other) = default;
 
-    void show_in_console_unicode() override;
-
     icon get_unicode() override;
 
     void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;

@@ -13,8 +13,6 @@ public:
     barrier_cell();
     barrier_cell(bool movable);
 
-    void show_in_console_unicode() override;
-
     type getCellType() const override;
 
     icon get_unicode() override;

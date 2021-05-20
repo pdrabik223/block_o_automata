@@ -11,8 +11,6 @@ class goal_cell : public cell {
 public:
     goal_cell();
 
-    void show_in_console_unicode() override;
-
     goal_cell &operator=(const goal_cell &other) = default;
 
     void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination);

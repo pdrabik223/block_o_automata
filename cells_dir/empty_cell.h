@@ -14,8 +14,6 @@ public:
 
     type getCellType() const override;
 
-    void show_in_console_unicode() override;
-
     empty_cell &operator=(const empty_cell &other)  = default;
 
     void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;

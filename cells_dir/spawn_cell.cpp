@@ -17,23 +17,6 @@ spawn_cell::spawn_cell(direction spawnDirection) : cell(true, true),
                                                    spawn_direction(spawnDirection) {}
 
 
-void spawn_cell::show_in_console_unicode() {
-    switch (spawn_direction) {
-        case left:
-            std::wcout << cc(green) << L"\x2B9C ";
-            break;
-        case right:
-            std::wcout << cc(green) << L"\x2B9E ";
-            break;
-        case up:
-            std::wcout << cc(green) << L"\x2B9D ";
-            break;
-        case down :
-            std::wcout << cc(green) << L"\x2B9F ";
-            break;
-    }
-}
-
 void
 spawn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
     if (*plane[curr_pos.go(spawn_direction, w)] != Empty)
