@@ -3,103 +3,72 @@
 //
 
 #include "level_pick.h"
+
 using namespace lc;
+
 player_action level_pick::select_level() {
 
-    stringvec v;
-    levelvec l;
+    player_action command= ui();
 
-    std::string path;
+    if (command == quit_game) return quit_game;
+    else if (command == enter_editor) return enter_editor;
 
-    path = ui();
-
-    if (path == "quit") return quit_game;
-    else if(path == "creator") return enter_editor;
-
-    load(directory_path + path);
+    load(directory_path + loaded_levels[cursor_position]);
 
     return play_level;
 }
 
 
-
-
-std::string level_pick::ui() {
+player_action level_pick::ui() {
 
     levelvec levels;
-    stringvec v;
 
-    read_directory(directory_path, v);
+    read_directory(directory_path, loaded_levels);
 
-    load_levels(v, levels, directory_path);
+    load_levels(loaded_levels, levels, directory_path);
 
-    int i = 0;
 
     char k;
 
     while (2 > 1) {
-        system("cls");
-        std::cout << std::endl;
-        int j = 0;
-        for (; j < levels.size(); j++) {
 
-            if (i == j) {
-                std::cout << cc(red, gray) << " " << j << ".   ";
-                std::wcout << cc(yellow, gray) << levels[j].get_info();
-                std::cout << cc(white, black);
-            } else {
-                std::cout << cc(red, black) << j << ".   ";
-                std::wcout << cc(yellow, black) << levels[j].get_info();
-                std::cout << cc(white, black);
-            }
-        }
-
-        if (i == levels.size()) {
-
-            std::cout << cc(red, gray) << " " << j << ".   ";
-            std::wcout << cc(yellow, gray) << "create level...";
-            std::cout << cc(white, black);
-
-        } else {
-
-            std::cout << cc(red, black) << j << ".   ";
-            std::wcout << cc(yellow, black) << "create level...";
-            std::cout << cc(white, black);
-        }
+        display_ui();
 
         k = getch();
 
+
         switch (k) {
             case 'w':
-                --i;
-                if (i < 0) i = levels.size(); // keep i in (range of vector +1)
+                --cursor_position;
+                if (cursor_position < 0)
+                    cursor_position = levels.size(); // keep cursor_position in (range of vector +1)
                 break;
 
 
             case 's':
-                ++i;
-                if (i > levels.size()) i = 0;
+                ++cursor_position;
+                if (cursor_position > levels.size()) cursor_position = 0;
 
                 break;
             case 'r':
 
                 levels.clear();
-                v.clear();
+                loaded_levels.clear();
 
-                read_directory(directory_path, v);
+                read_directory(directory_path, loaded_levels);
 
-                load_levels(v, levels, directory_path);
+                load_levels(loaded_levels, levels, directory_path);
                 break;
 
             case 'q':
             case 27:
-                return "quit";
+                return quit_game;
 
             case 'e':
             case 13:
-                if (i < v.size())
-                    return v[i];
-                else return "creator";
+                if (cursor_position < loaded_levels.size())
+                    return play_level;
+                else return enter_editor;
             default:
                 break;
         }
@@ -110,6 +79,43 @@ std::string level_pick::ui() {
 
 level_info level_pick::get_level() {
     return level_info(*this);
+}
+
+void level_pick::display_ui() {
+
+    levelvec levels;
+    load_levels(loaded_levels, levels, directory_path);
+
+    system("cls");
+    std::cout << std::endl;
+
+    int j;
+    j = 0;
+    for (; j < levels.size(); j++) {
+
+        if (cursor_position == j) {
+            std::cout << cc(red, gray) << " " << j << ".   ";
+            std::wcout << cc(yellow, gray) << levels[j].get_info();
+            std::cout << cc(white, black);
+        } else {
+            std::cout << cc(red, black) << j << ".   ";
+            std::wcout << cc(yellow, black) << levels[j].get_info();
+            std::cout << cc(white, black);
+        }
+    }
+
+    if (cursor_position == levels.size()) {
+
+        std::cout << cc(red, gray) << " " << j << ".   ";
+        std::wcout << cc(yellow, gray) << "create level...";
+        std::cout << cc(white, black);
+
+    } else {
+
+        std::cout << cc(red, black) << j << ".   ";
+        std::wcout << cc(yellow, black) << "create level...";
+        std::cout << cc(white, black);
+    }
 }
 
 

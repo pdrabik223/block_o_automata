@@ -9,20 +9,9 @@
 #include "board.h"
 
 /// the plan
-/// todo requ move move
-/// todo testing place <- it's like this admin file
+
 /// todo make special class for displaying stuff
 /// todo create whole game sequence:
-/// - info screen
-/// - chose level screen
-///     -https://stackoverflow.com/questions/612097/how-can-i-get-the-list-of-files-in-a-directory-using-c-or-c
-/// - play level screen
-/// - get input
-/// -main game loop
-/// - update best time and best blocks cost
-/// - level creator
-/// - save level in place
-/// - info about challenges and stuff
 #include <thread>
 #include <chrono>
 

@@ -40,17 +40,26 @@ namespace lc {
     class level_pick : public level_info {
     public:
 
-        level_pick():level_info(){}
+        level_pick() : level_info() {}
 
         player_action select_level();
+
         level_info get_level();
 
+        void display_ui();
 
     private :
+        /// player ui, it needs to be done better
+        /// \return  path to chosen folder
+        ///  or command to enter edit mode
+        ///  or command to quit game
+        player_action ui();
 
-        std::string ui();
+        unsigned cursor_position = 0;
 
-        std::string directory_path = "C:\\Users\\pc\\Documents\\block_o_automata\\levels\\";
+        std::string directory_path = "../\\levels";
+        stringvec loaded_levels = {};
+
 
     };
 

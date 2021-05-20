@@ -89,7 +89,7 @@ void level_info::resize(unsigned int new_width, unsigned int new_height) {
                 level.push_back(level_copy[i]);
                 ++i;
 
-            }else level.push_back(new empty_cell(true));
+            } else level.push_back(new empty_cell(true));
 
         }
     }
@@ -100,7 +100,7 @@ void level_info::resize(unsigned int new_width, unsigned int new_height) {
 
 level_info::level_info() {
 
-    level_name = current_date();
+    level_name = "noname";
     author = "noname";
     level_difficulty = not_specified;
     level_beaten = false;
@@ -125,18 +125,23 @@ level_info::level_info() {
 void level_info::save() {
 
     std::ofstream myfile;
+    std::string file_path;
 
-    std::string date = current_date().erase(0, 11);
-    for (char &i:date)
-        if (i == ':') i = '_';
+    if (level_name == "noname") {
+        std::string date = current_date().erase(0, 11);
+        for (char &i:date)
+            if (i == ':') i = '_';
+        file_path = "../\\levels" + date + ".txt";
+        level_name = "noname" + date;
 
-    std::string file_path = "C:\\Users\\pc\\Documents\\block_o_automata\\levels\\" + date + ".txt";
+    } else
+        file_path = "../\\levels" + level_name + ".txt";
 
 
     myfile.open(file_path);
     if (!myfile.is_open()) std::cout << "\nfile is fucked ";
 
-//    myfile << "boa1\n"; // to identify correct file
+
     myfile << level_name << "\n"; // every field is separated by new line
     myfile << author << "\n";
     myfile << level_difficulty << "\n";
@@ -156,7 +161,7 @@ void level_info::save() {
     myfile << width << "\n";
     myfile << height << "\n";
 
-    for (cell* &i : level) {
+    for (cell *&i : level) {
         myfile << *i << " ";
 
     }
@@ -198,7 +203,6 @@ void level_info::load(const std::string &path) {
 
     myfile >> width;
     myfile >> height;
-
 
 
     for (int i = 0; i < width * height; ++i) {
@@ -243,18 +247,21 @@ void level_info::load(const std::string &path) {
 
                 level.push_back(new turn_cell((direction) turn_direction));
 
-            }break;
+            }
+                break;
             case Empty: {
                 bool locked;
                 myfile >> locked;
                 level.push_back(new empty_cell(locked));
 
-            }break;
+            }
+                break;
             case Goal: {
 
                 level.push_back(new goal_cell());
 
-            }break;
+            }
+                break;
             case Cell: {
                 assert(false);
                 /// here comes exception
