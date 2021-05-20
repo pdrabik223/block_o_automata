@@ -2,14 +2,15 @@
 // Created by studio25 on 20.05.2021.
 //
 
-#include "level_dir/level_play.h"
+#include <windows_console/play.h>
+
 
 level_info dummy_level();
 
 int main() {
     level_info level = dummy_level();
 
-    lp::level_play game(level);
+    win_console::play game(level);
     game.main_loop();
 
     return 0;

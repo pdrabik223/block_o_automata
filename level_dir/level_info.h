@@ -37,8 +37,6 @@ enum difficulty {
 
 //  todo strong and safe copy constructor
 
-
-
 class level_info {
 public:
     /// \brief used to get level-identifying info

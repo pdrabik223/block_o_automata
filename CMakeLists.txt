@@ -29,35 +29,45 @@ set(ENGINE
         board.h
         board.cpp
         )
+set(WINDOWS_CONSOLE
+        windows_console/edit.h windows_console/edit.cpp
+        windows_console/pick.h windows_console/pick.cpp
+        windows_console/play.h windows_console/play.cpp)
+
 add_executable(basic_main executables/main.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}
-        ${ENGINE})
+        ${ENGINE}
+        ${WINDOWS_CONSOLE})
 
 add_executable(admin executables/admin.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}
-        ${ENGINE})
+        ${ENGINE}
+        ${WINDOWS_CONSOLE})
 
 add_executable(level_edit executables/level_editor.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}
-        ${ENGINE})
+        ${ENGINE}
+        ${WINDOWS_CONSOLE})
 
 add_executable(level_pick executables/level_picker.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}
         ${ENGINE}
+        ${WINDOWS_CONSOLE}
         )
 add_executable(level_play executables/level_player.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}
         ${ENGINE}
+        ${WINDOWS_CONSOLE}
         )
 
 
@@ -66,4 +76,5 @@ add_executable(block_o_automata executables/win_console_ui.cpp
         ${LEVEL}
         ${WIN_COL_TOOLS}
         ${ENGINE}
+        ${WINDOWS_CONSOLE}
         )

@@ -24,15 +24,21 @@ namespace lp {
 
         player_action main_loop();
 
-        virtual void controlled_view();
+        player_action analyze_movement(char key);
 
-        virtual int run_sim();
+        virtual void controlled_view(){};
 
-        virtual player_action analyze_movement(char key);
+        virtual int run_sim(){
+            assert(false);
+            return -1;
+        };
 
-        virtual unsigned char get_key();
+        virtual unsigned char get_key(){
+            assert(false);
+            return -1;
+        };
 
-    private:
+    protected:
         int current_block = 0;
 
         coord cursor_position = {0, 0};
