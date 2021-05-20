@@ -15,7 +15,6 @@ namespace lp {
         nothing,
         quit_game,
         run_simulation
-
     };
 
     class level_play : public level_info {
