@@ -10,6 +10,8 @@
 namespace win_console {
     class edit : public le::level_edit {
     public:
+        edit():le::level_edit(){};
+
         void controlled_view() override;
 
         void run_sim() override;

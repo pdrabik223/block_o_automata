@@ -8,16 +8,13 @@
 #include <windows_console/play.h>
 
 #include "board.h"
-#include "level_dir/level_pick.h"
-
-#include "level_dir/level_play.h"
 
 
 int main() {
     lc::player_action player_choice = lc::play_level;
 
 
-    while (2 > 1) {
+    while (1 < 2) {
 
         level_info played_level;
         win_console::pick chose_for_directory;
@@ -28,7 +25,7 @@ int main() {
 
         if (player_choice == lc::play_level) {
 
-            while (2 > 1) {
+            while (1 < 2) {
 
                 win_console::play game(played_level);
 

@@ -5,71 +5,64 @@
 #include "edit.h"
 
 void win_console::edit::controlled_view() {
+    _setmode(_fileno(stdout), _O_U16TEXT);
     system("cls");
-    for (int i = 0; i <= getHeight() + 1; i++) {
+    for (int i = 0; i < getHeight() ; i++) {
+        for (int j = 0; j < getWidth(); j++) {
 
-        if (i < getHeight()) {
-            for (int j = 0; j < getWidth(); j++) {
-
-                color text_color = get_cell(i, j).get_unicode().icon_color;
-                color background_color = black;
-
-                if (cursor_position == coord(i, j))
-                    background_color = light_aqua;
-                std::wcout << cc(text_color, background_color) << get_cell(i, j).get_unicode().image;
-
-            }
-        } else {
-            color text_color = yellow;
+            color text_color = get_cell(i, j).get_unicode().icon_color;
             color background_color = black;
-            {
-                if (cursor_position.y == getWidth()) background_color = light_aqua;
 
-                if (i % getHeight() == getHeight() / 2) std::wcout << cc(text_color, background_color) << "-";
-                else std::wcout << cc(text_color, background_color) << " ";
-            }
-            {
-                if (cursor_position.y == getWidth() + 1) background_color = light_aqua;
+            if (cursor_position == coord(i, j))
+                background_color = light_aqua;
+            std::wcout << cc(text_color, background_color) << get_cell(i, j).get_unicode().image;
 
-                if (i % getHeight() == getHeight() / 2) std::wcout << cc(text_color, background_color) << "+";
-                else std::wcout << cc(text_color, background_color) << "  ";
+        }
 
-            }
+        if (i == -1 + getHeight() / 2) {
+            if (cursor_position.y == getWidth() && cursor_position.x <  getHeight() / 2)
+                std::wcout << cc(yellow, light_aqua) << "- ";
+            else
+                std::wcout << cc(yellow, black) << "- ";
+        }
+        if (i == getHeight() / 2) {
+            if (cursor_position.y == getWidth() && cursor_position.x >= getHeight() / 2)
+                std::wcout << cc(yellow, light_aqua) << "+ ";
+            else
+                std::wcout << cc(yellow, black) << "+ ";
         }
 
         std::wcout << cc(white, black) << "\n";
     }
 
-    for (unsigned i = 0; i < all_blocks.size(); i++) {
 
-        color text_color = yellow;
-        color background_color = black;
-        if (cursor_position.y == getWidth()) background_color = light_aqua;
-
-        if (i % getWidth() == getWidth() / 2) std::wcout << cc(text_color, background_color) << "-\n";
-        else std::wcout << cc(text_color, background_color) << "  ";
-
-    }
-
-    for (unsigned i = 0; i < all_blocks.size(); i++) {
-
-        color text_color = yellow;
-        color background_color = black;
-        if (cursor_position.y == getWidth()) background_color = light_aqua;
-
-        if (i % getWidth() == getWidth() / 2) std::wcout << cc(text_color, background_color) << "+\n";
-        else std::wcout << cc(text_color, background_color) << "  ";
-
+    /// display height controls:
+    /// get me in the middle of displayed plane
+    for (unsigned i = 1; i < getWidth() / 2; i++) {
+        std::wcout << "  ";
     }
 
 
+    if (cursor_position.x == getHeight()) {
+
+        if (cursor_position.y < getWidth() / 2) {
+            std::wcout << cc(yellow, light_aqua) << "- ";
+            std::wcout << cc(yellow, black) << "+ \n";
+        } else {
+            std::wcout << cc(yellow, black) << "- ";
+            std::wcout << cc(yellow, light_aqua) << "+ \n";
+        }
+    } else {
+        std::wcout << cc(yellow, black) << "- +\n";
+    }
+
+    /// display possible blocks
     for (unsigned i = 0; i < all_blocks.size(); i++) {
         if (i == current_block)std::wcout << cc(all_blocks[i]->get_unicode().icon_color, light_yellow);
         else std::wcout << cc(all_blocks[i]->get_unicode().icon_color, black);
         std::wcout << "  " << all_blocks[i]->get_unicode().image;
         std::wcout << cc(white, black);
     }
-
 
     std::wcout << "\n";
 }
@@ -105,7 +98,7 @@ void win_console::edit::run_sim() {
 }
 
 void win_console::edit::set_additional_info() {
-    _setmode(_fileno(stdout), _O_U16TEXT);
+
 
     std::wcout << "\nlevel name :";
     std::cin >> level_name;

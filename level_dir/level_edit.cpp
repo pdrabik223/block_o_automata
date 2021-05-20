@@ -7,7 +7,6 @@
 using namespace le;
 
 
-
 player_action level_edit::analyze_movement(char key) {
     switch (key) {
         case 'a':
@@ -30,12 +29,37 @@ player_action level_edit::analyze_movement(char key) {
             return set_info;
         case 13:
             // set pawn in place
-            copy_cell(cursor_position, all_blocks[current_block]);
+            if (cursor_position.x < getHeight() && cursor_position.y < getWidth())
+                copy_cell(cursor_position, all_blocks[current_block]);
+            else {
+                if (cursor_position.x == getHeight()) {
+                    if (cursor_position.y >= getWidth()) {
+                        resize(getWidth() + 1, getHeight() + 1);
+                        cursor_position.x++;
+                        cursor_position.y++;
+                    } else {
+                        resize(getWidth(), getHeight() - 1);
+
+                        cursor_position.x--;
+                    }
+                }
+
+                if (cursor_position.y == getWidth()) {
+                    if (cursor_position.x < getHeight()) {
+                        resize(getWidth() + 1, getHeight());
+                        cursor_position.y++;
+
+                    } else {
+                        resize(getWidth() - 1, getHeight() - 1);
+                        cursor_position.x--;
+                        cursor_position.y--;
+                    }
+                }
+
+            }
             break;
         case 'r':
-
             level[cursor_position.toUint(getWidth())]->rotateRight();
-
             break;
         case '1':
             current_block = 0;
@@ -63,16 +87,16 @@ player_action level_edit::analyze_movement(char key) {
             return nothing;
             break;
     }
-    if (cursor_position.y >= getWidth()) cursor_position.y = 0;
-    if (cursor_position.x >= getHeight()) cursor_position.x = 0;
 
-    if (cursor_position.y < 0) cursor_position.y = getWidth() - 1;
-    if (cursor_position.x < 0) cursor_position.x = getHeight() - 1;
+
+    if (cursor_position.y > getWidth()) cursor_position.y = getWidth();
+    if (cursor_position.x > getHeight()) cursor_position.x = getHeight();
+
+    if (cursor_position.y < 0) cursor_position.y = 0;
+    if (cursor_position.x < 0) cursor_position.x = 0;
+
     return nothing;
 }
-
-
-
 
 
 void level_edit::main_loop() {
@@ -81,8 +105,6 @@ void level_edit::main_loop() {
     player_action operation;
 
     while (2 > 1) {
-
-
         controlled_view();
 
         key_pressed = get_key();
