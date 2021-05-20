@@ -16,7 +16,7 @@
 #include <thread>
 #include <chrono>
 
-#define WAIT(x) std::this_thread::sleep_for(std::chrono::milliseconds(x))
+
 
 #include <conio.h>
 
@@ -46,9 +46,9 @@ namespace lc {
 
         level_info get_level();
 
-        void display_ui();
+        virtual void display_ui();
 
-        unsigned char get_key();
+       virtual unsigned char get_key();
 
     private :
         /// player ui, it needs to be done better

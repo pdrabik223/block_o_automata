@@ -70,9 +70,7 @@ player_action level_pick::ui() {
             default:
                 break;
         }
-
     }
-
 }
 
 level_info level_pick::get_level() {

@@ -11,7 +11,7 @@
 #include "../board.h"
 #include "level_info.h"
 
-#define ERROR(x) std::wcout << cc(red, black) << "\n error, "<<x<< cc(white, black)<<std::endl
+
 namespace le {
     enum player_action {
         nothing,
@@ -21,25 +21,31 @@ namespace le {
 
     };
 
-    class level_edit: public level_info {
+    class level_edit : public level_info {
     public:
         level_edit() : level_info(10, 10) {}
 
         void main_loop();
 
-        void controlled_view();
-
         player_action analyze_movement(char key);
+    // todo we kinda need print function
+    //  it would eliminate one of the virtual functions
+    //  it is hard tho because we limit ourselves if we do
+    //  and i dont want to be limited
+        virtual void controlled_view();
 
-        int run_sim();
+        virtual void run_sim();
 
-        void set_additional_info();
+        virtual void set_additional_info();
+
+        virtual unsigned char get_key();
 
     private:
 
         int current_block = 0;
 
         coord cursor_position = {0, 0};
+
         std::array<cell *, 7> all_blocks = {new barrier_cell(),
                                             new barrier_cell(true),
                                             new move_cell(up),

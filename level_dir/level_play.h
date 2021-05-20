@@ -9,7 +9,6 @@
 #include <conio.h>
 #include "level_info.h"
 
-#define ERROR(x) std::wcout << cc(red, black) << "\n error, "<<x<< cc(white, black)<<std::endl
 namespace lp {
     enum player_action {
         nothing,
@@ -27,9 +26,11 @@ namespace lp {
 
         void controlled_view();
 
-        int run_sim();
+        virtual int run_sim();
 
-        player_action analyze_movement(char key);
+        virtual player_action analyze_movement(char key);
+
+        virtual unsigned char get_key();
 
     private:
         int current_block = 0;

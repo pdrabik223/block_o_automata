@@ -5,8 +5,7 @@
 #ifndef BLOCK_O_AUTOMATA_LEVEL_INFO_H
 #define BLOCK_O_AUTOMATA_LEVEL_INFO_H
 
-// todo figure out if we should move all level creation stuff to this class and in board use level as level
-//
+
 #include "../cells_dir/empty_cell.h"
 #include "../cells_dir/barrier_cell.h"
 #include "../cells_dir/move_cell.h"

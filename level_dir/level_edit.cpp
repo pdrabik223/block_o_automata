@@ -7,7 +7,7 @@
 using namespace le;
 
 void level_edit::controlled_view() {
-
+    system("cls");
     for (int i = 0; i <= getHeight() + 1; i++) {
 
         if (i < getHeight()) {
@@ -129,7 +129,7 @@ player_action level_edit::analyze_movement(char key) {
             break;
 
         default:
-            ERROR("unknown key");
+            return nothing;
             break;
     }
     if (cursor_position.y >= getWidth()) cursor_position.y = 0;
@@ -140,11 +140,10 @@ player_action level_edit::analyze_movement(char key) {
     return nothing;
 }
 
-int level_edit::run_sim() {
+void level_edit::run_sim() {
 
     board game(*this);
     while (2 > 1) {
-
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         system("cls");
@@ -166,8 +165,8 @@ int level_edit::run_sim() {
         if (!game.goal_cells_left()) {
 
             std::wcout << cc(yellow, black) << "press to continue... ";
-            getch();
-            return 1;
+            get_key();
+            return;
         }
     }
 }
@@ -226,19 +225,17 @@ void level_edit::set_additional_info() {
 void level_edit::main_loop() {
     system("cls");
 
-    std::cout << "welcome to level_editor\n";
-
     _setmode(_fileno(stdout), _O_U16TEXT);
 
     char key_pressed = 0;
     player_action operation;
 
     while (2 > 1) {
-        system("cls");
+
 
         controlled_view();
 
-        key_pressed = getch();
+        key_pressed = get_key();
 
         operation = analyze_movement(key_pressed);
 
@@ -247,6 +244,10 @@ void level_edit::main_loop() {
         if (operation == set_info) set_additional_info();
 
     }
-
     save();
 }
+
+unsigned char level_edit::get_key() {
+    return getch();
+}
+

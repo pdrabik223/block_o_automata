@@ -8,17 +8,15 @@
 #include "../board.h"
 using namespace lp;
 player_action level_play::main_loop() {
-    _setmode(_fileno(stdout), _O_U16TEXT);
 
     char key_pressed = 0;
     player_action operation;
 
     while (2 > 1) {
-        system("cls");
 
         controlled_view();
 
-        key_pressed = getch();
+        key_pressed = get_key();
 
         operation = analyze_movement(key_pressed);
         if (operation == quit_game) return quit_game;
@@ -29,7 +27,8 @@ player_action level_play::main_loop() {
 }
 
 void level_play::controlled_view() {
-
+    _setmode(_fileno(stdout), _O_U16TEXT);
+    system("cls");
     for (int i = 0; i < getHeight(); i++) {
         for (int j = 0; j < getWidth(); j++) {
             color text_color = get_cell(i, j).get_unicode().icon_color;
@@ -62,7 +61,11 @@ int level_play::run_sim() {
     while (2 > 1) {
 
         game.iterate();
-        if (!game.goal_cells_left()) return 1;
+        if (!game.goal_cells_left()) {
+            std::wcout<<cc(yellow,black)<<"congratulations, u won!";
+            get_key();
+            return 1;
+        }
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         system("cls");
 
@@ -128,7 +131,7 @@ player_action level_play::analyze_movement(char key) {
             current_block = 5;
             break;
         default:
-            ERROR("unknown key");
+            return nothing;
             break;
     }
     if (cursor_position.y >= getWidth()) cursor_position.y = 0;
@@ -137,4 +140,8 @@ player_action level_play::analyze_movement(char key) {
     if (cursor_position.y < 0) cursor_position.y = getWidth() - 1;
     if (cursor_position.x < 0) cursor_position.x = getHeight() - 1;
     return nothing;
+}
+
+unsigned char level_play::get_key() {
+    return getch();
 }
