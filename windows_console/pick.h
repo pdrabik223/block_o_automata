@@ -8,6 +8,12 @@
 
 namespace win_console{
 class pick : public lc::level_pick{
+public:
+    pick():lc::level_pick(){}
+
+    void display_ui() override;
+
+    unsigned char get_key() override;
 
 };
 }

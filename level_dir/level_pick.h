@@ -17,7 +17,6 @@
 #include <chrono>
 
 
-
 #include <conio.h>
 
 typedef std::vector<std::string> stringvec;
@@ -46,11 +45,14 @@ namespace lc {
 
         level_info get_level();
 
-        virtual void display_ui();
+        virtual void display_ui(){};
 
-       virtual unsigned char get_key();
+        virtual unsigned char get_key() {
+            assert(false);
+            return -1;
+        };
 
-    private :
+    protected :
         /// player ui, it needs to be done better
         /// \return  path to chosen folder
         ///  or command to enter edit mode

@@ -1,12 +1,14 @@
 //
 // Created by pc on 08.05.2021.
 //
-#include "level_dir/level_pick.h"
+#include <windows_console/pick.h>
+
 
 
 int main() {
     level_info level;
-    lc::level_pick cos;
+    win_console::pick cos;
+
     lc::player_action command;
     command = cos.select_level();
     level = cos.get_level();
