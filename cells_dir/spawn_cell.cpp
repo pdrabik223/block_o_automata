@@ -10,17 +10,11 @@
 #include "turn_cell.h"
 
 spawn_cell::spawn_cell() : cell(true, true),
-
-                           spawn_direction(left){}
-
-
+                           spawn_direction(left) {}
 
 
 spawn_cell::spawn_cell(direction spawnDirection) : cell(true, true),
-
-                                                   spawn_direction(spawnDirection) {
-
-}
+                                                   spawn_direction(spawnDirection) {}
 
 
 void spawn_cell::show_in_console_unicode() {
@@ -88,7 +82,8 @@ spawn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos,
             }
             case Turn: {
                 turn_cell temp = *((turn_cell *) cell_ptr);
-                destination[curr_pos.go(spawn_direction, w)] = new turn_cell(((turn_cell *) cell_ptr)->getTurnDirection());
+                destination[curr_pos.go(spawn_direction, w)] = new turn_cell(
+                        ((turn_cell *) cell_ptr)->getTurnDirection());
                 break;
             }
             case Empty:
@@ -150,7 +145,6 @@ type spawn_cell::getCellType() const {
 }
 
 
-
 std::ostream &operator<<(std::ostream &out, const spawn_cell &ref) {
     out << ref.getCellType();
     out << " ";
@@ -168,7 +162,7 @@ void spawn_cell::rotateRight() noexcept {
             spawn_direction = down;
             break;
         case down:
-            spawn_direction=left;
+            spawn_direction = left;
             break;
         case up:
             spawn_direction = right;

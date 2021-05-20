@@ -17,9 +17,6 @@ class board {
 public:
     board(level_info &level);
 
-    /// for now, later it will be moved to different class
-    void show_level_win_console();
-
     /// \brief the heart of this game
     void iterate();
 
@@ -30,24 +27,19 @@ public:
     /// \return true if there is at least one goal_cell left on level
     bool goal_cells_left();
 
-    /// \return true if there is at least one kill_cell left on level
-    bool kill_cells_left();
+    /// used to move functions displaying the cells outside board
+    /// \param position at witch wanted cell is stored
+    /// \return information needed to proper display cell
+    icon get_cell_icon(coord position);
 
-    /// safely ( only on allowed squares ) places target cell
-    ///
-    /// \param position position in level that target will replace
-    /// \param target will be in place after replacement
-    /// \return true if placement succeeded<br> false if not
-    bool put_piece(coord position, cell *target);
+    unsigned int get_counter() const;
 
 private:
-    unsigned transform(unsigned int height, unsigned int width);
-
     /// frame counter
     /// may come handy later
     unsigned counter;
     /// cell array used to store current level state
-     level_info level;
+    level_info level;
 
 };
 

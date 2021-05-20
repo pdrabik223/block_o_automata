@@ -124,6 +124,9 @@ player_action level_edit::analyze_movement(char key) {
         case '6':
             current_block = 5;
             break;
+        case '7':
+            current_block = 6;
+            break;
 
         default:
             ERROR("unknown key");
@@ -142,14 +145,31 @@ int level_edit::run_sim() {
     board game(*this);
     while (2 > 1) {
 
-        game.iterate();
-        // if (!game.goal_cells_left()) return 1;
+
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         system("cls");
-        game.show_level_win_console();
+        for (unsigned h = 0; h < getHeight(); h++) {
+            for (unsigned w = 0; w < getWidth(); w++) {
 
+                color text_color = game.get_cell_icon({h, w}).icon_color;
+                color background_color = black;
+                game.get_cell_icon({h, w});
+                std::wcout << cc(text_color, background_color) << game.get_cell_icon({h, w}).image;
+
+            }
+            std::wcout << "\n";
+        }
+        std::wcout << "\n";
+
+        game.iterate();
+
+        if (!game.goal_cells_left()) {
+
+            std::wcout << cc(yellow, black) << "press to continue... ";
+            getch();
+            return 1;
+        }
     }
-
 }
 
 void level_edit::set_additional_info() {
@@ -184,13 +204,12 @@ void level_edit::set_additional_info() {
     max_piece_cost = temp_int;
 
 
-
     std::wcout << "\n max number of pawns that user has at his disposal :\n";
 
     for (int i = 0; i < number_of_pawns.size(); i++) {
         std::wcout << "max amount of  ";
         std::wcout << cc(all_blocks[i]->get_unicode().icon_color, black);
-        std::wcout << all_blocks[i]->get_unicode().image<<"  ";
+        std::wcout << all_blocks[i]->get_unicode().image << "  ";
 
         std::cin >> temp_int;
 

@@ -47,37 +47,36 @@ int main() {
     std::wcout << cc(blue) << "turn_cell\t" << L"\x2B9E\n\t\t\x2B9C \n\t\t\x2B9D \n\t\t\x2B9f\n";
 
 
-    std::wcout << cc(purple ) << "goal_cell\t" << L"\x2B24 \n";
+    std::wcout << cc(purple) << "goal_cell\t" << L"\x2B24 \n";
 
 
-    level_info level{10,10};
-
-
+    level_info level{10, 10};
 
 
     for (int i = 0; i < level.size(); i++) {
 
         if (i % level.getWidth() == 0 ||
-        i / level.getWidth() == 0 || 
-        i / level.getWidth() == (level.getHeight() - 1) ||
-        i % level.getWidth() == (level.getWidth() - 1)) level[i] = new barrier_cell(false);
+            i / level.getWidth() == 0 ||
+            i / level.getWidth() == (level.getHeight() - 1) ||
+            i % level.getWidth() == (level.getWidth() - 1))
+            level[i] = new barrier_cell(false);
 
-        else level[i] =new empty_cell(true);
+        else level[i] = new empty_cell(true);
     }
 
     level[{3, 6}] = new goal_cell();
-    level[{  3, 5}] = new kill_cell();
+    level[{3, 5}] = new kill_cell();
 
 
     level[{5, 8}] = new turn_cell(down);
 
     level[{0, 7}] = new barrier_cell(true);
-    level[{1, 7}] = new spawn_cell( down);
+    level[{1, 7}] = new spawn_cell(down);
 
     level[{1, 1}] = new turn_cell(right);
 
     level[{1, level.getWidth() - 4}] = new turn_cell(down);
-    level[{level.getHeight()  - 2, level.getWidth()  - 2}] = new turn_cell(left);
+    level[{level.getHeight() - 2, level.getWidth() - 2}] = new turn_cell(left);
     level[{level.getHeight() - 2, 1}] = new turn_cell(up);
 
 
@@ -100,16 +99,24 @@ int main() {
 
 
     board first(level);
-    
-    
-    first.show_level_win_console();
-    first.lock_cells();
 
     char k;
     int frame_counter = 0;
 
     while (2 > 1) {
-        first.show_level_win_console();
+        for (unsigned h = 0; h < level.getHeight(); h++) {
+            for (unsigned w = 0; w < level.getWidth(); w++) {
+
+                color text_color = first.get_cell_icon({h, w}).icon_color;
+                color background_color = black;
+                first.get_cell_icon({h, w});
+                std::wcout << cc(text_color, background_color) << first.get_cell_icon({h, w}).image;
+
+            }
+            std::wcout << "\n";
+        }
+
+        std::wcout << "\n\n";
         first.iterate();
         std::wcout << cc(yellow, black) << "frame counter :" << cc(red) << frame_counter << std::endl;
         ++frame_counter;

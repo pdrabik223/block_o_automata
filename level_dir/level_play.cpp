@@ -45,7 +45,7 @@ void level_play::controlled_view() {
         std::wcout << "\n";
     }
     for (unsigned i = 0; i < all_blocks.size(); i++) {
-        if (i == current_block)std::wcout << cc(all_blocks[i]->get_unicode().icon_color, light_yellow);
+        if (i == current_block) std::wcout << cc(all_blocks[i]->get_unicode().icon_color, light_yellow);
         else std::wcout << cc(all_blocks[i]->get_unicode().icon_color, black);
 
         std::wcout << "  " << all_blocks[i]->get_unicode().image;
@@ -65,12 +65,20 @@ int level_play::run_sim() {
         if (!game.goal_cells_left()) return 1;
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         system("cls");
-        game.show_level_win_console();
 
+        for (unsigned h = 0; h < getHeight(); h++) {
+            for (unsigned  w = 0; w < getWidth(); w++) {
+
+                color text_color = game.get_cell_icon({h , w}).icon_color;
+                color background_color = black;
+                game.get_cell_icon({h , w});
+                std::wcout << cc(text_color, background_color) << game.get_cell_icon({h , w}).image;
+
+            }
+            std::wcout << "\n";
+        }
+        std::wcout << "\n\n";
     }
-
-
-
 }
 
 player_action level_play::analyze_movement(char key) {
@@ -119,12 +127,9 @@ player_action level_play::analyze_movement(char key) {
         case '6':
             current_block = 5;
             break;
-
         default:
             ERROR("unknown key");
             break;
-
-
     }
     if (cursor_position.y >= getWidth()) cursor_position.y = 0;
     if (cursor_position.x >= getHeight()) cursor_position.x = 0;

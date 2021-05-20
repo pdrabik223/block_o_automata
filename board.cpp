@@ -5,23 +5,6 @@
 #include "board.h"
 
 
-void board::show_level_win_console() {
-    for (int i = 0; i < level.getHeight(); i++) {
-        for (int j = 0; j < level.getWidth(); j++) {
-            level[i * level.getWidth() + j]->show_in_console_unicode();
-        }
-        std::wcout << "\n";
-    }
-    std::wcout << "\n\n";
-
-}
-
-
-unsigned board::transform(unsigned int height, unsigned int width) {
-    return height * level.getWidth() + width;
-}
-
-
 void board::iterate() {
 
     std::vector<cell *> level_copy;
@@ -38,7 +21,7 @@ void board::iterate() {
     for (int i = 0; i < level.size(); i++)
         level[i] = level_copy[i];
 
-
+    counter++;
 }
 
 void board::lock_cells() {
@@ -57,15 +40,18 @@ bool board::goal_cells_left() {
     return false;
 }
 
-
-
 board::board(level_info &played_level) {
 level = played_level;
+lock_cells();
+counter = 0;
 }
 
-bool board::put_piece(coord position, cell *target) {
-    if ( *level[position] != Empty) return false;
-    if(((empty_cell*)level[position])->isLocked()) return false;
-    level[position] = target;
-    return true;
+icon board::get_cell_icon(coord position) {
+    return level[position]->get_unicode();
 }
+
+unsigned int board::get_counter() const {
+    return counter;
+}
+
+
