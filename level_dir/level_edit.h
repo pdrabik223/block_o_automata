@@ -40,8 +40,8 @@ namespace le {
         int current_block = 0;
 
         coord cursor_position = {0, 0};
-
-        std::array<cell *, 6> all_blocks = {new barrier_cell(),
+        std::array<cell *, 7> all_blocks = {new barrier_cell(),
+                                            new barrier_cell(true),
                                             new move_cell(),
                                             new kill_cell(),
                                             new turn_cell(),

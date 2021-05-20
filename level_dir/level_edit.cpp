@@ -8,9 +8,9 @@ using namespace le;
 
 void level_edit::controlled_view() {
 
-    for (int i = 0; i <= getHeight()+1; i++) {
+    for (int i = 0; i <= getHeight() + 1; i++) {
 
-        if(i < getHeight()) {
+        if (i < getHeight()) {
             for (int j = 0; j < getWidth(); j++) {
 
                 color text_color = get_cell(i, j).get_unicode().icon_color;
@@ -21,7 +21,7 @@ void level_edit::controlled_view() {
                 std::wcout << cc(text_color, background_color) << get_cell(i, j).get_unicode().image;
 
             }
-        }else {
+        } else {
             color text_color = yellow;
             color background_color = black;
             {
@@ -36,11 +36,10 @@ void level_edit::controlled_view() {
                 if (i % getHeight() == getHeight() / 2) std::wcout << cc(text_color, background_color) << "+";
                 else std::wcout << cc(text_color, background_color) << "  ";
 
-
             }
         }
 
-        std::wcout <<cc(white,black)<< "\n";
+        std::wcout << cc(white, black) << "\n";
     }
 
     for (unsigned i = 0; i < all_blocks.size(); i++) {
@@ -107,16 +106,6 @@ player_action level_edit::analyze_movement(char key) {
             level[cursor_position.toUint(getWidth())]->rotateRight();
 
             break;
-        case 't':
-            if (get_cell(cursor_position) == Barrier) {
-                auto dir = ((barrier_cell *) &get_cell(cursor_position));
-                dir->setMovable(!dir->isMovable());
-            } else if (get_cell(cursor_position) == Empty) {
-                auto dir = ((empty_cell *) &get_cell(cursor_position));
-                dir->setLocked(!dir->isLocked());
-            }
-            break;
-
         case '1':
             current_block = 0;
             break;
@@ -139,8 +128,6 @@ player_action level_edit::analyze_movement(char key) {
         default:
             ERROR("unknown key");
             break;
-
-
     }
     if (cursor_position.y >= getWidth()) cursor_position.y = 0;
     if (cursor_position.x >= getHeight()) cursor_position.x = 0;
@@ -156,7 +143,7 @@ int level_edit::run_sim() {
     while (2 > 1) {
 
         game.iterate();
-       // if (!game.goal_cells_left()) return 1;
+        // if (!game.goal_cells_left()) return 1;
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         system("cls");
         game.show_level_win_console();
@@ -174,37 +161,43 @@ void level_edit::set_additional_info() {
     std::cin >> author;
 
     std::wcout << "\nset level difficulty 1-4 : ";
-    int temp;
-    std::cin >> temp;
+    int temp_int;
+    std::cin >> temp_int;
 
-    if (temp >= 4) temp = 3;
-    if (temp < 0) temp = 0;
+    if (temp_int >= 4) temp_int = 3;
+    if (temp_int < 0) temp_int = 0;
 
-    level_difficulty = (difficulty) temp;
+    level_difficulty = (difficulty) temp_int;
 
     std::wcout << "\nmax iterations  :";
-    std::cin >> temp;
+    std::cin >> temp_int;
 
-    if (temp >= 999) temp = 999;
-    if (temp < 0) temp = 0;
-    max_iteration = temp;
+    if (temp_int >= 999) temp_int = 999;
+    if (temp_int < 0) temp_int = 0;
+    max_iteration = temp_int;
 
     std::wcout << "\nmax piece cost  :";
-    std::cin >> temp;
+    std::cin >> temp_int;
 
-    if (temp >= 999) temp = 999;
-    if (temp < 0) temp = 0;
-    max_piece_cost = temp;
+    if (temp_int >= 999) temp_int = 999;
+    if (temp_int < 0) temp_int = 0;
+    max_piece_cost = temp_int;
+
+
 
     std::wcout << "\n max number of pawns that user has at his disposal :\n";
+
     for (int i = 0; i < number_of_pawns.size(); i++) {
-        std::wcout << "max piece cost  :";
-        std::cin >> temp;
+        std::wcout << "max amount of  ";
+        std::wcout << cc(all_blocks[i]->get_unicode().icon_color, black);
+        std::wcout << all_blocks[i]->get_unicode().image<<"  ";
 
-        if (temp >= 999) temp = 999;
-        if (temp < 0) temp = 0;
+        std::cin >> temp_int;
 
-        number_of_pawns[i] = temp;
+        if (temp_int >= 999) temp_int = 999;
+        if (temp_int < 0) temp_int = 0;
+
+        number_of_pawns[i] = temp_int;
     }
     std::wcout << "changes saved";
 

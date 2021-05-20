@@ -29,7 +29,7 @@ set(ENGINE
         board.h
         board.cpp
         )
-add_executable(block_o_automata executables/main.cpp
+add_executable(basic_main executables/main.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}
@@ -54,6 +54,14 @@ add_executable(level_pick executables/level_picker.cpp
         ${ENGINE}
         )
 add_executable(level_play executables/level_player.cpp
+        ${CELL}
+        ${LEVEL}
+        ${WIN_COL_TOOLS}
+        ${ENGINE}
+        )
+
+
+add_executable(block_o_automata executables/win_console_ui.cpp
         ${CELL}
         ${LEVEL}
         ${WIN_COL_TOOLS}

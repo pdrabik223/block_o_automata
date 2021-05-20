@@ -11,28 +11,32 @@
 
 
 int main() {
-    lc::action player_choice = lc::play_level;
+    lc::player_action player_choice = lc::play_level;
 
 
     while (2 > 1) {
 
         level_info played_level;
-        lc::level_pick chose_for_directory(played_level);
+        lc::level_pick chose_for_directory;
+
         player_choice = chose_for_directory.select_level();
+        played_level = chose_for_directory.get_level();
+
 
         if (player_choice == lc::play_level) {
 
             while (2 > 1) {
 
                 lp::level_play game(played_level);
-                if(game.main_loop() == lp::quit_game ) return 0;
+                if (game.main_loop() == lp::quit_game) return 0;
 
             }
 
         }
         if (player_choice == lc::enter_editor) {
-            le::level_edit edytor;
-            edytor.main_loop();
+
+            le::level_edit editor;
+            editor.main_loop();
         }
 
         if (player_choice == lc::quit_game) break;
