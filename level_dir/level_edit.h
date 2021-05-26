@@ -37,7 +37,8 @@ namespace le {
 
         virtual unsigned char get_key(){
             assert(false);
-            return -1;};
+            return -1;
+        };
 
     protected:
 
