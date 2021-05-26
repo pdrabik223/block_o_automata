@@ -46,13 +46,14 @@ namespace le {
 
         coord cursor_position = {0, 0};
 
-        std::array<cell *, 7> all_blocks = {new barrier_cell(),
+        std::array<cell *, 8> all_blocks = {new barrier_cell(),
                                             new barrier_cell(true),
                                             new move_cell(up),
                                             new kill_cell(),
                                             new turn_cell(up),
                                             new spawn_cell(up),
-                                            new goal_cell()};
+                                            new goal_cell(),
+                                            new empty_cell(false)};
 
     };
 }

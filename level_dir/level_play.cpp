@@ -75,7 +75,7 @@ player_action level_play::analyze_movement(char key) {
             break;
         default:
             return nothing;
-            break;
+
     }
     if (cursor_position.y >= getWidth()) cursor_position.y = 0;
     if (cursor_position.x >= getHeight()) cursor_position.x = 0;

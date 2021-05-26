@@ -81,6 +81,9 @@ player_action level_edit::analyze_movement(char key) {
         case '7':
             current_block = 6;
             break;
+        case '8':
+            current_block = 7;
+            break;
 
         default:
             return nothing;
