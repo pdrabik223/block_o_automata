@@ -48,11 +48,12 @@ void win_console::edit::controlled_view() {
         if (cursor_position.y == getWidth() - 2) {
             std::wcout << cc(yellow, light_aqua) << "- ";
             std::wcout << cc(yellow, black) << "+ \n";
-        }
-        if (cursor_position.y == getWidth() - 1) {
+        } else if (cursor_position.y == getWidth() - 1) {
             std::wcout << cc(yellow, black) << "- ";
             std::wcout << cc(yellow, light_aqua) << "+ \n";
-        }
+        } else std::wcout << cc(yellow, light_aqua) << "- +\n";
+
+
     } else {
         std::wcout << cc(yellow, black) << "- +\n";
     }
