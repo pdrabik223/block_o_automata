@@ -43,7 +43,6 @@ public:
     /// \return string containing basic info about level
     std::wstring get_info();
 
-
     /// \brief constructor is simple
     ///  all of the fields will be accessed by set adn get functions
     level_info(unsigned int width, unsigned int height);
@@ -61,11 +60,6 @@ public:
     /// load level to memory
     /// \param path to a desired level
     void load(const std::string &path);
-
-    void push_back(cell *new_cell) {
-        level.push_back(new_cell);
-    }
-
 
     void set_cell(coord position, cell *target);
 

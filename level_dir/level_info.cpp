@@ -77,13 +77,12 @@ level_info::level_info(unsigned int width, unsigned int height) : width(width), 
 
 }
 
-// fixme this function wrongly copies level
+
 void level_info::resize(unsigned int new_width, unsigned int new_height) {
     std::vector<cell *> level_copy = level;
     unsigned i = 0;
     level.clear();
     level.reserve(new_height * new_width);
-/// when de-widening
     for (int x = 0; x < new_height; x++) {
         for (int y = 0; y < new_width; y++) {
             if (x < height && y < width) {
