@@ -7,7 +7,7 @@
 void win_console::edit::controlled_view() {
     _setmode(_fileno(stdout), _O_U16TEXT);
     system("cls");
-    for (int i = 0; i < getHeight() ; i++) {
+    for (int i = 0; i < getHeight(); i++) {
         for (int j = 0; j < getWidth(); j++) {
 
             color text_color = get_cell(i, j).get_unicode().icon_color;
@@ -19,14 +19,14 @@ void win_console::edit::controlled_view() {
 
         }
 
-        if (i == -1 + getHeight() / 2) {
-            if (cursor_position.y == getWidth() && cursor_position.x <  getHeight() / 2)
+        if (i == getHeight() - 1) {
+            if (cursor_position.y == getWidth() && cursor_position.x == getHeight() - 1)
                 std::wcout << cc(yellow, light_aqua) << "- ";
             else
                 std::wcout << cc(yellow, black) << "- ";
         }
-        if (i == getHeight() / 2) {
-            if (cursor_position.y == getWidth() && cursor_position.x >= getHeight() / 2)
+        if (i == getHeight() - 2) {
+            if (cursor_position.y == getWidth() && cursor_position.x == getHeight() - 2)
                 std::wcout << cc(yellow, light_aqua) << "+ ";
             else
                 std::wcout << cc(yellow, black) << "+ ";
@@ -38,17 +38,18 @@ void win_console::edit::controlled_view() {
 
     /// display height controls:
     /// get me in the middle of displayed plane
-    for (unsigned i = 1; i < getWidth() / 2; i++) {
+    for (unsigned i = 0; i < getWidth() - 2; i++) {
         std::wcout << "  ";
     }
 
 
     if (cursor_position.x == getHeight()) {
 
-        if (cursor_position.y < getWidth() / 2) {
+        if (cursor_position.y == getWidth() - 2) {
             std::wcout << cc(yellow, light_aqua) << "- ";
             std::wcout << cc(yellow, black) << "+ \n";
-        } else {
+        }
+        if (cursor_position.y == getWidth() - 1) {
             std::wcout << cc(yellow, black) << "- ";
             std::wcout << cc(yellow, light_aqua) << "+ \n";
         }
