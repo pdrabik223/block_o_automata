@@ -23,6 +23,8 @@
 #include <string>
 #include <vector>
 #include <array>
+#include "windows_console_tools/coord.h"
+#include "windows_console_tools/icon.h"
 
 /// \return current date in form of a string
 std::string current_date();

@@ -22,6 +22,10 @@ set(LEVEL
         level_dir/level_info.h level_dir/level_info.cpp
         )
 set(WIN_COL_TOOLS
+        windows_console_tools/icon.h
+        windows_console_tools/icon.cpp
+        windows_console_tools/coord.h
+        windows_console_tools/coord.cpp
         windows_console_tools/win_colors.h
         windows_console_tools/win_colors.cpp
         )
@@ -30,6 +34,7 @@ set(ENGINE
         board.cpp
         )
 set(WINDOWS_CONSOLE
+        windows_console/scml.h windows_console/scml.cpp
         windows_console/edit.h windows_console/edit.cpp
         windows_console/pick.h windows_console/pick.cpp
         windows_console/play.h windows_console/play.cpp)

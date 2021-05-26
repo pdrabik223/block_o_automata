@@ -10,8 +10,8 @@
 #include <vector>
 
 #include "../windows_console_tools/win_colors.h"
-
-#include "cell_tools.h"
+#include "../windows_console_tools/coord.h"
+#include "../windows_console_tools/icon.h"
 
 
 //todo copy constructor

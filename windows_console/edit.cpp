@@ -37,9 +37,7 @@ void win_console::edit::controlled_view() {
             } else
                 std::wcout << cc(yellow, black) << "+ ";
 
-
         }
-
         std::wcout << cc(white, black) << "\n";
     }
 
