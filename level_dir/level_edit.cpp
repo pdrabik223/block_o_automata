@@ -33,25 +33,24 @@ player_action level_edit::analyze_movement(char key) {
                 copy_cell(cursor_position, all_blocks[current_block]);
             else {
                 if (cursor_position.x == getHeight()) {
-                    if (cursor_position.y >= getWidth()) {
-                        resize(getWidth() + 1, getHeight() + 1);
-                        cursor_position.x++;
-                        cursor_position.y++;
-                    } else {
-                        resize(getWidth(), getHeight() - 1);
+                    if (cursor_position.y == getWidth() - 1) {
 
+                        resize(getWidth() , getHeight() + 1);
+                        cursor_position.x++;
+
+                    } else if (cursor_position.y == getWidth() - 2) {
+                        resize(getWidth(), getHeight() - 1);
                         cursor_position.x--;
                     }
                 }
 
                 if (cursor_position.y == getWidth()) {
-                    if (cursor_position.x < getHeight()) {
+                    if (cursor_position.x == getHeight() - 1) {
                         resize(getWidth() + 1, getHeight());
                         cursor_position.y++;
 
-                    } else {
-                        resize(getWidth() - 1, getHeight() - 1);
-                        cursor_position.x--;
+                    } else if (cursor_position.x == getHeight() - 2) {
+                        resize(getWidth() -1 , getHeight());
                         cursor_position.y--;
                     }
                 }

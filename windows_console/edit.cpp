@@ -19,17 +19,25 @@ void win_console::edit::controlled_view() {
 
         }
 
-        if (i == getHeight() - 1) {
-            if (cursor_position.y == getWidth() && cursor_position.x == getHeight() - 1)
-                std::wcout << cc(yellow, light_aqua) << "- ";
-            else
-                std::wcout << cc(yellow, black) << "- ";
-        }
         if (i == getHeight() - 2) {
-            if (cursor_position.y == getWidth() && cursor_position.x == getHeight() - 2)
-                std::wcout << cc(yellow, light_aqua) << "+ ";
-            else
+            if (cursor_position.y == getWidth()) {
+                if (cursor_position.x == getHeight() - 2)
+                    std::wcout << cc(yellow, light_aqua) << "- ";
+                else
+                    std::wcout << cc(yellow, black) << "- ";
+
+            } else std::wcout << cc(yellow, black) << "- ";
+        }
+        if (i == getHeight() - 1) {
+            if (cursor_position.y == getWidth()) {
+                if (cursor_position.x == getHeight() - 1)
+                    std::wcout << cc(yellow, light_aqua) << "+ ";
+                else
+                    std::wcout << cc(yellow, black) << "+ ";
+            } else
                 std::wcout << cc(yellow, black) << "+ ";
+
+
         }
 
         std::wcout << cc(white, black) << "\n";

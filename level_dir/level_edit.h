@@ -28,10 +28,7 @@ namespace le {
         void main_loop();
 
         player_action analyze_movement(char key);
-    // todo we kinda need print function
-    //  it would eliminate one of the virtual functions
-    //  it is hard tho because we limit ourselves if we do
-    //  and i dont want to be limited
+
         virtual void controlled_view(){assert(false);};
 
         virtual void run_sim(){assert(false);};
