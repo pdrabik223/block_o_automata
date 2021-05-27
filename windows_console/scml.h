@@ -47,7 +47,6 @@ public:
 
     int await_int();
 
-
     void update_screen();
 
     void set_pixel(coord position,icon new_pixel);

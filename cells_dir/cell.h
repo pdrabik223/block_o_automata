@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "../windows_console_tools/win_colors.h"
+
 #include "../windows_console_tools/coord.h"
 #include "../windows_console_tools/icon.h"
 
@@ -18,6 +19,19 @@
 // made it using clone() function
 //todo smart pointers to minimize mem leaks
 
+/// type of the cell, used to identify cell by it's role
+enum type {
+
+    Barrier,
+    Move,
+    Kill,
+    Spawn,
+    Turn,
+    Goal,
+    Cell,
+    Empty
+
+};
 class cell {
 
 

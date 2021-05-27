@@ -4,9 +4,19 @@
 
 #ifndef BLOCK_O_AUTOMATA_COORD_H
 #define BLOCK_O_AUTOMATA_COORD_H
+#include <cassert>
 
 
-#include "../cells_dir/cell_tools.h"
+/// used by few of the cells
+/// the plane is always orientated the same way
+/// so up is north on plane
+/// there can be made some transformation
+enum direction {
+    left,
+    right,
+    up,
+    down
+};
 
 /// coord is a public class that handles movement and positioning on the grid
 class coord {

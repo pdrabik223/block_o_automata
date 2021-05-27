@@ -6,6 +6,7 @@
 #define BLOCK_O_AUTOMATA_ICON_H
 
 
+#include "win_colors.h"
 
 struct icon {
     icon();

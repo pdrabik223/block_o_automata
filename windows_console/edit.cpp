@@ -10,7 +10,7 @@ void win_console::edit::controlled_view() {
     for (int i = 0; i < getHeight(); i++) {
         for (int j = 0; j < getWidth(); j++) {
 
-            color text_color = get_cell(i, j).get_unicode().icon_color;
+            color text_color = get_cell(i, j).get_unicode().text_color;
             color background_color = black;
 
             if (cursor_position == coord(i, j))
@@ -66,8 +66,8 @@ void win_console::edit::controlled_view() {
 
     /// display possible blocks
     for (unsigned i = 0; i < all_blocks.size(); i++) {
-        if (i == current_block)std::wcout << cc(all_blocks[i]->get_unicode().icon_color, light_yellow);
-        else std::wcout << cc(all_blocks[i]->get_unicode().icon_color, black);
+        if (i == current_block)std::wcout << cc(all_blocks[i]->get_unicode().text_color, light_yellow);
+        else std::wcout << cc(all_blocks[i]->get_unicode().text_color, black);
         std::wcout << "  " << all_blocks[i]->get_unicode().image;
         std::wcout << cc(white, black);
     }
@@ -84,7 +84,7 @@ void win_console::edit::run_sim() {
         for (unsigned h = 0; h < getHeight(); h++) {
             for (unsigned w = 0; w < getWidth(); w++) {
 
-                color text_color = game.get_cell_icon({h, w}).icon_color;
+                color text_color = game.get_cell_icon({h, w}).text_color;
                 color background_color = black;
                 game.get_cell_icon({h, w});
                 std::wcout << cc(text_color, background_color) << game.get_cell_icon({h, w}).image;
@@ -142,7 +142,7 @@ void win_console::edit::set_additional_info() {
 
     for (int i = 0; i < number_of_pawns.size(); i++) {
         std::wcout << "max amount of  ";
-        std::wcout << cc(all_blocks[i]->get_unicode().icon_color, black);
+        std::wcout << cc(all_blocks[i]->get_unicode().text_color, black);
         std::wcout << all_blocks[i]->get_unicode().image << "  ";
 
         std::cin >> temp_int;
