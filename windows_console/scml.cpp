@@ -4,18 +4,22 @@
 
 #include <conio.h>
 #include <string>
-#include <utility>
 #include "scml.h"
+
 
 scml::scml(unsigned int w, unsigned int h) : w(w), h(h) {
     text_color = white;
     background_color = black;
-    buffer.reserve(w * h);
+    for (int i = 0; i < w * h; i++)
+        buffer.emplace_back(L" ", white, black);
     hc = GetStdHandle(STD_OUTPUT_HANDLE);
+    _setmode(_fileno(stdout), _O_U16TEXT);
+    system("cls");
 }
 
 void scml::clear() {
     for (auto &i:buffer) {
+        i.image = L"  ";
         i.text_color = text_color;
         i.background_color = background_color;
     }
@@ -105,7 +109,7 @@ int scml::await_int() {
 }
 
 void scml::set_pixel(coord position, icon new_pixel) {
-    buffer[position.toUint(w)] = std::move(new_pixel);
+    buffer[position.toUint(w)] = new_pixel;
 }
 
 void scml::update_screen() {
@@ -119,15 +123,20 @@ void scml::update_screen() {
 
     for (int x = 0; x < h; x++) {
         for (int y = 0; y < w; y++) {
-            if (text_color != buffer[x * w + h].text_color ||
-                background_color != buffer[x * w + h].background_color) {
-                text_color = buffer[x * w + h].text_color;
-                background_color = buffer[x * w + h].background_color;
-                std::wcout << cc(text_color, background_color);
-            }
-            std::wcout<<buffer[x * w + h].image<<" ";
+
+
+            text_color = buffer[x * w + y].text_color;
+            background_color = buffer[x * w + y].background_color;
+
+            std::wcout << cc(text_color, background_color);
+            std::wcout << buffer[x * w + y].image;
+
 
         }
-        std::wcout<<"\n";
+        std::wcout << "\n";
     }
+}
+
+icon &scml::get_pixel(coord position) {
+    return buffer[position.toUint(w)];
 }

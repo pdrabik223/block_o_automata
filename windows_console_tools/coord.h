@@ -4,6 +4,7 @@
 
 #ifndef BLOCK_O_AUTOMATA_COORD_H
 #define BLOCK_O_AUTOMATA_COORD_H
+
 #include <cassert>
 
 
@@ -23,6 +24,8 @@ class coord {
 
 public:
     coord(unsigned int x, unsigned int y) : x(x), y(y) {}
+
+
 
     /// \return create new object moved by one spot in direction
     /// \param dir direction of the movement
