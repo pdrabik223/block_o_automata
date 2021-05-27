@@ -6,11 +6,12 @@
 #define BLOCK_O_AUTOMATA_EDIT_H
 
 #include "level_dir/level_edit.h"
+#include "scml.h"
 
 namespace win_console {
     class edit : public le::level_edit {
     public:
-        edit():le::level_edit(){};
+        edit():le::level_edit(), console_handle(10+1, 10 + 3) {};
 
         void controlled_view() override;
 
@@ -19,6 +20,8 @@ namespace win_console {
         void set_additional_info() override;
 
         unsigned char get_key() override;
+    protected:
+        scml console_handle;
     };
 }
 

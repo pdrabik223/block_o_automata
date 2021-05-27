@@ -19,11 +19,11 @@ void win_console::play::controlled_view() {
     console_handle.get_pixel(cursor_position).background_color = light_aqua;
 
 
-    console_handle.set_pixel({getHeight(), 0}, {L" ", white, black});
+    console_handle.set_pixel({getHeight(), 0}, {' ', white, black});
 
     for (unsigned i = 0; i < all_blocks.size(); i++) {
         console_handle.set_pixel({getHeight(), i + 1}, all_blocks[i]->get_unicode());
-        console_handle.get_pixel({getHeight(), i + 1}).image += L" ";
+        console_handle.get_pixel({getHeight(), i + 1}).image = ' ';
     }
 
     /// display cursor on screen

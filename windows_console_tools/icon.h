@@ -11,11 +11,11 @@
 struct icon {
     icon();
 
-    icon(const std::wstring &image, color iconColor);
+    icon(wchar_t image, color iconColor);
 
-    icon(const std::wstring &image, color text_color, color background_color);
+    icon(wchar_t image, color text_color, color background_color);
 
-    std::wstring image;
+    wchar_t image;
     color text_color;
     color background_color;
 

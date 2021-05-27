@@ -105,13 +105,16 @@ icon spawn_cell::get_unicode() {
 
     switch (spawn_direction) {
         case left:
-            return {L"\x2B9C ", green};
+            return {11164, green};
+
         case right:
-            return {L"\x2B9E ", green};
+            return {11166, green};
+
         case up:
-            return {L"\x2B9D ", green};
+            return {11165, green};
+
         case down:
-            return {L"\x2B9F ", green};
+            return {11167, green};
         default:
             return icon();
     }

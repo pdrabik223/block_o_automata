@@ -39,7 +39,7 @@ bool goal_cell::operator!=(const type &rhs) const {
 
 icon goal_cell::get_unicode() {
 
-    return {L"\x2B24 ", purple};
+    return {11044, purple};
 }
 
 type goal_cell::getCellType() const {

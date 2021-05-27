@@ -38,8 +38,8 @@ bool barrier_cell::operator!=(const type &rhs) const {
 }
 
 icon barrier_cell::get_unicode() {
-    if (movable) return { L"\x25A2 ", gray};
-    else return {L"\x25A3 ",gray};
+    if (movable) return { 9634, gray};
+    else return {9635,gray};
 }
 
 type barrier_cell::getCellType() const {

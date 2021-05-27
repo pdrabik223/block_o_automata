@@ -42,7 +42,7 @@ namespace le {
 
     protected:
 
-        int current_block = 0;
+        unsigned current_block = 0;
 
         coord cursor_position = {0, 0};
 

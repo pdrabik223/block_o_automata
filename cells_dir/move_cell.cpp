@@ -59,16 +59,16 @@ icon move_cell::get_unicode() {
     switch (move_direction) {
 
         case left:
-            return {L"\x2B9C ", yellow};
+            return {11164, yellow};
 
         case right:
-            return {L"\x2B9E ", yellow};
+            return {11166, yellow};
 
         case up:
-            return {L"\x2B9D ", yellow};
+            return {11165, yellow};
 
         case down:
-            return {L"\x2B9F ", yellow};
+            return {11167, yellow};
         default:
             return icon();
 

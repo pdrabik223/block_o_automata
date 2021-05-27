@@ -3,7 +3,8 @@
 //
 
 #include "empty_cell.h"
-empty_cell::empty_cell(): cell(false, true), locked(true){};
+
+empty_cell::empty_cell() : cell(false, true), locked(true) {};
 
 
 empty_cell::empty_cell(bool locked) : cell(false, true), locked(locked) {}
@@ -32,8 +33,8 @@ bool empty_cell::operator!=(const type &rhs) const {
 
 icon empty_cell::get_unicode() {
 
-    if (locked) return {L"  ", gray};
-    else return {L"\x2022 ", gray};
+    if (locked) return {' ', gray};
+    else return {8226, gray};
 
 }
 
@@ -43,13 +44,13 @@ type empty_cell::getCellType() const {
 
 std::ostream &operator<<(std::ostream &out, const empty_cell &ref) {
 
-    out<<ref.getCellType();
-    out<<" ";
-    out<<ref.isLocked();
+    out << ref.getCellType();
+    out << " ";
+    out << ref.isLocked();
     return out;
 }
 
-std::istream &operator>>(std::istream &in,  empty_cell &ref) {
+std::istream &operator>>(std::istream &in, empty_cell &ref) {
 
     bool locked;
     in >> locked;

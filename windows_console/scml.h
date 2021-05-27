@@ -53,6 +53,8 @@ public:
 
     icon &get_pixel(coord position);
 
+    void resize(unsigned int new_width, unsigned int new_height);
+
     void clear();
 
     ~scml() {

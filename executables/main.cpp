@@ -25,18 +25,22 @@ int main() {
     _setmode(_fileno(stdout), _O_U16TEXT);
 
 
-    std::wcout << cc(gray) << "barrier_cell\t" << L"\x25A3\n";
-    std::wcout << cc(gray) << "movable_barrier_cell\t" << L"\x25A2\n";
-    std::wcout << cc(red) << "kill_cell\t" << L"\x2716\n";
-
-    std::wcout << cc(yellow) << "move_cell\t" << L"\x2B9E\n\t\t\x2B9C \n\t\t\x2B9D \n\t\t\x2B9f\n";
-
-    std::wcout << cc(green) << "spawn_cell\t" << L"\x2B9E\n\t\t\x2B9C \n\t\t\x2B9D \n\t\t\x2B9f\n";
-
-    std::wcout << cc(blue) << "turn_cell\t" << L"\x2B9E\n\t\t\x2B9C \n\t\t\x2B9D \n\t\t\x2B9f\n";
+    std::wcout << cc(gray) << "barrier_cell\t" << (wchar_t) (9635) << " \n";
+    std::wcout << cc(gray) << "movable_barrier_cell\t" << (wchar_t) (9634) << " \n";
+    std::wcout << cc(red) << "kill_cell\t" << (wchar_t) 10006 << " \n";
 
 
-    std::wcout << cc(purple) << "goal_cell\t" << L"\x2B24 \n";
+    std::wcout << cc(yellow) << "move_cell\t" << (wchar_t) 11166 << " \n\t\t" << (wchar_t) 11164 << " \n\t\t"
+               << (wchar_t) 11165 << " \n\t\t" << (wchar_t) 11167 << std::endl;
+
+    std::wcout << cc(green) << "spawn_cell\t" << (wchar_t) 11166 << " \n\t\t" << (wchar_t) 11164 << " \n\t\t"
+               << (wchar_t) 11165 << " \n\t\t" << (wchar_t) 11167 << std::endl;
+
+    std::wcout << cc(blue) << "turn_cell\t" << (wchar_t) 11166 << " \n\t\t" << (wchar_t) 11164 << " \n\t\t"
+               << (wchar_t) 11165 << " \n\t\t" << (wchar_t) 11167 << std::endl;
+
+    wchar_t goal = 11044;
+    std::wcout << cc(purple) << "goal_cell\t" << goal << L" \n";
 
 
     level_info level{10, 10};
@@ -96,10 +100,10 @@ int main() {
         for (unsigned h = 0; h < level.getHeight(); h++) {
             for (unsigned w = 0; w < level.getWidth(); w++) {
 
-                color text_color = first.get_cell_icon({h, w}).icon_color;
+                color text_color = first.get_cell_icon({h, w}).text_color;
                 color background_color = black;
                 first.get_cell_icon({h, w});
-                std::wcout << cc(text_color, background_color) << first.get_cell_icon({h, w}).image;
+                std::wcout << cc(text_color, background_color) << first.get_cell_icon({h, w}).image<<" ";
 
             }
             std::wcout << "\n";

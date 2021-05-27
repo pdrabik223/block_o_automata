@@ -5,14 +5,14 @@
 #include "icon.h"
 
 icon::icon() {
-    image = L"error";
+    image = 0;
     text_color = red;
     background_color = black;
 }
 
-icon::icon(const std::wstring &image, color iconColor) : image(image), text_color(iconColor),background_color(black) {}
+icon::icon(wchar_t image, color iconColor) : image(image), text_color(iconColor),background_color(black) {}
 
-icon::icon(const std::wstring &image, color text_color, color background_color) :
+icon::icon(wchar_t image, color text_color, color background_color) :
         image(image),
         text_color(text_color),
         background_color(background_color) {}

@@ -49,16 +49,16 @@ bool turn_cell::operator!=(const type &rhs) const {
 icon turn_cell::get_unicode() {
     switch (turn_direction) {
         case left:
-            return {L"\x2B9C ", blue};
+            return {11164, blue};
 
         case right:
-            return {L"\x2B9E ", blue};
+            return {11166, blue};
 
         case up:
-            return {L"\x2B9D ", blue};
+            return {11165, blue};
 
-        case down :
-            return {L"\x2B9F ", blue};
+        case down:
+            return {11167, blue};
         default:
             return icon();
     }
