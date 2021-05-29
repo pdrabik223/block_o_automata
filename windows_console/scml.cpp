@@ -7,24 +7,69 @@
 #include "scml.h"
 
 
-scml::scml(unsigned int w, unsigned int h) : w(w), h(h) {
+scml::scml() {
     text_color = white;
     background_color = black;
-    for (int i = 0; i < w * h; i++)
-        buffer.emplace_back(' ', white, black);
-        /// here when I wrote    buffer.emplace_back("  ", white, black);
-        /// the clion didn't shout at me
-        /// witch is odd
+    w = 0;
+    h = 0;
+    hc = GetStdHandle(STD_OUTPUT_HANDLE);
+    _setmode(_fileno(stdout), _O_U16TEXT);
+
+}
+
+scml::scml(unsigned int width, unsigned int height) : w(width), h(height) {
+    text_color = white;
+    background_color = black;
+    /// it ain't the fastest
+    for (int x = 0; x < h; x++) {
+        std::vector<icon> temp;
+        for (int y = 0; y < w; y++) {
+            temp.emplace_back(' ', white, black);
+        }
+        buffer.push_back(temp);
+    }
+
+    /// here when I wrote    buffer.emplace_back("  ", white, black);
+    /// the clion didn't shout at me
+    /// witch is odd
     hc = GetStdHandle(STD_OUTPUT_HANDLE);
     _setmode(_fileno(stdout), _O_U16TEXT);
     system("cls");
 }
 
+scml::scml(const scml &other) {
+    text_color = other.text_color;
+    background_color = other.background_color;
+    w = other.w;
+    h = other.h;
+    hc = GetStdHandle(STD_OUTPUT_HANDLE);
+    _setmode(_fileno(stdout), _O_U16TEXT);
+
+    buffer = other.buffer;
+}
+
+scml &scml::operator=(const scml &other) {
+    if (this == &other) return *this;
+    text_color = other.text_color;
+    background_color = other.background_color;
+    w = other.w;
+    h = other.h;
+    hc = GetStdHandle(STD_OUTPUT_HANDLE);
+    _setmode(_fileno(stdout), _O_U16TEXT);
+
+    buffer = other.buffer;
+    return *this;
+
+}
+
+
 void scml::clear() {
     for (auto &i:buffer) {
-        i.image = ' ';
-        i.text_color = text_color;
-        i.background_color = background_color;
+        for (auto &j:i) {
+            j.image = ' ';
+            j.text_color = text_color;
+            j.background_color = background_color;
+        }
     }
 }
 
@@ -112,14 +157,8 @@ int scml::await_int() {
 }
 
 void scml::set_pixel(coord position, icon new_pixel) {
-    if (position.x >= h) {
-        resize(position.x + 1, w);
-    }
-    if (position.y >= w) {
-        resize(h, position.y + 1);
-    }
-
-    buffer[position.toUint(w)] = new_pixel;
+    assert(position.x < h && position.y < w);
+    buffer[position.x][position.y] = new_pixel;
 
 }
 
@@ -135,61 +174,76 @@ void scml::update_screen() {
     for (int x = 0; x < h; x++) {
         for (int y = 0; y < w; y++) {
 
-            text_color = buffer[x * w + y].text_color;
-            background_color = buffer[x * w + y].background_color;
+            text_color = buffer[x][y].text_color;
+            background_color = buffer[x][y].background_color;
 
             std::wcout << cc(text_color, background_color);
             /// don't forget that space brother
-            std::wcout << buffer[x * w + y].image<<' ';
+            std::wcout << buffer[x][y].image << ' ';
 
 
         }
-        std::wcout << "\n";
+        if(x!=h-1)std::wcout << "\n";
     }
+
 }
 
 icon &scml::get_pixel(coord position) {
-    return buffer[position.toUint(w)];
+    assert(position.x < h && position.y < w);
+    return buffer[position.x][position.y];
 }
 
 void scml::resize(unsigned int new_width, unsigned int new_height) {
+    if (new_width < w) downsize_w(new_width);
+    else if (new_width > w) upsize_w(new_width);
 
-    auto buffer_copy = buffer;
-    buffer.clear();
-    buffer.reserve(new_width * new_height);
-    unsigned i = 0;
 
-    for (int x = 0; x < new_height; x++) {
-        for (int y = 0; y < new_width; y++) {
+    if (new_height < h) downsize_h(new_height);
+    else if (new_height > h) upsize_h(new_height);
 
-            if (x < h && y < w) {
-                buffer.push_back(buffer_copy[i]);
-                ++i;
-            } else buffer.push_back({' ', white, black});
-
-        }
-        if (new_width < w) {
-            i += w - new_width;
-            COORD c;
-
-            c.X = x * 2;
-            c.Y = new_width * 2;
-
-            SetConsoleCursorPosition(hc, c);
-            for (int j = 0; j < w - new_width; j++) std::wcout << cc(white, black) << " ";
-        }
-    }
-    if (new_height < h) {
-        COORD c;
-
-        c.X = new_width;
-        c.Y = new_height;
-
-        SetConsoleCursorPosition(hc, c);
-        for (int j = 0; j < h - new_height; j++)
-            for (int i = 0; i < new_width; i++)
-                std::wcout << cc(white, black) << "  ";
-    }
-    w = new_width;
-    h = new_height;
 }
+
+void scml::downsize_w(unsigned int new_width) {
+    int delta = w - new_width;
+    assert(delta >= 0);
+
+    for (auto &i:buffer)
+        for (unsigned j = 0; j < delta; j++)
+            i[w - 1 - j].image = ' ';
+
+    update_screen();
+
+    for (auto &i:buffer)
+        i.resize(new_width);
+
+    w = new_width;
+}
+
+void scml::upsize_w(unsigned int new_width) {
+    int delta = new_width - w;
+    assert(delta >= 0);
+
+    for (auto &i:buffer)
+        i.resize(new_width);
+
+    w = new_width;
+}
+
+void scml::downsize_h(unsigned int new_height) {
+
+    for (int i = new_height; i < h; i++)
+        for (auto &i:buffer[i])
+            i = {' ', white, black};
+    update_screen();
+    buffer.resize(new_height);
+    h = new_height;
+
+}
+
+void scml::upsize_h(unsigned int new_height) {
+
+    buffer.resize(new_height);
+    h = new_height;
+
+}
+

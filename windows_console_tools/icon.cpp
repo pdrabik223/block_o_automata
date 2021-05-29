@@ -5,8 +5,8 @@
 #include "icon.h"
 
 icon::icon() {
-    image = 0;
-    text_color = red;
+    image =  ' ';
+    text_color = white;
     background_color = black;
 }
 

@@ -54,8 +54,8 @@ public:
 
     bool operator!=(const coord &rhs) const;
 
-    unsigned y;
     unsigned x;
+    unsigned y;
 
 };
 

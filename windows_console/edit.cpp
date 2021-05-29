@@ -6,6 +6,7 @@
 
 void win_console::edit::controlled_view() {
 
+    console_handle.resize(getHeight() + 3, getWidth() + 2);
     for (unsigned i = 0; i < getHeight(); i++) {
         for (unsigned j = 0; j < getWidth(); j++) {
 
@@ -24,29 +25,34 @@ void win_console::edit::controlled_view() {
         console_handle.set_pixel({getHeight(), i}, {' ', white, black});
 
 
-    console_handle.set_pixel({getHeight(), getWidth() - 1}, {'-', yellow, black});
-    console_handle.set_pixel({getHeight(), getWidth()}, {'+', yellow, black});
+    console_handle.set_pixel({getHeight(), getWidth() - 2}, {'-', yellow, black});
+    console_handle.set_pixel({getHeight(), getWidth() - 1}, {'+', yellow, black});
 
 
     ///display cursor
     console_handle.get_pixel(cursor_position).background_color = light_aqua;
 
-
-  /// display blocks
-    for (unsigned i = 0; i < all_blocks.size()*2; i+=2) {
-        console_handle.get_pixel({getHeight() + 1, i}).image = ' ';
-        console_handle.set_pixel({getHeight() + 1, i + 1}, all_blocks[i]->get_unicode());
-    }
-
-    /// display cursor on screen
-    console_handle.get_pixel({getHeight() + 1, current_block + 1}).background_color = light_aqua;
-
     console_handle.update_screen();
-    ///clear cursor coz it will change
+    std::cout<<"\n";
+    ///clear cursor coz it might change
     console_handle.get_pixel(cursor_position).background_color = black;
 
-    ///clear cursor coz it will change
-    console_handle.get_pixel({getHeight() + 1, current_block + 1}).background_color = black;
+
+    /// display blocks
+    std::wcout << L"  ";
+    for (unsigned i = 0; i < all_blocks.size(); i++) {
+        if (i != current_block)
+            std::wcout << cc(all_blocks[i]->get_unicode().text_color, all_blocks[i]->get_unicode().background_color) <<
+                       all_blocks[i]->get_unicode().image << " ";
+
+        else
+            std::wcout << cc(all_blocks[i]->get_unicode().text_color, light_aqua) <<
+                       all_blocks[i]->get_unicode().image << " ";
+
+        std::wcout << cc(black, black) << L"   ";
+    }
+
+
 }
 
 void win_console::edit::run_sim() {

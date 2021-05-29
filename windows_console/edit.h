@@ -11,7 +11,7 @@
 namespace win_console {
     class edit : public le::level_edit {
     public:
-        edit():le::level_edit(), console_handle(10+1, 10 + 3) {};
+        edit() : le::level_edit(), console_handle(getHeight() + 3, getWidth() + 2) {};
 
         void controlled_view() override;
 
@@ -20,6 +20,7 @@ namespace win_console {
         void set_additional_info() override;
 
         unsigned char get_key() override;
+
     protected:
         scml console_handle;
     };

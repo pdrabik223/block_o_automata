@@ -35,11 +35,18 @@ enum key_pressed {
     key_i
 };
 
-
+/// simple console media layer
+/// step between our app and device console
+/// contains buffer of wchar_t values that will be displayed on screen
+/// every character will be followed by space
 class scml {
 
 public:
-    scml(unsigned int w, unsigned int h);
+
+    scml();
+    scml(const scml& other);
+    scml(unsigned int width, unsigned int height);
+    scml& operator=(const scml& other);
 
     key_pressed await_key_press();
 
@@ -62,11 +69,18 @@ public:
     }
 
 private:
-    unsigned w;
+    void downsize_w(unsigned new_width);
+    void upsize_w(unsigned new_width);
+
+    void downsize_h(unsigned new_height);
+    void upsize_h(unsigned new_height);
+
+
     unsigned h;
+    unsigned w;
     color text_color;
     color background_color;
-    std::vector<icon> buffer;
+    std::vector<std::vector<icon>> buffer;
     HANDLE hc;
 
 };
