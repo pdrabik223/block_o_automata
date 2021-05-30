@@ -46,7 +46,7 @@ type kill_cell::getCellType() const {
 }
 
 std::ostream &operator<<(std::ostream &out, const kill_cell &ref) {
-    out<<ref.getCellType();
+    out<<(int)ref.getCellType();
     return out;
 }
 

@@ -27,6 +27,9 @@ player_action level_edit::analyze_movement(char key) {
             return run_simulation;
         case 'q':
             return quit_edit;
+        case 127:
+            if (cursor_position.x < getHeight() && cursor_position.y < getWidth())
+                copy_cell(cursor_position, new  empty_cell());
         case 13:
             // set pawn in place
             if (cursor_position.x < getHeight() && cursor_position.y < getWidth())

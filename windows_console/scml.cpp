@@ -84,6 +84,9 @@ key_pressed scml::await_key_press() {
             case 13:
                 return key_enter;
 
+            case 127:
+                return key_delete;
+
             case '0':
                 return key_0;
 

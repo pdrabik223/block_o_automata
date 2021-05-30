@@ -50,7 +50,6 @@ void win_console::edit::controlled_view() {
     console_handle.set_pixel({getHeight(), getWidth() - 1}, {'+', yellow, black});
 
 
-
     for (unsigned i = 0; i < all_blocks.size() * 2; i += 2) {
         console_handle.set_pixel({getHeight() + 1, i}, {' ', white, black});
         console_handle.set_pixel({getHeight() + 1, i + 1}, all_blocks[(i / 2)]->get_unicode());
@@ -165,6 +164,8 @@ unsigned char win_console::edit::get_key() {
             return 32;
         case key_enter:
             return 13;
+        case key_delete:
+            return 127;
         case key_0:
             return '0';
         case key_1:

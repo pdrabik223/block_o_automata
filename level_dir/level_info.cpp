@@ -166,7 +166,7 @@ void level_info::save() {
     myfile << width << "\n";
     myfile << height << "\n";
 
-    for (cell *&i : level) {
+    for (cell *i : level) {
         myfile << *i << " ";
 
     }

@@ -15,6 +15,7 @@ enum key_pressed {
 
     key_space,
     key_enter,
+    key_delete,
     key_0,
     key_1,
     key_2,
