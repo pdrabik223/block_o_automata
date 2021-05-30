@@ -39,6 +39,13 @@ enum key_pressed {
 /// step between our app and device console
 /// contains buffer of wchar_t values that will be displayed on screen
 /// every character will be followed by space
+
+//todo better use press detection
+// idk how much time i want to spend at it
+// i guess we'll see
+// for now it runs of getch()
+// I'll try with getline
+
 class scml {
 
 public:

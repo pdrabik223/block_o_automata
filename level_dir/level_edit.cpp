@@ -6,7 +6,9 @@
 
 using namespace le;
 
-
+//todo make logs appear at the bottom of screen
+// when cursor is over functional icons display what they do
+//
 player_action level_edit::analyze_movement(char key) {
     switch (key) {
         case 'a':
@@ -34,7 +36,7 @@ player_action level_edit::analyze_movement(char key) {
 
                 /// if cursor is on " plus on the right"
                 if (cursor_position == coord(getHeight() - 1, getWidth())) {
-                    resize( getHeight(),getWidth() + 1);
+                    resize(getHeight(), getWidth() + 1);
                     cursor_position.y++;
                     /// i'm so sorry but I wanted to use it so much
                     /// and i know it's confusing so I couldn't
@@ -43,38 +45,43 @@ player_action level_edit::analyze_movement(char key) {
                 }
                 /// if cursor is on " minus on the right"
                 if (cursor_position == coord(getHeight() - 2, getWidth())) {
-                    resize( getHeight(),getWidth() - 1);
+                    resize(getHeight(), getWidth() - 1);
                     cursor_position.y--;
                     goto skip;
                 }
 
                 /// if cursor is on " plus on the bottom"
                 if (cursor_position == coord(getHeight(), getWidth() - 1)) {
-                    resize( getHeight()+1,getWidth() );
+                    resize(getHeight() + 1, getWidth());
                     cursor_position.x++;
                     goto skip;
                 }
                 /// if cursor is on " minus on the bottom"
                 if (cursor_position == coord(getHeight(), getWidth() - 2)) {
-                    resize( getHeight()-1,getWidth() );
+                    resize(getHeight() - 1, getWidth());
                     cursor_position.x--;
                     goto skip;
                 }
 
                 /// if cursor is on "blue  i icon"
-                if (cursor_position == coord(getWidth(), getHeight())) {
+                if (cursor_position == coord(getHeight(), getWidth())) {
                     set_additional_info();
                     goto skip;
                 }
 
                 /// if cursor is on "red < icon"
-                if (cursor_position == coord(0, getHeight())) {
+                if (cursor_position == coord(0, getWidth())) {
                     return quit_edit;
                 }
                 /// if cursor is on "blue \/ icon"
-                if (cursor_position == coord(1, getHeight())) {
-                   save();
+                if (cursor_position == coord(2, getWidth())) {
+                    if(level_name != "noname") save();
                 }
+                /// if cursor is on "blue \/ icon"
+                if (cursor_position == coord(1, getWidth())) {
+                    return run_simulation;
+                }
+
 
             }
         skip:

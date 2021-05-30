@@ -26,9 +26,15 @@ void win_console::edit::controlled_view() {
     /// display quit icon a.k.a. little red < in the right top corner
     console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, black});
 
+    /// display run simulation icon a.k.a. little red > in the right top corner
+    console_handle.set_pixel({1, getWidth()}, {(wchar_t) 11166, yellow, black});
+
+
     /// display save icon a.k.a \/
-    if (level_name == "noname") console_handle.set_pixel({1, getWidth()}, {(wchar_t) 11167, gray, black});
-    else console_handle.set_pixel({1, getWidth()}, {(wchar_t) 11167, gray, black});
+    if (level_name == "noname") console_handle.set_pixel({2, getWidth()}, {(wchar_t) 11167, gray, black});
+    else console_handle.set_pixel({2, getWidth()}, {(wchar_t) 11167, blue, black});
+
+
 
     /// display info icon a.k.a. little blue i on the right bottom
     console_handle.set_pixel({getHeight(), getWidth()}, {'i', blue, black});
@@ -44,10 +50,10 @@ void win_console::edit::controlled_view() {
     console_handle.set_pixel({getHeight(), getWidth() - 1}, {'+', yellow, black});
 
 
+
     for (unsigned i = 0; i < all_blocks.size() * 2; i += 2) {
         console_handle.set_pixel({getHeight() + 1, i}, {' ', white, black});
         console_handle.set_pixel({getHeight() + 1, i + 1}, all_blocks[(i / 2)]->get_unicode());
-
     }
 
 
@@ -61,6 +67,12 @@ void win_console::edit::controlled_view() {
     console_handle.update_screen();
 
 }
+/// todo complete run sim
+///  we need better press to continue
+///  but we need it everywhere
+///  we need iteration counter
+///  display blocks amounts
+///todo all around code strengthening
 
 void win_console::edit::run_sim() {
     board game(*this);

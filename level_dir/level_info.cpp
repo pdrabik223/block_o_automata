@@ -133,15 +133,18 @@ void level_info::save() {
         std::string date = current_date().erase(0, 11);
         for (char &i:date)
             if (i == ':') i = '_';
-        file_path = "../\\levels" + date + ".txt";
+        file_path = "../\\levels\\" + date + ".txt";
         level_name = "noname" + date;
 
     } else
-        file_path = "../\\levels" + level_name + ".txt";
+        file_path = "../\\levels\\" + level_name + ".txt";
 
 
     myfile.open(file_path);
-    if (!myfile.is_open()) std::cout << "\nfile is fucked ";
+    if (!myfile.is_open()){
+        std::cout << "\nfile is bad ";
+        return;
+    }
 
 
     myfile << level_name << "\n"; // every field is separated by new line
