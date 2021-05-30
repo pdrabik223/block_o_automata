@@ -6,7 +6,15 @@
 
 void win_console::edit::controlled_view() {
 
-    console_handle.resize(getHeight() + 3, getWidth() + 2);
+    unsigned window_height = getHeight() + 2;
+    unsigned window_width = (getWidth() + 1) > (all_blocks.size() * 2) ? (getWidth() + 1) : (all_blocks.size() * 2);
+
+
+    console_handle.resize(window_height, window_width);
+    /// clear buffer before overwriting it
+    console_handle.clear();
+
+    /// display the level
     for (unsigned i = 0; i < getHeight(); i++) {
         for (unsigned j = 0; j < getWidth(); j++) {
 
@@ -14,44 +22,36 @@ void win_console::edit::controlled_view() {
 
         }
     }
+
+    /// display info icon a.k.a. little blue i on the right bottom
+    console_handle.set_pixel({getHeight(), getWidth()}, {'i', blue, black});
+
+
     /// display width controls:
     console_handle.set_pixel({getHeight() - 2, getWidth()}, {'-', yellow, black});
     console_handle.set_pixel({getHeight() - 1, getWidth()}, {'+', yellow, black});
 
 
-
     /// display height controls:
-    for (unsigned i = 0; i < getWidth() - 2; i++)
-        console_handle.set_pixel({getHeight(), i}, {' ', white, black});
-
-
     console_handle.set_pixel({getHeight(), getWidth() - 2}, {'-', yellow, black});
     console_handle.set_pixel({getHeight(), getWidth() - 1}, {'+', yellow, black});
+
+
+    for (unsigned i = 0; i < all_blocks.size() * 2; i += 2) {
+        console_handle.set_pixel({getHeight() + 1, i}, {' ', white, black});
+        console_handle.set_pixel({getHeight() + 1, i + 1}, all_blocks[(i / 2)]->get_unicode());
+
+    }
 
 
     ///display cursor
     console_handle.get_pixel(cursor_position).background_color = light_aqua;
 
+    ///display cursor
+    console_handle.get_pixel({getHeight() + 1, (current_block * 2) + 1}).background_color = light_aqua;
+
+
     console_handle.update_screen();
-    std::cout<<"\n";
-    ///clear cursor coz it might change
-    console_handle.get_pixel(cursor_position).background_color = black;
-
-
-    /// display blocks
-    std::wcout << L"  ";
-    for (unsigned i = 0; i < all_blocks.size(); i++) {
-        if (i != current_block)
-            std::wcout << cc(all_blocks[i]->get_unicode().text_color, all_blocks[i]->get_unicode().background_color) <<
-                       all_blocks[i]->get_unicode().image << " ";
-
-        else
-            std::wcout << cc(all_blocks[i]->get_unicode().text_color, light_aqua) <<
-                       all_blocks[i]->get_unicode().image << " ";
-
-        std::wcout << cc(black, black) << L"   ";
-    }
-
 
 }
 
@@ -82,13 +82,13 @@ void win_console::edit::run_sim() {
 void win_console::edit::set_additional_info() {
 
     system("cls");
-
+    std::wcout <<cc(blue,black);
     std::wcout << "\nlevel name :";
     std::cin >> level_name;
 
     std::wcout << "\nauthor :";
     std::cin >> author;
-
+    std::wcout <<cc(red,black);
     std::wcout << "\nset level difficulty 1-4 : ";
     int temp_int;
     std::cin >> temp_int;
@@ -97,36 +97,44 @@ void win_console::edit::set_additional_info() {
     if (temp_int < 0) temp_int = 0;
 
     level_difficulty = (difficulty) temp_int;
-
+    std::wcout <<cc(yellow,black);
     std::wcout << "\nmax iterations  :";
     std::cin >> temp_int;
 
-    if (temp_int >= 999) temp_int = 999;
+    if (temp_int >= 99) temp_int = 99;
     if (temp_int < 0) temp_int = 0;
     max_iteration = temp_int;
 
     std::wcout << "\nmax piece cost  :";
     std::cin >> temp_int;
 
-    if (temp_int >= 999) temp_int = 999;
+    if (temp_int >= 99) temp_int = 99;
     if (temp_int < 0) temp_int = 0;
     max_piece_cost = temp_int;
 
-
+    std::wcout <<cc(blue,black);
     std::wcout << "\n max number of pawns that user has at his disposal :\n";
 
     for (int i = 0; i < number_of_pawns.size(); i++) {
         std::wcout << "max amount of  ";
         std::wcout << cc(all_blocks[i]->get_unicode().text_color, black);
         std::wcout << all_blocks[i]->get_unicode().image << "  ";
-
+        std::wcout <<cc(blue,black);
         std::cin >> temp_int;
 
-        if (temp_int >= 999) temp_int = 999;
-        if (temp_int < 0) temp_int = 0;
+        if (temp_int >= 99) temp_int = 99;
+        if (temp_int <= 0) temp_int = 0;
 
         number_of_pawns[i] = temp_int;
+
+        std::wcout << "\r\r";
+        std::wcout << cc(all_blocks[i]->get_unicode().text_color, black);
+        std::wcout << all_blocks[i]->get_unicode().image<<' ';
+        std::wcout <<cc(blue,black) << "  is set to " << temp_int << std::endl;
     }
+    std::wcout <<cc(yellow,black);
+
+    system("cls");
     std::wcout << "changes saved";
     std::this_thread::sleep_for(std::chrono::milliseconds(800));
 
@@ -172,8 +180,7 @@ unsigned char win_console::edit::get_key() {
             return 'e';
         case key_r:
             return 'r';
-        case key_i:
-            return 'i';
+
         default:
             assert(false);
             return '\0';

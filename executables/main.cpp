@@ -43,7 +43,8 @@ int main() {
     std::wcout << cc(purple) << "goal_cell\t" << goal << L" \n";
 
 
-    level_info level{10, 10};
+    level_info level{10, 10}
+    (0, 0);
 
 
     for (int i = 0; i < level.size(); i++) {

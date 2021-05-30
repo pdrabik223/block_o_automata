@@ -48,7 +48,7 @@ unsigned int level_info::getHeight() const {
 }
 
 
-level_info::level_info(unsigned int width, unsigned int height) : width(width), height(height) {
+level_info::level_info(unsigned int height, unsigned int width) : width(width), height(height) {
 
 
     level_name = current_date();
@@ -78,7 +78,7 @@ level_info::level_info(unsigned int width, unsigned int height) : width(width), 
 }
 
 
-void level_info::resize(unsigned int new_width, unsigned int new_height) {
+void level_info::resize(unsigned int new_height,unsigned int new_width) {
     std::vector<cell *> level_copy = level;
     unsigned i = 0;
     level.clear();

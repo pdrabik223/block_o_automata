@@ -67,8 +67,8 @@ void scml::clear() {
     for (auto &i:buffer) {
         for (auto &j:i) {
             j.image = ' ';
-            j.text_color = text_color;
-            j.background_color = background_color;
+            j.text_color = white;
+            j.background_color = black;
         }
     }
 }
@@ -135,8 +135,6 @@ key_pressed scml::await_key_press() {
             case 'r':
                 return key_r;
 
-            case 'i':
-                return key_i;
 
             default:
                 break;
@@ -183,9 +181,9 @@ void scml::update_screen() {
 
 
         }
-        if(x!=h-1)std::wcout << "\n";
+        if (x != h - 1)std::wcout << " \n";
     }
-
+    std::wcout << cc(white, black);
 }
 
 icon &scml::get_pixel(coord position) {
@@ -193,10 +191,9 @@ icon &scml::get_pixel(coord position) {
     return buffer[position.x][position.y];
 }
 
-void scml::resize(unsigned int new_width, unsigned int new_height) {
+void scml::resize(unsigned int new_height, unsigned int new_width) {
     if (new_width < w) downsize_w(new_width);
     else if (new_width > w) upsize_w(new_width);
-
 
     if (new_height < h) downsize_h(new_height);
     else if (new_height > h) upsize_h(new_height);
@@ -225,16 +222,16 @@ void scml::upsize_w(unsigned int new_width) {
 
     for (auto &i:buffer)
         i.resize(new_width);
-
     w = new_width;
 }
 
 void scml::downsize_h(unsigned int new_height) {
 
     for (int i = new_height; i < h; i++)
-        for (auto &i:buffer[i])
-            i = {' ', white, black};
+        for (auto &j:buffer[i])
+            j = {' ', white, black};
     update_screen();
+
     buffer.resize(new_height);
     h = new_height;
 
@@ -243,6 +240,10 @@ void scml::downsize_h(unsigned int new_height) {
 void scml::upsize_h(unsigned int new_height) {
 
     buffer.resize(new_height);
+    for (auto &i:buffer)
+        for (int j = 0; j < w; j++)
+           i.emplace_back(' ', white, black);
+
     h = new_height;
 
 }

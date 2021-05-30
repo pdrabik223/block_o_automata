@@ -47,14 +47,14 @@ public:
 
     /// \brief constructor is simple
     ///  all of the fields will be accessed by set adn get functions
-    level_info(unsigned int width, unsigned int height);
+    level_info(unsigned int height, unsigned int width);
 
     /// \brief no param constructor
     /// level will be as default as it gets
     level_info();
 
     /// \return resizes field without losing data
-    void resize(unsigned int new_width, unsigned int new_height);
+    void resize(unsigned int new_height,unsigned int new_width);
 
     /// \brief save current state of the level on drive
     void save();

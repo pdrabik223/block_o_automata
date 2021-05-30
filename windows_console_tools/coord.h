@@ -49,6 +49,13 @@ public:
     /// \param w given width of a 2D representation of nn plane
     unsigned toUint(unsigned w) const;
 
+    bool operator<(const coord &rhs) const;
+
+    bool operator>(const coord &rhs) const;
+
+    bool operator<=(const coord &rhs) const;
+
+    bool operator>=(const coord &rhs) const;
 
     bool operator==(const coord &rhs) const;
 

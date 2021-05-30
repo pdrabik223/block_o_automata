@@ -25,37 +25,50 @@ player_action level_edit::analyze_movement(char key) {
             return run_simulation;
         case 'q':
             return quit_edit;
-        case 'i':
-            return set_info;
         case 13:
             // set pawn in place
             if (cursor_position.x < getHeight() && cursor_position.y < getWidth())
                 copy_cell(cursor_position, all_blocks[current_block]);
             else {
-                if (cursor_position.x == getHeight()) {
-                    if (cursor_position.y == getWidth() - 1) {
 
-                        resize(getWidth() , getHeight() + 1);
-                        cursor_position.x++;
 
-                    } else if (cursor_position.y == getWidth() - 2) {
-                        resize(getWidth(), getHeight() - 1);
-                        cursor_position.x--;
-                    }
+                /// if cursor is on " plus on the right"
+                if (cursor_position == coord(getHeight() - 1, getWidth())) {
+                    resize(getWidth() + 1, getHeight());
+                    cursor_position.y++;
+                    /// i'm so sorry but I wanted to use it so much
+                    /// and i know it's confusing so I couldn't
+                    /// but here is quite clear
+                    goto skip;
+                }
+                /// if cursor is on " minus on the right"
+                if (cursor_position == coord(getHeight() - 2, getWidth())) {
+                    resize(getWidth() - 1, getHeight());
+                    cursor_position.y--;
+                    goto skip;
                 }
 
-                if (cursor_position.y == getWidth()) {
-                    if (cursor_position.x == getHeight() - 1) {
-                        resize(getWidth() + 1, getHeight());
-                        cursor_position.y++;
+                /// if cursor is on " plus on the bottom"
+                if (cursor_position == coord(getHeight(), getWidth() - 1)) {
+                    resize(getWidth(), getHeight() + 1);
+                    cursor_position.x++;
+                    goto skip;
+                }
+                /// if cursor is on " minus on the bottom"
+                if (cursor_position == coord(getHeight(), getWidth() - 2)) {
+                    resize(getWidth(), getHeight() - 1);
+                    cursor_position.x--;
+                    goto skip;
+                }
 
-                    } else if (cursor_position.x == getHeight() - 2) {
-                        resize(getWidth() -1 , getHeight());
-                        cursor_position.y--;
-                    }
+                /// if cursor is on "blue  i icon"
+                if (cursor_position == coord(getWidth(), getHeight())) {
+                    set_additional_info();
+                    goto skip;
                 }
 
             }
+        skip:
             break;
         case 'r':
             level[cursor_position.toUint(getWidth())]->rotateRight();
@@ -87,17 +100,34 @@ player_action level_edit::analyze_movement(char key) {
 
         default:
             return nothing;
-            break;
+
     }
 
 
-    if (cursor_position.y > getWidth()) cursor_position.y = getWidth();
-    if (cursor_position.x > getHeight()) cursor_position.x = getHeight();
+    if (cursor_position.y >
 
-    if (cursor_position.y < 0) cursor_position.y = 0;
-    if (cursor_position.x < 0) cursor_position.x = 0;
+        getWidth()
 
-    return nothing;
+            )
+        cursor_position.
+                y = getWidth();
+    if (cursor_position.x >
+
+        getHeight()
+
+            )
+        cursor_position.
+                x = getHeight();
+
+    if (cursor_position.y < 0)
+        cursor_position.
+                y = 0;
+    if (cursor_position.x < 0)
+        cursor_position.
+                x = 0;
+
+    return
+            nothing;
 }
 
 

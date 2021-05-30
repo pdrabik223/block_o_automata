@@ -65,6 +65,7 @@ public:
     void clear();
 
     ~scml() {
+        std::wcout << cc(white, black);
         system("cls");
     }
 
