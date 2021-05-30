@@ -17,7 +17,8 @@ namespace le {
         nothing,
         quit_edit,
         run_simulation,
-        set_info
+        set_info,
+        save
 
     };
 

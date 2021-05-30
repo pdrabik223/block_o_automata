@@ -95,7 +95,7 @@ void level_info::resize(unsigned int new_height,unsigned int new_width) {
         }
         if (new_width < width) i += width - new_width;
     }
-    std::clog <<new_height<<"--" << new_width;
+
     width = new_width;
     height = new_height;
 }

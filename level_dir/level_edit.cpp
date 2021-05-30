@@ -34,7 +34,7 @@ player_action level_edit::analyze_movement(char key) {
 
                 /// if cursor is on " plus on the right"
                 if (cursor_position == coord(getHeight() - 1, getWidth())) {
-                    resize(getWidth() + 1, getHeight());
+                    resize( getHeight(),getWidth() + 1);
                     cursor_position.y++;
                     /// i'm so sorry but I wanted to use it so much
                     /// and i know it's confusing so I couldn't
@@ -43,20 +43,20 @@ player_action level_edit::analyze_movement(char key) {
                 }
                 /// if cursor is on " minus on the right"
                 if (cursor_position == coord(getHeight() - 2, getWidth())) {
-                    resize(getWidth() - 1, getHeight());
+                    resize( getHeight(),getWidth() - 1);
                     cursor_position.y--;
                     goto skip;
                 }
 
                 /// if cursor is on " plus on the bottom"
                 if (cursor_position == coord(getHeight(), getWidth() - 1)) {
-                    resize(getWidth(), getHeight() + 1);
+                    resize( getHeight()+1,getWidth() );
                     cursor_position.x++;
                     goto skip;
                 }
                 /// if cursor is on " minus on the bottom"
                 if (cursor_position == coord(getHeight(), getWidth() - 2)) {
-                    resize(getWidth(), getHeight() - 1);
+                    resize( getHeight()-1,getWidth() );
                     cursor_position.x--;
                     goto skip;
                 }
@@ -65,6 +65,15 @@ player_action level_edit::analyze_movement(char key) {
                 if (cursor_position == coord(getWidth(), getHeight())) {
                     set_additional_info();
                     goto skip;
+                }
+
+                /// if cursor is on "red < icon"
+                if (cursor_position == coord(0, getHeight())) {
+                    return quit_edit;
+                }
+                /// if cursor is on "blue \/ icon"
+                if (cursor_position == coord(1, getHeight())) {
+                   save();
                 }
 
             }
@@ -148,7 +157,7 @@ void level_edit::main_loop() {
         if (operation == set_info) set_additional_info();
 
     }
-    save();
+    //save();
 }
 
 
