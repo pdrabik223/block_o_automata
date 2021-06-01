@@ -37,6 +37,7 @@ public:
 
     void rotateRight()  noexcept override;
 
+    void output_fo_file(std::ostream &out) override;
 
 protected:
     direction move_direction;

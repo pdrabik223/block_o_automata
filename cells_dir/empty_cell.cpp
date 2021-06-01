@@ -67,5 +67,11 @@ void empty_cell::setLocked(bool locked) {
     locked = locked;
 }
 
+void empty_cell::output_fo_file(std::ostream &out) {
+    out << (int) getCellType();
+    out << " ";
+    out << isLocked();
+}
+
 
 

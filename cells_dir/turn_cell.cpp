@@ -6,17 +6,17 @@
 #include "move_cell.h"
 
 
-turn_cell::turn_cell(): cell(false, true),
+turn_cell::turn_cell() : cell(false, true),
 
-                        turn_direction(left) {}
-
+                         turn_direction(left) {}
 
 
 turn_cell::turn_cell(direction turnDirection) : cell(false, true),
 
                                                 turn_direction(turnDirection) {}
 
-void turn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {}
+void
+turn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {}
 
 void
 turn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
@@ -25,7 +25,8 @@ turn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destinati
     plane[curr_pos.go(turn_direction, w)]->move(plane, destination, turn_direction, curr_pos.go(turn_direction), w);
 
 
-    if (*destination[curr_pos.go(turn_direction, w)] == Empty || curr_pos.go(turn_direction, w) == curr_pos.reverse(move_dir, w)) {
+    if (*destination[curr_pos.go(turn_direction, w)] == Empty ||
+        curr_pos.go(turn_direction, w) == curr_pos.reverse(move_dir, w)) {
 
         // me                                      the one in front
         std::swap(destination[curr_pos.reverse(move_dir, w)], destination[curr_pos.go(turn_direction, w)]);
@@ -95,12 +96,18 @@ void turn_cell::rotateRight() noexcept {
             turn_direction = down;
             break;
         case down:
-            turn_direction=left;
+            turn_direction = left;
             break;
         case up:
             turn_direction = right;
             break;
 
     }
+}
+
+void turn_cell::output_fo_file(std::ostream &out) {
+    out << (int) getCellType();
+    out << " ";
+    out << (int) getTurnDirection();
 }
 

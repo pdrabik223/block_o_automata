@@ -35,6 +35,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const empty_cell &ref);
 
+    void output_fo_file(std::ostream &out) override;
 
 protected:
     /// can player put cells in place this one

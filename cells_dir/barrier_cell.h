@@ -35,7 +35,7 @@ public:
     friend std::istream &operator>>(std::istream &in,  barrier_cell &ref);
 
 
-
+    void output_fo_file(std::ostream &out) override;
 
 protected:
     const type cell_type = Barrier;

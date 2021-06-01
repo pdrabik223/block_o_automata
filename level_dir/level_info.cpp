@@ -51,7 +51,7 @@ unsigned int level_info::getHeight() const {
 level_info::level_info(unsigned int height, unsigned int width) : width(width), height(height) {
 
 
-    level_name = current_date();
+    level_name = "noname";
     author = "noname";
     level_difficulty = not_specified;
     level_beaten = false;
@@ -167,7 +167,8 @@ void level_info::save() {
     myfile << height << "\n";
 
     for (cell *i : level) {
-        myfile << *i << " ";
+        i->output_fo_file(myfile);
+        myfile<< " ";
 
     }
     myfile.close();

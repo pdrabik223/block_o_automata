@@ -14,14 +14,13 @@ move_cell::move_cell(direction moveDirection) : cell(true, true),
 void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
 
 
-        plane[curr_pos.go(move_direction, w)]->move(plane, destination, move_direction,
-                                                    curr_pos.go(move_direction), w);
+    plane[curr_pos.go(move_direction, w)]->move(plane, destination, move_direction,
+                                                curr_pos.go(move_direction), w);
 
-        if (*plane[curr_pos.go(move_direction, w)] == Empty) {
-            // me                                      the one in front
-            std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
-        }
-
+    if (*plane[curr_pos.go(move_direction, w)] == Empty) {
+        // me                                      the one in front
+        std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
+    }
 
 
 }
@@ -29,7 +28,7 @@ void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
 void
 move_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
                 unsigned int w) {
-   //  has_been_moved = true;
+    //  has_been_moved = true;
     plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
 
@@ -85,14 +84,14 @@ type move_cell::getCellType() const {
 }
 
 std::ostream &operator<<(std::ostream &out, const move_cell &ref) {
-    out<<ref.getCellType();
-    out<<" ";
-    out<<ref.getMoveDirection();
+    out << ref.getCellType();
+    out << " ";
+    out << ref.getMoveDirection();
     return out;
 
 }
 
-void move_cell::rotateRight()  noexcept {
+void move_cell::rotateRight() noexcept {
 
     switch (move_direction) {
         case left:
@@ -102,7 +101,7 @@ void move_cell::rotateRight()  noexcept {
             move_direction = down;
             break;
         case down:
-            move_direction=left;
+            move_direction = left;
             break;
         case up:
             move_direction = right;
@@ -111,6 +110,12 @@ void move_cell::rotateRight()  noexcept {
     }
 
 
+}
+
+void move_cell::output_fo_file(std::ostream &out) {
+    out << (int) getCellType();
+    out << " ";
+    out << (int) getMoveDirection();
 }
 
 

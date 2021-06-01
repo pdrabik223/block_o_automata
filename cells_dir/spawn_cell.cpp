@@ -159,3 +159,9 @@ void spawn_cell::rotateRight() noexcept {
     }
 }
 
+void spawn_cell::output_fo_file(std::ostream &out) {
+    out << (int) getCellType();
+    out << " ";
+    out << (int) getSpawnDirection();
+}
+

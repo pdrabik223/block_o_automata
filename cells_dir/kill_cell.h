@@ -30,8 +30,9 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const kill_cell &ref);
 
-
     void rotateRight() noexcept override {};
+
+    void output_fo_file(std::ostream &out) override;
 
 protected:
 

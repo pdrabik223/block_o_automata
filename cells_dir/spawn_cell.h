@@ -39,6 +39,8 @@ public:
 
     void rotateRight() noexcept override;
 
+    void output_fo_file(std::ostream &out) override;
+
 protected:
 
     /// the place where cell be spawned

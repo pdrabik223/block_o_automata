@@ -10,15 +10,16 @@ goal_cell::goal_cell() : cell(false, true) {}
 void goal_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
 }
 
-void goal_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-                     unsigned int w) {
+void
+goal_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+                unsigned int w) {
 
-    if(plane[curr_pos.reverse(move_dir,w)]->isKillable()){
-        destination[curr_pos.reverse(move_dir,w)] = new empty_cell(true);
+    if (plane[curr_pos.reverse(move_dir, w)]->isKillable()) {
+        destination[curr_pos.reverse(move_dir, w)] = new empty_cell(true);
         destination[curr_pos.toUint(w)] = new empty_cell(true);
         return;
 
-    }else {
+    } else {
 
         plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
 
@@ -29,7 +30,7 @@ void goal_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &dest
     }
 }
 
-bool goal_cell::operator==(const type& rhs) const {
+bool goal_cell::operator==(const type &rhs) const {
     return cell_type == rhs;
 }
 
@@ -51,8 +52,12 @@ std::istream &operator>>(std::istream &in, goal_cell &ref) {
 }
 
 std::ostream &operator<<(std::ostream &out, const goal_cell &ref) {
-    out<<ref.getCellType();
-    out<<" ";
+    out << ref.getCellType();
+    out << " ";
     return out;
+}
+
+void goal_cell::output_fo_file(std::ostream &out) {
+    out <<(int) getCellType();
 }
 

@@ -75,8 +75,7 @@ public:
 
     virtual type getCellType() const;
 
-    friend std::ostream &operator<<(std::ostream &out, const cell &ref){assert(false); return out;};
-
+    virtual void output_fo_file(std::ostream &out){assert(false);};
 
 
 
