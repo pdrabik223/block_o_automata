@@ -78,7 +78,7 @@ level_info::level_info(unsigned int height, unsigned int width) : width(width), 
 }
 
 
-void level_info::resize(unsigned int new_height,unsigned int new_width) {
+void level_info::resize(unsigned int new_height, unsigned int new_width) {
     std::vector<cell *> level_copy = level;
     unsigned i = 0;
     level.clear();
@@ -141,7 +141,7 @@ void level_info::save() {
 
 
     myfile.open(file_path);
-    if (!myfile.is_open()){
+    if (!myfile.is_open()) {
         std::cout << "\nfile is bad ";
         return;
     }
@@ -168,7 +168,7 @@ void level_info::save() {
 
     for (cell *i : level) {
         i->output_fo_file(myfile);
-        myfile<< " ";
+        myfile << " ";
 
     }
     myfile.close();
@@ -179,14 +179,13 @@ void level_info::load(const std::string &path) {
     myfile.open(path);
     std::string file_header;
 
-    if (!myfile.is_open()) std::cout << "\nfile is fucked ";
+    if (!myfile.good()) {
 
-    // myfile>>file_header;
-//    if(file_header != "boa1"){
-//        myfile.close();
-//        delete this;
-//        return;
-//    }
+        std::cout << "\nfile is fucked ";
+        assert(false);
+        return;
+    }
+
 
     myfile >> level_name; // every field is separated by new line
 
