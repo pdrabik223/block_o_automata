@@ -49,3 +49,22 @@ I'll try to recreate the idea  on my own
 # Idea bard
 ###cells
 
+tp teleport cell
+
+#TODO
+there's list of must-have elements:
+<ol>
+<li> wait for input dome tim, than close window and do something else
+<li> we need to have correct event flow, if we close window we must back to where we were before opening it
+<li> i still didn't touch trophys  
+<li> below the level and controls we need to display what is user doing<br>
+if he's on quit button we show exit itd..
+<li> in level_play we are still able to put blocks on locked places
+<li> we need to make delete block usable
+<li> level_pick uses old system 
+<li> display witch iteration it currently is
+<li> display max piece cost <- figure out what that means
+<li> all around debugging
+
+</ol>
+
