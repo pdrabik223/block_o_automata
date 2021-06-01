@@ -7,7 +7,11 @@
 #include "level_play.h"
 
 using namespace lp;
+
 player_action level_play::main_loop() {
+
+    ///lock the  original level state
+    original_level = level;
 
     char key_pressed = 0;
     player_action operation;
@@ -48,12 +52,35 @@ player_action level_play::analyze_movement(char key) {
 
         case 13:
             // set pawn in place
-            set_cell(cursor_position, all_blocks[current_block]);
+            if (cursor_position.x < getHeight() && cursor_position.y < getWidth()) {
+                /// if the cell was originally empty
+                if (*original_level[cursor_position.toUint(getWidth())] == Empty) {
+                    /// and was assignable
+                    if (!((empty_cell *) original_level[cursor_position.toUint(getWidth())])->isLocked()) {
+
+                        if (number_of_pawns[current_block] != 0) {
+                            copy_cell(cursor_position, all_blocks[current_block]);
+                        } else
+                            current_message = no_more_blocks_left;
+                    } else
+                        current_message = cant_place_block_here;
+                } else
+                    current_message = cant_place_block_here;
+
+            }
+            /// if cursor is on "red < icon"
+            if (cursor_position == coord(0, getWidth())) {
+                return quit_game;
+            }
+
+            /// if cursor is on "yellow >icon"
+            if (cursor_position == coord(1, getWidth())) {
+                return run_simulation;
+            }
+
             break;
         case 'r':
-
             operator[](cursor_position)->rotateRight();
-
             break;
         case '1':
             current_block = 0;
@@ -70,18 +97,28 @@ player_action level_play::analyze_movement(char key) {
         case '5':
             current_block = 4;
             break;
-        case '6':
-            current_block = 5;
-            break;
+
         default:
             return nothing;
 
     }
-    if (cursor_position.y >= getWidth()) cursor_position.y = 0;
-    if (cursor_position.x >= getHeight()) cursor_position.x = 0;
+    if (cursor_position.y > getWidth()) cursor_position.y = getWidth() ;
+    if (cursor_position.x >= getHeight()) cursor_position.x = getHeight() -1;
 
-    if (cursor_position.y < 0) cursor_position.y = getWidth() - 1;
-    if (cursor_position.x < 0) cursor_position.x = getHeight() - 1;
+    if (cursor_position.y < 0) cursor_position.y = 0;
+    if (cursor_position.x < 0) cursor_position.x = 0;
+
+    /// if cursor is on "red < icon"
+    if (cursor_position == coord(0, getWidth())) {
+        current_message = exit;
+    }
+
+        /// if cursor is on "yellow >icon"
+    else if (cursor_position == coord(1, getWidth())) {
+        current_message = start_simulation;
+    }
+
+
     return nothing;
 }
 

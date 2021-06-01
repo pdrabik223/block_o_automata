@@ -52,11 +52,16 @@ class scml {
 public:
 
     scml();
-    scml(const scml& other);
+
+    scml(const scml &other);
+
     scml(unsigned int width, unsigned int height);
-    scml& operator=(const scml& other);
+
+    scml &operator=(const scml &other);
 
     key_pressed await_key_press();
+
+    void set_message(color text_color, color background_color, std::wstring message);
 
     std::string await_string();
 
@@ -79,9 +84,11 @@ public:
 
 private:
     void downsize_w(unsigned new_width);
+
     void upsize_w(unsigned new_width);
 
     void downsize_h(unsigned new_height);
+
     void upsize_h(unsigned new_height);
 
 
@@ -90,6 +97,10 @@ private:
     color text_color;
     color background_color;
     std::vector<std::vector<icon>> buffer;
+    color message_text_color;
+    color message_background_color;
+
+    std::wstring message;
     HANDLE hc;
 
 };

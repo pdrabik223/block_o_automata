@@ -27,8 +27,12 @@ namespace win_console {
 
         unsigned char get_key() override;
 
+
     protected:
+        void display_message();
+
         scml console_handle;
+
     };
 
 }

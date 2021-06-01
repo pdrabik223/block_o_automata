@@ -12,6 +12,10 @@ scml::scml() {
     background_color = black;
     w = 0;
     h = 0;
+     message_text_color = white;
+     message_background_color = black;
+
+    message = {};
     hc = GetStdHandle(STD_OUTPUT_HANDLE);
     _setmode(_fileno(stdout), _O_U16TEXT);
 
@@ -29,6 +33,11 @@ scml::scml(unsigned int width, unsigned int height) : w(width), h(height) {
         buffer.push_back(temp);
     }
 
+    message_text_color = white;
+    message_background_color = black;
+
+    message = {};
+
     /// here when I wrote    buffer.emplace_back("  ", white, black);
     /// the clion didn't shout at me
     /// witch is odd
@@ -42,6 +51,10 @@ scml::scml(const scml &other) {
     background_color = other.background_color;
     w = other.w;
     h = other.h;
+    message_text_color = other.message_text_color;
+    message_background_color = other.message_background_color;
+
+    message = other.message;
     hc = GetStdHandle(STD_OUTPUT_HANDLE);
     _setmode(_fileno(stdout), _O_U16TEXT);
 
@@ -54,6 +67,11 @@ scml &scml::operator=(const scml &other) {
     background_color = other.background_color;
     w = other.w;
     h = other.h;
+
+    message_text_color = other.message_text_color;
+    message_background_color = other.message_background_color;
+
+    message = other.message;
     hc = GetStdHandle(STD_OUTPUT_HANDLE);
     _setmode(_fileno(stdout), _O_U16TEXT);
 
@@ -71,6 +89,7 @@ void scml::clear() {
             j.background_color = black;
         }
     }
+    message = {};
 }
 
 key_pressed scml::await_key_press() {
@@ -184,8 +203,10 @@ void scml::update_screen() {
 
 
         }
-        if (x != h - 1)std::wcout << " \n";
+       std::wcout << " \n";
     }
+    std::wcout<<L"                                                        \r";
+    std::wcout<<cc(message_text_color,message_background_color)<<message;
     std::wcout << cc(white, black);
 }
 
@@ -245,9 +266,17 @@ void scml::upsize_h(unsigned int new_height) {
     buffer.resize(new_height);
     for (auto &i:buffer)
         for (int j = 0; j < w; j++)
-           i.emplace_back(' ', white, black);
+            i.emplace_back(' ', white, black);
 
     h = new_height;
 
 }
+
+void scml::set_message(color text_color, color background_color, std::wstring message) {
+
+    this->message = message;
+    message_text_color = text_color;
+    message_background_color = background_color;
+}
+
 

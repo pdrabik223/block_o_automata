@@ -210,7 +210,7 @@ void level_info::load(const std::string &path) {
     myfile >> height;
 
 
-    for (int i = 0; i < width * height; ++i) {
+    for (int i = 0; i < width * height; i++) {
 
         myfile >> temp_int;
 
@@ -303,7 +303,7 @@ const std::vector<cell *> &level_info::getLevel() const {
 }
 
 void level_info::set_cell(coord position, cell *target) {
-    level[position.x * width + position.y] = target;
+    level[position.x * width + position.y] = new cell(*target);
 }
 
 

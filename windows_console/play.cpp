@@ -8,28 +8,44 @@
 
 void win_console::play::controlled_view() {
 
+    unsigned window_height = getHeight() + 2;
+    unsigned window_width = (getWidth() + 1) > (all_blocks.size() * 2) ? (getWidth() + 1) : (all_blocks.size() * 2);
+
+
+    console_handle.resize(window_height, window_width);
+
+    /// clear buffer before overwriting it
+    console_handle.clear();
+
+    /// display the level
     for (unsigned i = 0; i < getHeight(); i++) {
         for (unsigned j = 0; j < getWidth(); j++) {
+
             console_handle.set_pixel({i, j}, get_cell(i, j).get_unicode());
 
         }
-
     }
-    /// display cursor on screen
+    /// display quit icon a.k.a. little red < in the right top corner
+    console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, black});
+
+    /// display run simulation icon a.k.a. little red > in the right top corner
+    console_handle.set_pixel({1, getWidth()}, {(wchar_t) 11166, yellow, black});
+
+
+    for (unsigned i = 0; i < all_blocks.size() * 2; i += 2) {
+        console_handle.set_pixel({getHeight() + 1, i}, {' ', white, black});
+        console_handle.set_pixel({getHeight() + 1, i + 1}, all_blocks[(i / 2)]->get_unicode());
+    }
+
+    ///display cursor
     console_handle.get_pixel(cursor_position).background_color = light_aqua;
 
+    ///display cursor
+    console_handle.get_pixel({getHeight() + 1, (current_block * 2) + 1}).background_color = light_aqua;
 
-    console_handle.set_pixel({getHeight(), 0}, {' ', white, black});
+    display_message();
 
-    for (unsigned i = 0; i < all_blocks.size(); i++) {
-        console_handle.set_pixel({getHeight(), i + 1}, all_blocks[i]->get_unicode());
-        console_handle.get_pixel({getHeight(), i + 1}).image = ' ';
-    }
-
-    /// display cursor on screen
-    console_handle.get_pixel({getHeight(), current_block + 1}).background_color = light_aqua;
     console_handle.update_screen();
-
 
 }
 
@@ -40,12 +56,18 @@ int win_console::play::run_sim() {
 
         game.iterate();
 
+        /// clear buffer before overwriting it
+        console_handle.clear();
 
         for (unsigned i = 0; i < getHeight(); i++) {
             for (unsigned j = 0; j < getWidth(); j++) {
                 console_handle.set_pixel({i, j}, game.get_cell_icon({i, j}));
             }
         }
+
+        /// display quit icon a.k.a. little red < in the right top corner
+        console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, light_aqua});
+
         console_handle.update_screen();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         if (!game.goal_cells_left()) {
@@ -105,4 +127,27 @@ unsigned char win_console::play::get_key() {
             assert(false);
             return '\0';
     }
+}
+
+void win_console::play::display_message() {
+    switch (current_message) {
+        case lp::exit:
+            console_handle.set_message(red, black, L"exit");
+            break;
+
+        case lp::start_simulation:
+            console_handle.set_message(yellow, black, L"run simulation");
+            break;
+        case lp::cant_place_block_here:
+            console_handle.set_message(red, black, L"cell can't be placed on this square");
+            break;
+        case lp::no_more_blocks_left:
+
+            console_handle.set_message(red, black, L"no more blocks of this type");
+            break;
+        case lp::none:
+
+            break;
+    }
+    current_message = lp::none;
 }

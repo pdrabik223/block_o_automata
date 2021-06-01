@@ -17,14 +17,10 @@ int main() {
 }
 
 
-
-
-
-
 level_info dummy_level() {
 
-    level_info level{10, 10}
-    (0, 0);
+    level_info level{10, 10};
+
     for (int i = 0; i < level.size(); i++) {
 
         if (i % level.getWidth() == 0 ||

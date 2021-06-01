@@ -16,11 +16,22 @@ namespace lp {
         run_simulation
     };
 
+    enum message{
+        none,
+        exit,
+        start_simulation,
+        cant_place_block_here,
+        no_more_blocks_left
+    };
+
+
     class level_play : public level_info {
     public:
         level_play() : level_info() {}
 
-        level_play(const level_info &other) : level_info(other) {}
+        level_play(const level_info &other) : level_info(other) {
+
+        }
 
         player_action main_loop();
 
@@ -41,14 +52,16 @@ namespace lp {
     protected:
         unsigned  current_block = 0;
 
+        message current_message = none;
+
         coord cursor_position = {0, 0};
 
-        std::array<cell *, 6> all_blocks = {new barrier_cell(),
+        std::array<cell *, 5> all_blocks = {new barrier_cell(),
                                             new barrier_cell(true),
                                             new move_cell(up),
-                                            new kill_cell(),
                                             new turn_cell(up),
                                             new spawn_cell(up)};
+        std::vector<cell *> original_level;
 
     };
 }

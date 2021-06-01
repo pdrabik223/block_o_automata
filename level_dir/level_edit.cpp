@@ -29,7 +29,7 @@ player_action level_edit::analyze_movement(char key) {
             return quit_edit;
         case 127:
             if (cursor_position.x < getHeight() && cursor_position.y < getWidth())
-                copy_cell(cursor_position, new  empty_cell());
+                copy_cell(cursor_position, new empty_cell());
         case 13:
             // set pawn in place
             if (cursor_position.x < getHeight() && cursor_position.y < getWidth())
@@ -78,9 +78,9 @@ player_action level_edit::analyze_movement(char key) {
                 }
                 /// if cursor is on "blue \/ icon"
                 if (cursor_position == coord(2, getWidth())) {
-                    if(level_name != "noname") save();
+                    if (level_name != "noname") save();
                 }
-                /// if cursor is on "blue \/ icon"
+                /// if cursor is on "yellow >icon"
                 if (cursor_position == coord(1, getWidth())) {
                     return run_simulation;
                 }
@@ -123,28 +123,33 @@ player_action level_edit::analyze_movement(char key) {
     }
 
 
-    if (cursor_position.y >
+    if (cursor_position.y >= getWidth()) cursor_position.y = getWidth()-1;
+    if (cursor_position.x >= getHeight()) cursor_position.x = getHeight()-1;
 
-        getWidth()
+    if (cursor_position.y < 0) cursor_position.y = 0;
+    if (cursor_position.x < 0) cursor_position.x = 0;
+//
+//    /// if cursor is on "red < icon"
+//    if (cursor_position == coord(0, getWidth())) {
+//        current_message = exit;
+//    }
+//
+//        /// if cursor is on "yellow >icon"
+//    else if (cursor_position == coord(1, getWidth())) {
+//        current_message = start_simulation;
+//    }
+//    /// if cursor is on "blue \/ icon"
+//    if (cursor_position == coord(2, getWidth())) {
+//        if (level_name != "noname") save();
+//    }
+//
+//    /// if cursor is on "blue  i icon"
+//    if (cursor_position == coord(getHeight(), getWidth())) {
+//        set_additional_info();
+//        goto skip;
+//    }
 
-            )
-        cursor_position.
-                y = getWidth();
-    if (cursor_position.x >
-
-        getHeight()
-
-            )
-        cursor_position.
-                x = getHeight();
-
-    if (cursor_position.y < 0)
-        cursor_position.
-                y = 0;
-    if (cursor_position.x < 0)
-        cursor_position.
-                x = 0;
-
+    /// todo these abowe + resize window
     return
             nothing;
 }
