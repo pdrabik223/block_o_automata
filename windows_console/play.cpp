@@ -31,6 +31,24 @@ void win_console::play::controlled_view() {
     /// display run simulation icon a.k.a. little red > in the right top corner
     console_handle.set_pixel({1, getWidth()}, {(wchar_t) 11166, yellow, black});
 
+    /// display win trophy
+    if (level_beaten)
+        console_handle.set_pixel({4, getWidth()}, {(wchar_t) 11201, purple, black});
+    else
+        console_handle.set_pixel({4, getWidth()}, {(wchar_t) 11201, gray, black});
+
+    /// display blocks trophy
+    if (max_piece_cost_beaten)
+        console_handle.set_pixel({5, getWidth()}, {(wchar_t) 11202, yellow, black});
+    else
+        console_handle.set_pixel({5, getWidth()}, {(wchar_t) 11202, gray, black});
+
+    /// display iterations trophy
+    if (max_iteration_beaten)
+        console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, red, black});
+    else
+        console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, gray, black});
+
 
     for (unsigned i = 0; i < all_blocks.size() * 2; i += 2) {
         console_handle.set_pixel({getHeight() + 1, i}, {' ', white, black});
@@ -42,6 +60,7 @@ void win_console::play::controlled_view() {
 
     ///display cursor
     console_handle.get_pixel({getHeight() + 1, (current_block * 2) + 1}).background_color = light_aqua;
+
 
     display_message();
 
@@ -67,6 +86,24 @@ int win_console::play::run_sim() {
 
         /// display quit icon a.k.a. little red < in the right top corner
         console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, light_aqua});
+
+        /// display win trophy
+        if (level_beaten)
+            console_handle.set_pixel({4, getWidth()}, {(wchar_t) 11201, purple, black});
+        else
+            console_handle.set_pixel({4, getWidth()}, {(wchar_t) 11201, gray, black});
+
+        /// display blocks trophy
+        if (max_piece_cost_beaten)
+            console_handle.set_pixel({5, getWidth()}, {(wchar_t) 11202, yellow, black});
+        else
+            console_handle.set_pixel({5, getWidth()}, {(wchar_t) 11202, gray, black});
+
+        /// display iterations trophy
+        if (max_iteration_beaten)
+            console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, red, black});
+        else
+            console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, gray, black});
 
         console_handle.update_screen();
 
@@ -141,6 +178,7 @@ void win_console::play::display_message() {
         case lp::win_trofeum:
             console_handle.set_message(yellow, black, L"congratulations you won trofeum!");
             break;
+            // todo display the range
         case lp::minimal_cost_trofeum:
 
             if (max_piece_cost_beaten)

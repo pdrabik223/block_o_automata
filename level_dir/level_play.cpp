@@ -75,6 +75,19 @@ player_action level_play::analyze_movement(char key) {
             if (cursor_position == coord(1, getWidth())) {
                 return run_simulation;
             }
+            /// if cursor is on "win trophy"
+            if (cursor_position == coord(4, getWidth())) {
+                current_message = none;
+            }
+            /// if cursor is on "blocks trophy"
+            if (cursor_position == coord(5, getWidth())) {
+                current_message = minimal_cost_trofeum;
+            }
+            /// if cursor is on "iterations trophy"
+            if (cursor_position == coord(6, getWidth())) {
+                current_message = minimal_iterations_trofeum;
+            }
+
 
             break;
         case 'r':
@@ -115,7 +128,6 @@ player_action level_play::analyze_movement(char key) {
     else if (cursor_position == coord(1, getWidth())) {
         current_message = start_simulation;
     }
-
 
 
     return nothing;

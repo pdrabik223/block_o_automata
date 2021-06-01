@@ -20,16 +20,22 @@ std::wstring level_info::get_info() {
     line += " by ";
     line += author;
     if (level_beaten) {
-        line += " B ";
+        line += " ";
+        line.push_back((wchar_t) 11201);
+        line += " ";
     } else line += "   ";
 
     if (max_iteration_beaten) {
-        line += " I ";
+        line += " ";
+        line.push_back((wchar_t) 11202);
+        line += " ";
     } else line += "   ";
 
     if (max_piece_cost_beaten) {
-        line += " C ";
-    } else line += "   ";
+        line += " ";
+        line.push_back((wchar_t) 11042);
+        line += " ";
+    } else line += "      ";
     line += "\n";
 
     std::wstring wline;
