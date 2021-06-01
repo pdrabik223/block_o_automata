@@ -45,12 +45,8 @@ player_action level_play::analyze_movement(char key) {
         case 'd':
             cursor_position.y++;
             break;
-        case 32:
-            return run_simulation;
-        case 'q':
-            return quit_game;
-
         case 13:
+
             // set pawn in place
             if (cursor_position.x < getHeight() && cursor_position.y < getWidth()) {
                 /// if the cell was originally empty
@@ -59,7 +55,9 @@ player_action level_play::analyze_movement(char key) {
                     if (!((empty_cell *) original_level[cursor_position.toUint(getWidth())])->isLocked()) {
 
                         if (number_of_pawns[current_block] != 0) {
+
                             copy_cell(cursor_position, all_blocks[current_block]);
+
                         } else
                             current_message = no_more_blocks_left;
                     } else
@@ -102,8 +100,8 @@ player_action level_play::analyze_movement(char key) {
             return nothing;
 
     }
-    if (cursor_position.y > getWidth()) cursor_position.y = getWidth() ;
-    if (cursor_position.x >= getHeight()) cursor_position.x = getHeight() -1;
+    if (cursor_position.y > getWidth()) cursor_position.y = getWidth();
+    if (cursor_position.x >= getHeight()) cursor_position.x = getHeight() - 1;
 
     if (cursor_position.y < 0) cursor_position.y = 0;
     if (cursor_position.x < 0) cursor_position.x = 0;
@@ -117,6 +115,7 @@ player_action level_play::analyze_movement(char key) {
     else if (cursor_position == coord(1, getWidth())) {
         current_message = start_simulation;
     }
+
 
 
     return nothing;

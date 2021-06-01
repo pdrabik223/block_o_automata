@@ -21,7 +21,13 @@ namespace lp {
         exit,
         start_simulation,
         cant_place_block_here,
-        no_more_blocks_left
+        no_more_blocks_left,
+        lose,
+        win,
+        win_trofeum,
+        minimal_cost_trofeum,
+        minimal_iterations_trofeum
+
     };
 
 

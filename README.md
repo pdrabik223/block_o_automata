@@ -64,6 +64,7 @@ if he's on quit button we show exit itd..
 <li> level_pick uses old system 
 <li> display witch iteration it currently is
 <li> display max piece cost <- figure out what that means
-<li> all
+<li> engine does not work in a right way,
+we have some bugs there 
 </ol>
 

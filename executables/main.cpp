@@ -42,9 +42,14 @@ int main() {
     wchar_t goal = 11044;
     std::wcout << cc(purple) << "goal_cell\t" << goal << L" \n";
 
+    std::wcout << cc(yellow) << "trophy1\t" << (wchar_t) 11201 << L" \n";
 
-    level_info level{10, 10}
-    (0, 0);
+    std::wcout << cc(purple) << "trophy2\t" << (wchar_t) 11202 << L" \n";
+
+    std::wcout << cc(red) << "trophy3\t" << (wchar_t) 11042 << L" \n";
+
+
+    level_info level{10, 10};
 
 
     for (int i = 0; i < level.size(); i++) {

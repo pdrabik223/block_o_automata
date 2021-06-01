@@ -69,7 +69,9 @@ int win_console::play::run_sim() {
         console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, light_aqua});
 
         console_handle.update_screen();
+
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
         if (!game.goal_cells_left()) {
             system("cls");
 
@@ -83,12 +85,9 @@ int win_console::play::run_sim() {
 
 unsigned char win_console::play::get_key() {
     switch (console_handle.await_key_press()) {
-        case key_space:
-            return 32;
+
         case key_enter:
             return 13;
-        case key_0:
-            return '0';
         case key_1:
             return '1';
         case key_2:
@@ -99,14 +98,6 @@ unsigned char win_console::play::get_key() {
             return '4';
         case key_5:
             return '5';
-        case key_6:
-            return '6';
-        case key_7:
-            return '7';
-        case key_8:
-            return '8';
-        case key_9:
-            return '9';
         case key_a:
             return 'a';
         case key_w:
@@ -115,14 +106,9 @@ unsigned char win_console::play::get_key() {
             return 's';
         case key_d:
             return 'd';
-        case key_q:
-            return 'q';
-        case key_e:
-            return 'e';
         case key_r:
             return 'r';
-        case key_i:
-            return 'i';
+
         default:
             assert(false);
             return '\0';
@@ -145,9 +131,34 @@ void win_console::play::display_message() {
 
             console_handle.set_message(red, black, L"no more blocks of this type");
             break;
+
+        case lp::lose:
+            console_handle.set_message(red, black, L"you lost");
+            break;
+        case lp::win:
+            console_handle.set_message(yellow, black, L"congratulations you won!");
+            break;
+        case lp::win_trofeum:
+            console_handle.set_message(yellow, black, L"congratulations you won trofeum!");
+            break;
+        case lp::minimal_cost_trofeum:
+
+            if (max_piece_cost_beaten)
+                console_handle.set_message(blue, black, L"finishing level using minimal number of cells");
+            else
+                console_handle.set_message(blue, black, L"finish level using minimal number of cells");
+
+            break;
+        case lp::minimal_iterations_trofeum:
+            if (max_iteration_beaten)
+                console_handle.set_message(blue, black, L"finishing level in minimal number of iterations");
+            else
+                console_handle.set_message(blue, black, L"finish level in minimal number of iterations");
+            break;
         case lp::none:
 
             break;
     }
+
     current_message = lp::none;
 }
