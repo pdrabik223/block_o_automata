@@ -59,7 +59,7 @@ there's list of must-have elements:
 <li> i still didn't touch trophys  
 <li> below the level and controls we need to display what is user doing<br>
 if he's on quit button we show exit itd..
-<li> in level_play we are still able to put blocks on locked places
+<li> <del>in level_play we are still able to put blocks on locked places</del>
 <li> we need to make delete block usable
 <li> level_pick uses old system 
 <li> display witch iteration it currently is
