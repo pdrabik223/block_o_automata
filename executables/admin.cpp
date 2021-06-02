@@ -31,7 +31,8 @@ int main() {
     editor.save();
 
     scml con;
-    con.await_key_press(std::chrono::milliseconds(1000));
+    //_setmode(_fileno(stdout), _O_U8TEXT);
+    std::cout<<"outcome:"<< (int) con.await_key_press(std::chrono::milliseconds(1000));
 
     return 0;
 }

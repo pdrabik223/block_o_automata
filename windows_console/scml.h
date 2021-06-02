@@ -10,11 +10,13 @@
 #include "windows_console_tools/icon.h"
 #include <chrono>
 #include <vector>
+#include <future>
+#include <thread>
 
 enum key_pressed {
-
-    key_space,
+    null,
     key_enter,
+    key_space,
     key_delete,
     key_0,
     key_1,
