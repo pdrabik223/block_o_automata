@@ -30,6 +30,8 @@ int main() {
     editor[{0, 3}] = new kill_cell();
     editor.save();
 
+    scml con;
+    con.await_key_press(std::chrono::milliseconds(1000));
 
     return 0;
 }

@@ -4,6 +4,7 @@
 
 #include <conio.h>
 #include <string>
+#include <thread>
 #include "scml.h"
 
 
@@ -278,5 +279,20 @@ void scml::set_message(color text_color, color background_color, std::wstring me
     message_text_color = text_color;
     message_background_color = background_color;
 }
+char timer(){
+
+    char key;
+    key = getch();
+    return key;
+
+}
+
+key_pressed scml::await_key_press(std::chrono::milliseconds await_time) {
+    std::thread t1(timer);
+    std::this_thread::sleep_for(await_time);
+
+
+}
+
 
 

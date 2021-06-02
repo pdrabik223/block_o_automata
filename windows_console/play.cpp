@@ -107,7 +107,9 @@ int win_console::play::run_sim() {
 
         console_handle.update_screen();
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        console_handle.await_key_press(std::chrono::milliseconds(1000));
 
         if (!game.goal_cells_left()) {
             system("cls");

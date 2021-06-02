@@ -8,7 +8,7 @@
 #include "windows_console_tools/win_colors.h"
 #include "windows_console_tools/coord.h"
 #include "windows_console_tools/icon.h"
-
+#include <chrono>
 #include <vector>
 
 enum key_pressed {
@@ -60,6 +60,9 @@ public:
     scml &operator=(const scml &other);
 
     key_pressed await_key_press();
+
+    key_pressed await_key_press(std::chrono::milliseconds await_time);
+
 
     void set_message(color text_color, color background_color, std::wstring message);
 
