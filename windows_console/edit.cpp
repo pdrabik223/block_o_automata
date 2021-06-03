@@ -75,14 +75,39 @@ void win_console::edit::controlled_view() {
 
 void win_console::edit::run_sim() {
     board game(*this);
+    cursor_position.x--;
+    bool activate_quit = false;
+
     while (2 > 1) {
 
+        /// clear buffer before overwriting it
+        console_handle.clear();
 
         for (unsigned i = 0; i < getHeight(); i++) {
             for (unsigned j = 0; j < getWidth(); j++) {
                 console_handle.set_pixel({i, j}, game.get_cell_icon({i, j}));
             }
         }
+        /// display quit icon a.k.a. little red < in the right top corner
+        console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, black});
+
+        key_pressed input = null;
+
+
+        input = console_handle.await_key_press(std::chrono::milliseconds(300));
+
+        switch (input) {
+            case key_space:
+            case key_enter:
+                if (cursor_position == coord(0, getWidth()) && activate_quit) return;
+
+        }
+        ///display cursor
+        console_handle.get_pixel(cursor_position).background_color = light_aqua;
+
+     //   display_message();
+
+
         console_handle.update_screen();
 
         game.iterate();
@@ -94,6 +119,7 @@ void win_console::edit::run_sim() {
             get_key();
             return;
         }
+        activate_quit = true;
     }
 }
 

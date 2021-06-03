@@ -155,16 +155,10 @@ key_pressed scml::await_key_press() {
             case 'd':
                 return key_d;
 
-            case 'q':
-                return key_q;
-
-            case 'e':
-                return key_e;
-
             case 'r':
                 return key_r;
-
-
+            case 'x':
+                return key_x;
             default:
                 break;
         }
@@ -212,7 +206,8 @@ void scml::update_screen() {
         }
         std::wcout << " \n";
     }
-    std::wcout << L"                                                        \r";
+
+    std::wcout <<cc(white,black) << L"                                                        \r";
     std::wcout << cc(message_text_color, message_background_color) << message;
     std::wcout << cc(white, black);
 }
@@ -297,22 +292,22 @@ key_pressed scml::await_key_press(std::chrono::milliseconds await_time) {
         /// i dont even
         /// ught https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate
 
-        if (GetKeyState(VK_LEFT) & HIGH_BIT)
+        if (GetKeyState(97) & HIGH_BIT)
             last_button_id = key_a;
         else if (last_button_id == key_a)
             return key_a;
 
-        if (GetKeyState(VK_UP) & HIGH_BIT)
+        if (GetKeyState(119) & HIGH_BIT)
             last_button_id = key_w;
         else if (last_button_id == key_w)
             return key_w;
 
-        if (GetKeyState(VK_DOWN) & HIGH_BIT)
+        if (GetKeyState(115) & HIGH_BIT)
             last_button_id = key_s;
         else if (last_button_id == key_s)
             return key_s;
 
-        if (GetKeyState(VK_RIGHT) & HIGH_BIT)
+        if (GetKeyState(100) & HIGH_BIT)
             last_button_id = key_d;
         else if (last_button_id == key_d)
             return key_d;

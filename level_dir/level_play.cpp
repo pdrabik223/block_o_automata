@@ -108,7 +108,9 @@ player_action level_play::analyze_movement(char key) {
         case '5':
             current_block = 4;
             break;
-
+        case 'x':
+            copy_cell(cursor_position, original_level[cursor_position.toUint(getWidth())]);
+            break;
         default:
             return nothing;
 

@@ -71,6 +71,8 @@ void win_console::play::controlled_view() {
 int win_console::play::run_sim() {
 
     board game(*this);
+    cursor_position.x--;
+    bool activate_quit = false;
     while (2 > 1) {
 
         game.iterate();
@@ -108,38 +110,17 @@ int win_console::play::run_sim() {
 
 
         //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        key_pressed input;
+        key_pressed input = null;
 
 
-        input = console_handle.await_key_press(std::chrono::milliseconds(1000));
+        input = console_handle.await_key_press(std::chrono::milliseconds(300));
 
         switch (input) {
             case key_space:
             case key_enter:
-                if (cursor_position == coord(0, getWidth())) return 2;
-                break;
-            case key_a:
-                cursor_position.y--;
-                if (cursor_position.y < 0) cursor_position.y = 0;
-                break;
-            case key_w:
-                cursor_position.x--;
-                if (cursor_position.x < 0) cursor_position.x = 0;
+                if (cursor_position == coord(0, getWidth()) && activate_quit) return 2;
 
-                break;
-            case key_s:
-                cursor_position.x++;
-                if (cursor_position.x > getHeight()) cursor_position.x = getHeight();
-
-                break;
-            case key_d:
-                cursor_position.y++;
-                if (cursor_position.y > getWidth()) cursor_position.y = getWidth();
-                break;
         }
-        if (cursor_position == coord(4, getWidth())) current_message = lp::win_trofeum;
-        if (cursor_position == coord(5, getWidth())) current_message = lp::minimal_cost_trofeum;
-        if (cursor_position == coord(6, getWidth())) current_message = lp::minimal_iterations_trofeum;
 
         ///display cursor
         console_handle.get_pixel(cursor_position).background_color = light_aqua;
@@ -152,10 +133,12 @@ int win_console::play::run_sim() {
             system("cls");
 
             std::wcout << cc(yellow, black) << "u are winner!";
+            level_beaten = true;
 
             get_key();
             return 1;
         }
+        activate_quit = true;
     }
 }
 

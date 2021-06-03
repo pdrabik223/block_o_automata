@@ -92,7 +92,7 @@ public:
 
     std::string level_name;
     std::string author;
-    difficulty level_difficulty;
+    difficulty level_difficulty; //?
     bool level_beaten;
 
     unsigned max_iteration;
@@ -103,9 +103,8 @@ public:
 
 
 
-    std::array<int, 5> number_of_pawns;
+    std::array<int, 5> number_of_pawns; //
 
-//    std::array<std::pair<coord, cell *>, 3> players_saves;
 
 protected:
 

@@ -66,5 +66,26 @@ if he's on quit button we show exit itd...
 <li> display max piece cost <- figure out what that means
 <li> engine does not work in a right way,
 we have some bugs there  
+
+
 </ol>
+
+# BUGS
+
+## Edit
+
+- message system is not implemented
+- run sim never ends
+- delete is not implemented
+- crushes when we exit simulation 
+
+## Level_info
+- reading level from file is fucked 
+
+## Play
+- upon exiting it closes whole game 
+- we should return to main menu 
+
+## Engine 
+- unmovable block can be moved by crushing into it with move block
 

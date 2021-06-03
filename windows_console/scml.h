@@ -34,7 +34,8 @@ enum key_pressed {
     key_d,
     key_q,
     key_e,
-    key_r
+    key_r,
+    key_x
 
 };
 

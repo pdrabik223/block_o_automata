@@ -27,9 +27,11 @@ player_action level_edit::analyze_movement(char key) {
             return run_simulation;
         case 'q':
             return quit_edit;
-        case 127:
+        case 'x':
+
             if (cursor_position.x < getHeight() && cursor_position.y < getWidth())
                 copy_cell(cursor_position, new empty_cell());
+
         case 13:
             // set pawn in place
             if (cursor_position.x < getHeight() && cursor_position.y < getWidth())
@@ -123,8 +125,8 @@ player_action level_edit::analyze_movement(char key) {
     }
 
 
-    if (cursor_position.y >= getWidth()) cursor_position.y = getWidth()-1;
-    if (cursor_position.x >= getHeight()) cursor_position.x = getHeight()-1;
+    if (cursor_position.y > getWidth()) cursor_position.y = getWidth();
+    if (cursor_position.x > getHeight()) cursor_position.x = getHeight();
 
     if (cursor_position.y < 0) cursor_position.y = 0;
     if (cursor_position.x < 0) cursor_position.x = 0;
