@@ -157,8 +157,10 @@ key_pressed scml::await_key_press() {
 
             case 'r':
                 return key_r;
+
             case 'x':
                 return key_x;
+
             default:
                 break;
         }
