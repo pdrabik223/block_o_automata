@@ -85,7 +85,7 @@ int win_console::play::run_sim() {
         }
 
         /// display quit icon a.k.a. little red < in the right top corner
-        console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, light_aqua});
+        console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, black});
 
         /// display win trophy
         if (level_beaten)
@@ -105,11 +105,48 @@ int win_console::play::run_sim() {
         else
             console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, gray, black});
 
-        console_handle.update_screen();
+
 
         //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        key_pressed input;
 
-        console_handle.await_key_press(std::chrono::milliseconds(1000));
+
+        input = console_handle.await_key_press(std::chrono::milliseconds(1000));
+
+        switch (input) {
+            case key_space:
+            case key_enter:
+                if (cursor_position == coord(0, getWidth())) return 2;
+                break;
+            case key_a:
+                cursor_position.y--;
+                if (cursor_position.y < 0) cursor_position.y = 0;
+                break;
+            case key_w:
+                cursor_position.x--;
+                if (cursor_position.x < 0) cursor_position.x = 0;
+
+                break;
+            case key_s:
+                cursor_position.x++;
+                if (cursor_position.x > getHeight()) cursor_position.x = getHeight();
+
+                break;
+            case key_d:
+                cursor_position.y++;
+                if (cursor_position.y > getWidth()) cursor_position.y = getWidth();
+                break;
+        }
+        if (cursor_position == coord(4, getWidth())) current_message = lp::win_trofeum;
+        if (cursor_position == coord(5, getWidth())) current_message = lp::minimal_cost_trofeum;
+        if (cursor_position == coord(6, getWidth())) current_message = lp::minimal_iterations_trofeum;
+
+        ///display cursor
+        console_handle.get_pixel(cursor_position).background_color = light_aqua;
+
+        display_message();
+
+        console_handle.update_screen();
 
         if (!game.goal_cells_left()) {
             system("cls");

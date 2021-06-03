@@ -296,6 +296,7 @@ key_pressed scml::await_key_press(std::chrono::milliseconds await_time) {
     for (int i = 0; i < await_time.count() / 2; i++) {
         /// i dont even
         /// ught https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate
+
         if (GetKeyState(VK_LEFT) & HIGH_BIT)
             last_button_id = key_a;
         else if (last_button_id == key_a)
@@ -326,13 +327,40 @@ key_pressed scml::await_key_press(std::chrono::milliseconds await_time) {
         else if (last_button_id == key_enter)
             return key_enter;
 
-        if (GetKeyState(0x31) & HIGH_BIT)
+        if (GetKeyState(VK_DELETE) & HIGH_BIT)
+            last_button_id = key_delete;
+        else if (last_button_id == key_delete)
+            return key_delete;
+
+        if (GetKeyState('0') & HIGH_BIT)
+            last_button_id = key_0;
+        else if (last_button_id == key_0)
+            return key_0;
+
+        if (GetKeyState('1') & HIGH_BIT)
             last_button_id = key_1;
         else if (last_button_id == key_1)
             return key_1;
 
+        if (GetKeyState('2') & HIGH_BIT)
+            last_button_id = key_2;
+        else if (last_button_id == key_2)
+            return key_2;
 
+        if (GetKeyState('3') & HIGH_BIT)
+            last_button_id = key_3;
+        else if (last_button_id == key_3)
+            return key_3;
 
+        if (GetKeyState('4') & HIGH_BIT)
+            last_button_id = key_4;
+        else if (last_button_id == key_4)
+            return key_4;
+
+        if (GetKeyState('5') & HIGH_BIT)
+            last_button_id = key_5;
+        else if (last_button_id == key_5)
+            return key_5;
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
     return null;
