@@ -75,7 +75,7 @@ we have some bugs there
 ## Edit
 
 - message system is not implemented
-- run sim never ends
+- run sim never ends 
 - delete is not implemented
 - crushes when we exit simulation 
 

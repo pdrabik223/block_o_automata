@@ -169,7 +169,7 @@ unsigned char win_console::play::get_key() {
             return 'r';
 
         default:
-            assert(false);
+
             return '\0';
     }
 }
