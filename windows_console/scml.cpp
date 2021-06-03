@@ -5,8 +5,10 @@
 #include <conio.h>
 #include <string>
 #include <thread>
+#include <array>
 #include "scml.h"
 
+#define HIGH_BIT  32768
 
 scml::scml() {
     text_color = white;
@@ -18,7 +20,7 @@ scml::scml() {
 
     message = {};
     hc = GetStdHandle(STD_OUTPUT_HANDLE);
-   // _setmode(_fileno(stdout), _O_U16TEXT);
+    _setmode(_fileno(stdout), _O_U16TEXT);
 
 }
 
@@ -92,6 +94,9 @@ void scml::clear() {
     }
     message = {};
 }
+/// so what I can do, is make check for every key
+/// and check whether it's pressed at one specific time
+/// than I can check if it's unpressed
 
 key_pressed scml::await_key_press() {
     char key;
@@ -282,82 +287,42 @@ void scml::set_message(color text_color, color background_color, std::wstring me
 
 
 key_pressed scml::await_key_press(std::chrono::milliseconds await_time) {
+    /// for button to be registered  it's need to be pressed and released
+    /// and it must be the same button
+    /// so we  need a way to store last button that was pressed
+    key_pressed last_button_id;
 
-    std::shared_future<int> future = std::async(std::launch::async, []() {
-        //   std::this_thread::sleep_for(std::chrono::seconds(3));
-        return getch();
-    });
-    std::future_status status;
-    status = future.wait_for(await_time);
-   // do {
-        if (status == std::future_status::timeout || status == std::future_status::deferred)
-        return null;
-  //  } while (status != std::future_status::ready);
-
-    switch (future.get()) {
-        case 32:
-            return key_space;
-
-        case 13:
-            return key_enter;
-
-        case 127:
-            return key_delete;
-
-        case '0':
-            return key_0;
-
-        case '1':
-            return key_1;
-
-        case '2':
-            return key_2;
-
-        case '3':
-            return key_3;
-
-        case '4':
-            return key_4;
-
-        case '5':
-            return key_5;
-
-        case '6':
-            return key_6;
-
-        case '7':
-            return key_7;
-
-        case '8':
-            return key_8;
-
-        case '9':
-            return key_9;
-
-        case 'a':
-            return key_a;
-
-        case 'w':
-            return key_w;
-
-        case 's':
-            return key_s;
-
-        case 'd':
-            return key_d;
-
-        case 'q':
-            return key_q;
-
-        case 'e':
-            return key_e;
-
-        case 'r':
-            return key_r;
-
-        default:
-            break;
+    for (int i = 0; i < await_time.count(); i++) {
+        /// i dont even
+        /// ught https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate
+        if (GetKeyState('a') & HIGH_BIT)
+            if (last_button_id == key_a)
+                return key_a;
+            else last_button_id = key_a;
+        if (GetKeyState('w') & HIGH_BIT)
+            if (last_button_id == key_w)
+                return key_w;
+            else last_button_id = key_w;
+        if (GetKeyState('s') & HIGH_BIT)
+            if (last_button_id == key_s)
+                return key_s;
+            else last_button_id = key_s;
+        if (GetKeyState('d') & HIGH_BIT)
+            if (last_button_id == key_d)
+                return key_d;
+            else last_button_id = key_d;
+        if (GetKeyState(VK_SPACE) & HIGH_BIT)
+            if (last_button_id == key_space)
+                return key_space;
+            else last_button_id = key_space;
+        if (GetKeyState(VK_RETURN) & HIGH_BIT)
+            if (last_button_id == key_enter)
+                return key_enter;
+            else last_button_id = key_enter;
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
     return null;
+
 }
+
 

@@ -24,16 +24,36 @@ int main() {
 //
 //    std::cout << cc(green, black) << "resize [ ok ]\n";
 
-    editor[{0, 0}] = new barrier_cell(true);
-    editor[{0, 1}] = new move_cell(left);
-    editor[{0, 2}] = new spawn_cell(left);
-    editor[{0, 3}] = new kill_cell();
-    editor.save();
+//    editor[{0, 0}] = new barrier_cell(true);
+//    editor[{0, 1}] = new move_cell(left);
+//    editor[{0, 2}] = new spawn_cell(left);
+//    editor[{0, 3}] = new kill_cell();
+//    editor.save();
 
     scml con;
-    //_setmode(_fileno(stdout), _O_U8TEXT);
-    std::cout<<"outcome:"<< (int) con.await_key_press(std::chrono::milliseconds(1000));
+
+    int futore = (int) con.await_key_press(std::chrono::milliseconds(500));
+
+    std::wcout << L"outcome";
+    std::wcout << futore + 10;
+
 
     return 0;
 }
 
+KEY_EVENT_RECORD read_event() {
+// chcemy czytac tylko po 1 inpucie at the time
+
+    const DWORD size_input_records = 1;
+    INPUT_RECORD input_records[size_input_records];
+
+    DWORD inputs_read;
+
+    const HANDLE std_input = GetStdHandle(STD_INPUT_HANDLE);
+
+    ReadConsoleInput(std_input, input_records, size_input_records, &inputs_read);
+
+
+// zwracamy otrzymany input
+    return input_records[0].Event.KeyEvent;
+}

@@ -35,7 +35,8 @@ enum key_pressed {
     key_q,
     key_e,
     key_r,
-    key_i
+    key_i,
+
 };
 
 /// simple console media layer
