@@ -22,16 +22,17 @@
 /// type of the cell, used to identify cell by it's role
 enum type {
 
-    Barrier,
-    Move,
-    Kill,
-    Spawn,
-    Turn,
-    Goal,
-    Cell,
-    Empty
+    Cell = 1,
+    Barrier = 2,
+    Move = 3,
+    Kill = 4,
+    Spawn = 5,
+    Turn = 6,
+    Goal = 7,
+    Empty = 8
 
 };
+
 class cell {
 
 
@@ -48,7 +49,7 @@ public:
 
     void setKillable(bool killable);
 
-    virtual void rotateRight()  noexcept {assert(false);};
+    virtual void rotateRight() noexcept { assert(false); };
 
     bool isKillable() const;
 
@@ -75,8 +76,7 @@ public:
 
     virtual type getCellType() const;
 
-    virtual void output_fo_file(std::ostream &out){assert(false);};
-
+    virtual void output_fo_file(std::ostream &out) { assert(false); };
 
 
 protected:

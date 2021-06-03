@@ -109,11 +109,11 @@ int win_console::play::run_sim() {
 
 
 
-        //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
         key_pressed input = null;
 
 
-        input = console_handle.await_key_press(std::chrono::milliseconds(300));
+        input = console_handle.await_key_press(std::chrono::milliseconds(200));
 
         switch (input) {
             case key_space:

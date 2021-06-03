@@ -226,7 +226,8 @@ unsigned char win_console::edit::get_key() {
             return 'e';
         case key_r:
             return 'r';
-
+        case key_x:
+            return 'x';
         default:
             assert(false);
             return '\0';

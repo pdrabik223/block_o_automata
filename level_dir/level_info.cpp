@@ -214,7 +214,7 @@ void level_info::load(const std::string &path) {
 
     myfile >> width;
     myfile >> height;
-
+    level = {};
 
     for (int i = 0; i < width * height; i++) {
 
