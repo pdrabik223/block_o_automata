@@ -31,29 +31,21 @@ int main() {
 //    editor.save();
 
     scml con;
+    std::wcout << L"3\t";
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::wcout << L"2\t";
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::wcout << L"1\t";
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::wcout << L"go!\n";
 
-    int futore = (int) con.await_key_press(std::chrono::milliseconds(500));
+
+    int futore = (int) con.await_key_press(std::chrono::milliseconds(1000));
 
     std::wcout << L"outcome";
     std::wcout << futore + 10;
 
-
+    system("pause");
     return 0;
 }
 
-KEY_EVENT_RECORD read_event() {
-// chcemy czytac tylko po 1 inpucie at the time
-
-    const DWORD size_input_records = 1;
-    INPUT_RECORD input_records[size_input_records];
-
-    DWORD inputs_read;
-
-    const HANDLE std_input = GetStdHandle(STD_INPUT_HANDLE);
-
-    ReadConsoleInput(std_input, input_records, size_input_records, &inputs_read);
-
-
-// zwracamy otrzymany input
-    return input_records[0].Event.KeyEvent;
-}

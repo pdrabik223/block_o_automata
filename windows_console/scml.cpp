@@ -9,6 +9,7 @@
 #include "scml.h"
 
 #define HIGH_BIT  32768
+#define LOW_BIT  32768
 
 scml::scml() {
     text_color = white;
@@ -290,35 +291,48 @@ key_pressed scml::await_key_press(std::chrono::milliseconds await_time) {
     /// for button to be registered  it's need to be pressed and released
     /// and it must be the same button
     /// so we  need a way to store last button that was pressed
-    key_pressed last_button_id;
+    key_pressed last_button_id = null;
 
-    for (int i = 0; i < await_time.count(); i++) {
+    for (int i = 0; i < await_time.count() / 2; i++) {
         /// i dont even
         /// ught https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate
-        if (GetKeyState('a') & HIGH_BIT)
-            if (last_button_id == key_a)
-                return key_a;
-            else last_button_id = key_a;
-        if (GetKeyState('w') & HIGH_BIT)
-            if (last_button_id == key_w)
-                return key_w;
-            else last_button_id = key_w;
-        if (GetKeyState('s') & HIGH_BIT)
-            if (last_button_id == key_s)
-                return key_s;
-            else last_button_id = key_s;
-        if (GetKeyState('d') & HIGH_BIT)
-            if (last_button_id == key_d)
-                return key_d;
-            else last_button_id = key_d;
+        if (GetKeyState(VK_LEFT) & HIGH_BIT)
+            last_button_id = key_a;
+        else if (last_button_id == key_a)
+            return key_a;
+
+        if (GetKeyState(VK_UP) & HIGH_BIT)
+            last_button_id = key_w;
+        else if (last_button_id == key_w)
+            return key_w;
+
+        if (GetKeyState(VK_DOWN) & HIGH_BIT)
+            last_button_id = key_s;
+        else if (last_button_id == key_s)
+            return key_s;
+
+        if (GetKeyState(VK_RIGHT) & HIGH_BIT)
+            last_button_id = key_d;
+        else if (last_button_id == key_d)
+            return key_d;
+
         if (GetKeyState(VK_SPACE) & HIGH_BIT)
-            if (last_button_id == key_space)
-                return key_space;
-            else last_button_id = key_space;
+            last_button_id = key_space;
+        else if (last_button_id == key_space)
+            return key_space;
+
         if (GetKeyState(VK_RETURN) & HIGH_BIT)
-            if (last_button_id == key_enter)
-                return key_enter;
-            else last_button_id = key_enter;
+            last_button_id = key_enter;
+        else if (last_button_id == key_enter)
+            return key_enter;
+
+        if (GetKeyState(0x31) & HIGH_BIT)
+            last_button_id = key_1;
+        else if (last_button_id == key_1)
+            return key_1;
+
+
+
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
     return null;

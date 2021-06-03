@@ -14,7 +14,7 @@
 #include <thread>
 
 enum key_pressed {
-    null,
+    null = 0 ,
     key_enter,
     key_space,
     key_delete,
@@ -34,8 +34,7 @@ enum key_pressed {
     key_d,
     key_q,
     key_e,
-    key_r,
-    key_i,
+    key_r
 
 };
 
