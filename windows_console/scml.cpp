@@ -209,7 +209,7 @@ void scml::update_screen() {
         std::wcout << " \n";
     }
 
-    std::wcout <<cc(white,black) << L"                                                        \r";
+    std::wcout <<cc(white,black) << L"                                                               \r";
     std::wcout << cc(message_text_color, message_background_color) << message;
     std::wcout << cc(white, black);
 }
@@ -231,7 +231,7 @@ void scml::resize(unsigned int new_height, unsigned int new_width) {
 void scml::downsize_w(unsigned int new_width) {
     int delta = w - new_width;
     assert(delta >= 0);
-
+    message = {};
     for (auto &i:buffer)
         for (unsigned j = 0; j < delta; j++)
             i[w - 1 - j].image = ' ';
@@ -247,14 +247,14 @@ void scml::downsize_w(unsigned int new_width) {
 void scml::upsize_w(unsigned int new_width) {
     int delta = new_width - w;
     assert(delta >= 0);
-
+    message = {};
     for (auto &i:buffer)
         i.resize(new_width);
     w = new_width;
 }
 
 void scml::downsize_h(unsigned int new_height) {
-
+    message = {};
     for (int i = new_height; i < h; i++)
         for (auto &j:buffer[i])
             j = {' ', white, black};
@@ -266,7 +266,8 @@ void scml::downsize_h(unsigned int new_height) {
 }
 
 void scml::upsize_h(unsigned int new_height) {
-
+    message = {};
+    update_screen();
     buffer.resize(new_height);
     for (auto &i:buffer)
         for (int j = 0; j < w; j++)

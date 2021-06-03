@@ -129,27 +129,47 @@ player_action level_edit::analyze_movement(char key) {
 
     if (cursor_position.y < 0) cursor_position.y = 0;
     if (cursor_position.x < 0) cursor_position.x = 0;
-//
-//    /// if cursor is on "red < icon"
-//    if (cursor_position == coord(0, getWidth())) {
-//        current_message = exit;
-//    }
-//
-//        /// if cursor is on "yellow >icon"
-//    else if (cursor_position == coord(1, getWidth())) {
-//        current_message = start_simulation;
-//    }
-//    /// if cursor is on "blue \/ icon"
-//    if (cursor_position == coord(2, getWidth())) {
-//        if (level_name != "noname") save();
-//    }
-//
-//    /// if cursor is on "blue  i icon"
-//    if (cursor_position == coord(getHeight(), getWidth())) {
-//        set_additional_info();
-//        goto skip;
-//    }
 
+    /// if cursor is on "red < icon"
+    if (cursor_position == coord(0, getWidth())) {
+        current_message = exit;
+    }
+
+        /// if cursor is on "yellow >icon"
+    else if (cursor_position == coord(1, getWidth())) {
+        current_message = start_simulation;
+    }
+    /// if cursor is on "blue \/ icon"
+    if (cursor_position == coord(2, getWidth())) {
+        if (level_name != "noname")  current_message = save_changes_to_file;
+        else current_message =additional_info_request;
+    }
+
+    /// if cursor is on "blue  i icon"
+    if (cursor_position == coord(getHeight(), getWidth())) {
+
+        current_message = additional_info;
+    }
+    /// if cursor is on " plus on the right"
+    if (cursor_position == coord(getHeight() - 1, getWidth())) {
+
+        current_message = increase_width;
+    }
+    /// if cursor is on " minus on the right"
+    if (cursor_position == coord(getHeight() - 2, getWidth())) {
+
+        current_message = decrease_width;
+    }
+    /// if cursor is on " plus on the bottom"
+    if (cursor_position == coord(getHeight(), getWidth() - 1)) {
+
+        current_message = increase_height;
+    }
+    /// if cursor is on " minus on the bottom"
+    if (cursor_position == coord(getHeight(), getWidth() - 2)) {
+
+        current_message = decrease_height;
+    }
     /// todo these abowe + resize window
     return
             nothing;

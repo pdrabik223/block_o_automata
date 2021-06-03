@@ -22,6 +22,19 @@ namespace le {
 
     };
 
+    enum message{
+        none,
+        exit,
+        start_simulation,
+        save_changes_to_file,
+        additional_info_request,
+        increase_width,
+        increase_height,
+        decrease_width,
+        decrease_height,
+        additional_info
+    };
+
     class level_edit : public level_info {
     public:
         level_edit() : level_info(10, 10) {}
@@ -42,10 +55,14 @@ namespace le {
         };
 
     protected:
+        void display_message();
 
         unsigned current_block = 0;
 
+        message current_message = none;
+
         coord cursor_position = {0, 0};
+
 
         std::array<cell *, 8> all_blocks = {new barrier_cell(),              //
                                             new barrier_cell(true),  //

@@ -7,6 +7,7 @@
 
 #include "level_dir/level_edit.h"
 #include "scml.h"
+#include <thread>
 
 namespace win_console {
     class edit : public le::level_edit {
@@ -22,6 +23,8 @@ namespace win_console {
         unsigned char get_key() override;
 
     protected:
+        void display_message();
+
         scml console_handle;
     };
 }

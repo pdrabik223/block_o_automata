@@ -62,6 +62,7 @@ void win_console::edit::controlled_view() {
     ///display cursor
     console_handle.get_pixel({getHeight() + 1, (current_block * 2) + 1}).background_color = light_aqua;
 
+    display_message();
 
     console_handle.update_screen();
 
@@ -75,7 +76,8 @@ void win_console::edit::controlled_view() {
 
 void win_console::edit::run_sim() {
     board game(*this);
-    cursor_position.x--;
+   console_handle.resize(getHeight()+1,getWidth()+1);
+   cursor_position.x+=2;
     bool activate_quit = false;
 
     while (2 > 1) {
@@ -89,23 +91,23 @@ void win_console::edit::run_sim() {
             }
         }
         /// display quit icon a.k.a. little red < in the right top corner
-        console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, black});
+        console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, light_aqua});
 
         key_pressed input = null;
 
-
-        input = console_handle.await_key_press(std::chrono::milliseconds(300));
+        input = console_handle.await_key_press(std::chrono::milliseconds(250));
 
         switch (input) {
             case key_space:
             case key_enter:
-                if (cursor_position == coord(0, getWidth()) && activate_quit) return;
+                if ( activate_quit) {
+                    return;
+                }
 
         }
-        ///display cursor
-        console_handle.get_pixel(cursor_position).background_color = light_aqua;
 
-     //   display_message();
+        current_message = le::exit;
+        display_message();
 
 
         console_handle.update_screen();
@@ -115,7 +117,7 @@ void win_console::edit::run_sim() {
 
         if (!game.goal_cells_left()) {
 
-            std::wcout << cc(yellow, black) << "press to continue... ";
+            std::wcout << cc(yellow, black) << L"press to continue... ";
             get_key();
             return;
         }
@@ -232,4 +234,41 @@ unsigned char win_console::edit::get_key() {
             assert(false);
             return '\0';
     }
+}
+
+void win_console::edit::display_message() {
+    switch (current_message) {
+        case le::exit:
+            console_handle.set_message(red, black, L"exit");
+            break;
+
+        case le::start_simulation:
+            console_handle.set_message(yellow, black, L"run simulation");
+            break;
+        case le::save_changes_to_file:
+            console_handle.set_message(blue, black, L"save current changes");
+            break;
+        case le::additional_info_request:
+            console_handle.set_message(red, black, L"additional info is needed ");
+            break;
+        case le::increase_width:
+            console_handle.set_message(yellow, black, L"increase width of the playing field");
+            break;
+        case le::increase_height:
+            console_handle.set_message(yellow, black, L"increase height of the playing field");
+            break;
+        case le::decrease_width:
+            console_handle.set_message(yellow, black, L"decrease width of the playing field");
+            break;
+        case le::decrease_height:
+            console_handle.set_message(yellow, black, L"decrease height of the playing field");
+            break;
+        case le::additional_info:
+            console_handle.set_message(blue, black, L"input additional info");
+            break;
+        case le::none:
+            break;
+
+    }
+            current_message = le::none;
 }
