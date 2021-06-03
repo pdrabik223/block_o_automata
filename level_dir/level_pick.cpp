@@ -8,6 +8,8 @@ using namespace lc;
 
 player_action level_pick::select_level() {
 
+    loaded_levels = {};
+
     player_action command = ui();
 
     if (command == quit_game) return quit_game;

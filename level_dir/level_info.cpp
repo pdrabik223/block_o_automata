@@ -19,7 +19,6 @@ std::wstring level_info::get_info() const {
     line += level_name;
     line += " by ";
     line += author;
-    line += "\n";
 
     std::wstring wline;
     for (auto i:line)

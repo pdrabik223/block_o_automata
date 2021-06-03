@@ -55,7 +55,7 @@ tp teleport cell
 there's list of must-have elements:
 <ol>
 <li> wait for input dome tim, than close window and do something else
-<li> we need to have correct event flow, if we close window we must back to where we were before opening it
+<li> <del>we need to have correct event flow, if we close window we must back to where we were before opening it</del>
 <li> i still didn't finish throphys
 <li> below the level and controls we need to display what is user doing<br>
 if he's on quit button we show exit itd...
@@ -82,12 +82,6 @@ we have some bugs there
 ## Level_info
 
 
-## Play
-- upon exiting it closes whole game 
-- we should return to main menu 
-
 ## Engine 
 - unmovable block can be moved by crushing into it with move block
 
-## Pick/Play
-- game copies played level, simply put it makes a copy of current level

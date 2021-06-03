@@ -44,6 +44,7 @@ void win_console::pick::display_ui() {
             else std::wcout<<cc(yellow,black)<<L"    ";
             std::wcout << cc(white, black);
         }
+        std::wcout <<L"\n";
     }
 
     if (cursor_position == levels.size()) {
