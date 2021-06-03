@@ -14,34 +14,32 @@ int main() {
     lc::player_action player_choice = lc::play_level;
 
 
+    win_console::pick main_menu;
+
     while (1 < 2) {
-
-        level_info played_level;
-        win_console::pick chose_for_directory;
-
-        player_choice = chose_for_directory.select_level();
-        played_level = chose_for_directory.get_level();
+        {
+            level_info played_level;
 
 
-        if (player_choice == lc::play_level) {
+            player_choice = main_menu.select_level();
+            played_level = main_menu.get_level();
 
-            while (1 < 2) {
+
+            if (player_choice == lc::play_level) {
 
                 win_console::play game(played_level);
-
                 game.main_loop();
-                if (game.main_loop() == lp::quit_game) return 0;
+
             }
+
+            if (player_choice == lc::enter_editor) {
+
+                win_console::edit editor;
+                editor.main_loop();
+            }
+
+            if (player_choice == lc::quit_game) break;
         }
-
-        if (player_choice == lc::enter_editor) {
-
-            win_console::edit editor;
-            editor.main_loop();
-        }
-
-        if (player_choice == lc::quit_game) break;
-
     }
 
     return 0;

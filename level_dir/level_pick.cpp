@@ -40,12 +40,12 @@ player_action level_pick::ui() {
             case 'w':
                 --cursor_position;
                 if (cursor_position < 0)
-                    cursor_position = levels.size(); // keep cursor_position in (range of vector +1)
+                    cursor_position = levels.size() + 1; // keep cursor_position in (range of vector +1)
                 break;
 
             case 's':
                 ++cursor_position;
-                if (cursor_position > levels.size()) cursor_position = 0;
+                if (cursor_position > levels.size() + 1) cursor_position = 0;
 
                 break;
             case 'r':
@@ -66,7 +66,10 @@ player_action level_pick::ui() {
             case 13:
                 if (cursor_position < loaded_levels.size())
                     return play_level;
-                else return enter_editor;
+                else if (cursor_position == loaded_levels.size()) return enter_editor;
+
+                else if (cursor_position == loaded_levels.size()+1) return quit_game;
+
             default:
                 break;
         }
@@ -76,9 +79,6 @@ player_action level_pick::ui() {
 level_info level_pick::get_level() {
     return level_info(*this);
 }
-
-
-
 
 
 void read_directory(const std::string &name, stringvec &v) {

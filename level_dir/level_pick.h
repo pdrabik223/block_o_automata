@@ -61,7 +61,8 @@ namespace lc {
 
         unsigned cursor_position = 0;
 
-        std::string directory_path = "../\\levels\\";
+        std::string directory_path = "C:\\Users\\studio25\\Documents\\block_o_automata\\levels\\";
+
 
         stringvec loaded_levels = {};
 

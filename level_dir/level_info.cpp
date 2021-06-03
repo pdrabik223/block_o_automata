@@ -14,28 +14,11 @@ std::string current_date() {
     return ss.str();
 }
 
-std::wstring level_info::get_info() {
+std::wstring level_info::get_info() const {
     std::string line;
     line += level_name;
     line += " by ";
     line += author;
-    if (level_beaten) {
-        line += " ";
-        line.push_back((wchar_t) 11201);
-        line += " ";
-    } else line += "   ";
-
-    if (max_iteration_beaten) {
-        line += " ";
-        line.push_back((wchar_t) 11202);
-        line += " ";
-    } else line += "   ";
-
-    if (max_piece_cost_beaten) {
-        line += " ";
-        line.push_back((wchar_t) 11042);
-        line += " ";
-    } else line += "      ";
     line += "\n";
 
     std::wstring wline;
@@ -320,6 +303,7 @@ void level_info::copy_cell(coord position, cell *target) {
         case Barrier:
             level[position.x * width + position.y] = new barrier_cell(target->isMovable());
             break;
+
         case Move:
             level[position.x * width + position.y] =
                     new move_cell(((move_cell *) target)->getMoveDirection());

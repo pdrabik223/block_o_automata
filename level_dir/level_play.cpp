@@ -23,7 +23,9 @@ player_action level_play::main_loop() {
         key_pressed = get_key();
 
         operation = analyze_movement(key_pressed);
-        if (operation == quit_game) return quit_game;
+        if (operation == quit_game)
+            return quit_game;
+
         if (operation == run_simulation) run_sim();
 
     }
@@ -54,20 +56,20 @@ player_action level_play::analyze_movement(char key) {
                     /// and was assignable
                     if (!((empty_cell *) original_level[cursor_position.toUint(getWidth())])->isLocked()) {
 
-                        if (number_of_pawns[current_block] != 0) {
+
 
                             copy_cell(cursor_position, all_blocks[current_block]);
 
-                        } else
-                            current_message = no_more_blocks_left;
+
                     } else
                         current_message = cant_place_block_here;
                 } else
                     current_message = cant_place_block_here;
-
             }
+
             /// if cursor is on "red < icon"
             if (cursor_position == coord(0, getWidth())) {
+
                 return quit_game;
             }
 
@@ -75,6 +77,7 @@ player_action level_play::analyze_movement(char key) {
             if (cursor_position == coord(1, getWidth())) {
                 return run_simulation;
             }
+
             /// if cursor is on "win trophy"
             if (cursor_position == coord(4, getWidth())) {
                 current_message = none;

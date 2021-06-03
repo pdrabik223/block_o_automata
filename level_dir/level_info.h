@@ -43,7 +43,7 @@ class level_info {
 public:
     /// \brief used to get level-identifying info
     /// \return string containing basic info about level
-    std::wstring get_info();
+    std::wstring get_info() const;
 
     /// \brief constructor is simple
     ///  all of the fields will be accessed by set adn get functions

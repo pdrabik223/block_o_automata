@@ -80,7 +80,7 @@ we have some bugs there
 - crushes when we exit simulation 
 
 ## Level_info
-- reading level from file is fucked 
+
 
 ## Play
 - upon exiting it closes whole game 
@@ -89,3 +89,5 @@ we have some bugs there
 ## Engine 
 - unmovable block can be moved by crushing into it with move block
 
+## Pick/Play
+- game copies played level, simply put it makes a copy of current level
