@@ -134,7 +134,9 @@ int win_console::play::run_sim() {
 
             std::wcout << cc(yellow, black) << "u are winner!";
             level_beaten = true;
-
+            std::swap(level,original_level);
+            save();
+            std::swap(level,original_level);
             get_key();
             return 1;
         }

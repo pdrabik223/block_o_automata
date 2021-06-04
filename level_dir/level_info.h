@@ -59,6 +59,7 @@ public:
     /// \brief save current state of the level on drive
     void save();
 
+
     /// load level to memory
     /// \param path to a desired level
     void load(const std::string &path);
