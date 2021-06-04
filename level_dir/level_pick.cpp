@@ -70,7 +70,7 @@ player_action level_pick::ui() {
                     return play_level;
                 else if (cursor_position == loaded_levels.size()) return enter_editor;
 
-                else if (cursor_position == loaded_levels.size()+1) return quit_game;
+                else if (cursor_position == loaded_levels.size() + 1) return quit_game;
 
             default:
                 break;

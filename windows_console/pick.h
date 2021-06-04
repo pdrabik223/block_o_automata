@@ -10,7 +10,8 @@
 namespace win_console {
     class pick : public lc::level_pick {
     public:
-        pick() : lc::level_pick() {}
+        pick() : lc::level_pick() {    _setmode(_fileno(stdout), _O_U16TEXT);
+        }
 
         void display_ui() override;
 
