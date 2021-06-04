@@ -133,14 +133,6 @@ type spawn_cell::getCellType() const {
 }
 
 
-std::ostream &operator<<(std::ostream &out, const spawn_cell &ref) {
-    out << ref.getCellType();
-    out << " ";
-    out << ref.getSpawnDirection();
-
-    return out;
-}
-
 void spawn_cell::rotateRight() noexcept {
     switch (spawn_direction) {
         case left:

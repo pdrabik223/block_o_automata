@@ -32,8 +32,6 @@ public:
 
     direction getTurnDirection() const;
 
-    void setTurnDirection(direction turnDirection);
-
     friend std::ostream &operator<<(std::ostream &out, const turn_cell &ref);
 
     void rotateRight() noexcept override;

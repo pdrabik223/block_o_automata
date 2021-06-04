@@ -35,8 +35,6 @@ public:
 
     type getCellType() const override;
 
-    friend std::ostream &operator<<(std::ostream &out, const spawn_cell &ref);
-
     void rotateRight() noexcept override;
 
     void output_fo_file(std::ostream &out) override;

@@ -30,10 +30,6 @@ public:
 
     void rotateRight()  noexcept override{};
 
-    friend std::ostream &operator<<(std::ostream &out, const barrier_cell &ref);
-
-    friend std::istream &operator>>(std::istream &in,  barrier_cell &ref);
-
 
     void output_fo_file(std::ostream &out) override;
 

@@ -33,8 +33,6 @@ public:
 
     bool operator!=(const type &rhs) const override;
 
-    friend std::ostream &operator<<(std::ostream &out, const empty_cell &ref);
-
     void output_fo_file(std::ostream &out) override;
 
 protected:

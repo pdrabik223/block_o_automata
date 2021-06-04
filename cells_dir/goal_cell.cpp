@@ -51,12 +51,6 @@ std::istream &operator>>(std::istream &in, goal_cell &ref) {
     return in;
 }
 
-std::ostream &operator<<(std::ostream &out, const goal_cell &ref) {
-    out << ref.getCellType();
-    out << " ";
-    return out;
-}
-
 void goal_cell::output_fo_file(std::ostream &out) {
     out <<(int) getCellType();
 }

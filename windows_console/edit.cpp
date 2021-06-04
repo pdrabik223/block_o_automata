@@ -113,14 +113,8 @@ void win_console::edit::run_sim() {
         console_handle.update_screen();
 
         game.iterate();
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-        if (!game.goal_cells_left()) {
 
-            std::wcout << cc(yellow, black) << L"press to continue... ";
-            get_key();
-            return;
-        }
         activate_quit = true;
     }
 }

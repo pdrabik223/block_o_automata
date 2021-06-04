@@ -70,22 +70,10 @@ direction turn_cell::getTurnDirection() const {
     return turn_direction;
 }
 
-void turn_cell::setTurnDirection(direction turnDirection) {
-    turn_direction = turnDirection;
-}
-
 type turn_cell::getCellType() const {
     return cell_type;
 }
 
-
-std::ostream &operator<<(std::ostream &out, const turn_cell &ref) {
-    out << ref.getCellType();
-    out << " ";
-    out << ref.getTurnDirection();
-
-    return out;
-}
 
 void turn_cell::rotateRight() noexcept {
     switch (turn_direction) {
