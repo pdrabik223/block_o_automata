@@ -108,8 +108,6 @@ int win_console::play::run_sim() {
             console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, gray, black});
 
 
-
-
         key_pressed input = null;
 
 
@@ -134,9 +132,26 @@ int win_console::play::run_sim() {
 
             std::wcout << cc(yellow, black) << "u are winner!";
             level_beaten = true;
-            std::swap(level,original_level);
+            if (game.get_counter() <= max_iteration)
+                max_iteration_beaten = true;
+
+            int empty_block_counter_origin = 0;
+            int empty_block_counter_copy = 0;
+            for (auto i:level)
+                if (i->getCellType() == Empty)
+                    if (!((empty_cell *) i)->isLocked())
+                        empty_block_counter_copy++;
+            for (auto i:original_level)
+                if (i->getCellType() == Empty)
+                    if (!((empty_cell *) i)->isLocked())
+                        empty_block_counter_origin++;
+
+            if (empty_block_counter_origin - empty_block_counter_copy <= max_piece_cost);
+            max_piece_cost_beaten = true;
+
+            std::swap(level, original_level);
             save();
-            std::swap(level,original_level);
+            std::swap(level, original_level);
             get_key();
             return 1;
         }

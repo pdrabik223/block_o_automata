@@ -20,13 +20,13 @@ void win_console::pick::display_ui() {
             std::wcout << cc(red, gray) << " " << j << ".   ";
             std::wcout << cc(yellow, gray) << levels[j].get_info();
 
-            if(levels[j].level_beaten) std::wcout<<cc(yellow,gray)<<L" "<< (wchar_t) 11201<<L"  ";
+            if(levels[j].level_beaten) std::wcout<<cc(purple,gray)<<L" "<< (wchar_t) 11201<<L"  ";
             else std::wcout<<cc(yellow,gray)<<L"    ";
 
             if(levels[j].max_piece_cost_beaten) std::wcout<<cc(yellow,gray)<<L" "<< (wchar_t) 11202<<L"  ";
             else std::wcout<<cc(yellow,gray)<<L"    ";
 
-            if(levels[j].max_iteration_beaten) std::wcout<<cc(yellow,gray)<<L" "<< (wchar_t) 11042<<L"  ";
+            if(levels[j].max_iteration_beaten) std::wcout<<cc(red,gray)<<L" "<< (wchar_t) 11042<<L"  ";
             else std::wcout<<cc(yellow,gray)<<L"    ";
 
 
@@ -34,13 +34,14 @@ void win_console::pick::display_ui() {
         } else {
             std::wcout << cc(red, black) << j << ".   ";
             std::wcout << cc(yellow, black) << levels[j].get_info();
-            if(levels[j].level_beaten) std::wcout<<cc(yellow,black)<<L" "<< (wchar_t) 11201<<L"  ";
+
+            if(levels[j].level_beaten) std::wcout<<cc(purple,black)<<L" "<< (wchar_t) 11201<<L"  ";
             else std::wcout<<cc(yellow,black)<<L"    ";
 
             if(levels[j].max_piece_cost_beaten) std::wcout<<cc(yellow,black)<<L" "<< (wchar_t) 11202<<L"  ";
             else std::wcout<<cc(yellow,black)<<L"    ";
 
-            if(levels[j].max_iteration_beaten) std::wcout<<cc(yellow,black)<<L" "<< (wchar_t) 11042<<L"  ";
+            if(levels[j].max_iteration_beaten) std::wcout<<cc(red,black)<<L" "<< (wchar_t) 11042<<L"  ";
             else std::wcout<<cc(yellow,black)<<L"    ";
             std::wcout << cc(white, black);
         }
