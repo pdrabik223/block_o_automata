@@ -41,7 +41,7 @@ level_info::level_info(unsigned int height, unsigned int width) : width(width), 
 
     level_name = "noname";
     author = "noname";
-    level_difficulty = not_specified;
+
     level_beaten = false;
 
     max_iteration = 0;
@@ -50,7 +50,7 @@ level_info::level_info(unsigned int height, unsigned int width) : width(width), 
     max_piece_cost = 0;
     max_piece_cost_beaten = false;
 
-    number_of_pawns = {999, 999, 999, 999, 999};
+
 
     for (int i = 0; i < width * height; ++i) {
 
@@ -92,7 +92,7 @@ level_info::level_info() {
 
     level_name = "noname";
     author = "noname";
-    level_difficulty = not_specified;
+
     level_beaten = false;
 
     max_iteration = 0;
@@ -102,7 +102,7 @@ level_info::level_info() {
     max_piece_cost_beaten = false;
 
 
-    number_of_pawns = {999, 999, 999, 999, 999};
+
 
     width = 1;
     height = 1;
@@ -137,7 +137,7 @@ void level_info::save() {
 
     myfile << level_name << "\n"; // every field is separated by new line
     myfile << author << "\n";
-    myfile << level_difficulty << "\n";
+
     myfile << level_beaten << "\n";
 
     myfile << max_iteration << "\n";
@@ -146,11 +146,6 @@ void level_info::save() {
     myfile << max_piece_cost << "\n";
     myfile << max_piece_cost_beaten << "\n";
 
-
-    for (int number_of_pawn : number_of_pawns)
-        myfile << number_of_pawn << " ";
-
-    myfile << "\n";
     myfile << width << "\n";
     myfile << height << "\n";
 
@@ -179,9 +174,7 @@ void level_info::load(const std::string &path) {
 
     myfile >> author;
 
-    int temp_int;
-    myfile >> temp_int;
-    level_difficulty = (difficulty) temp_int;
+
     myfile >> level_beaten;
 
     myfile >> max_iteration;
@@ -190,14 +183,11 @@ void level_info::load(const std::string &path) {
     myfile >> max_piece_cost;
     myfile >> max_piece_cost_beaten;
 
-
-    for (int &number : number_of_pawns)
-        myfile >> number;
-
     myfile >> width;
     myfile >> height;
     level = {};
 
+    int temp_int;
     for (int i = 0; i < width * height; i++) {
 
         myfile >> temp_int;

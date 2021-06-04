@@ -29,14 +29,6 @@
 /// \return current date in form of a string
 std::string current_date();
 
-enum difficulty {
-    not_specified,
-    easy,
-    medium,
-    hard,
-    insane
-};
-
 //  todo strong and safe copy constructor
 
 class level_info {
@@ -93,7 +85,6 @@ public:
 
     std::string level_name;
     std::string author;
-    difficulty level_difficulty; //?
     bool level_beaten;
 
     unsigned max_iteration;
@@ -104,7 +95,7 @@ public:
 
 
 
-    std::array<int, 5> number_of_pawns; //
+
 
 
 protected:

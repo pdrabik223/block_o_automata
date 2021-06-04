@@ -128,15 +128,9 @@ void win_console::edit::set_additional_info() {
 
     std::wcout << "\nauthor :";
     std::cin >> author;
-    std::wcout << cc(red, black);
-    std::wcout << "\nset level difficulty 1-4 : ";
+
     int temp_int;
-    std::cin >> temp_int;
 
-    if (temp_int >= 4) temp_int = 3;
-    if (temp_int < 0) temp_int = 0;
-
-    level_difficulty = (difficulty) temp_int;
     std::wcout << cc(yellow, black);
     std::wcout << "\nmax iterations  :";
     std::cin >> temp_int;
@@ -152,26 +146,7 @@ void win_console::edit::set_additional_info() {
     if (temp_int < 0) temp_int = 0;
     max_piece_cost = temp_int;
 
-    std::wcout << cc(blue, black);
-    std::wcout << "\n max number of pawns that user has at his disposal :\n";
 
-    for (int i = 0; i < number_of_pawns.size(); i++) {
-        std::wcout << "max amount of  ";
-        std::wcout << cc(all_blocks[i]->get_unicode().text_color, black);
-        std::wcout << all_blocks[i]->get_unicode().image << "  ";
-        std::wcout << cc(blue, black);
-        std::cin >> temp_int;
-
-        if (temp_int >= 99) temp_int = 99;
-        if (temp_int <= 0) temp_int = 0;
-
-        number_of_pawns[i] = temp_int;
-
-        std::wcout << "\r\r";
-        std::wcout << cc(all_blocks[i]->get_unicode().text_color, black);
-        std::wcout << all_blocks[i]->get_unicode().image << ' ';
-        std::wcout << cc(blue, black) << "  is set to " << temp_int << std::endl;
-    }
     std::wcout << cc(yellow, black);
 
     system("cls");
