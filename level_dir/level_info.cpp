@@ -259,7 +259,6 @@ void level_info::load(const std::string &path) {
     myfile.close();
 }
 
-
 cell &level_info::get_cell(unsigned int h, unsigned int w) {
     return *level[h * width + w];
 }
@@ -286,41 +285,8 @@ void level_info::set_cell(coord position, cell *target) {
 
 
 void level_info::copy_cell(coord position, cell *target) {
-    // todo clone this shit
 
-    switch (target->getCellType()) {
-        case Barrier:
-            level[position.x * width + position.y] = new barrier_cell(target->isMovable());
-            break;
-
-        case Move:
-            level[position.x * width + position.y] =
-                    new move_cell(((move_cell *) target)->getMoveDirection());
-
-            break;
-        case Kill:
-            level[position.x * width + position.y] =
-                    new kill_cell();
-            break;
-        case Spawn:
-            level[position.x * width + position.y] =
-                    new spawn_cell(((spawn_cell *) target)->getSpawnDirection());
-            break;
-        case Turn:
-            level[position.x * width + position.y] = new turn_cell(((turn_cell *) target)->getTurnDirection());
-            break;
-        case Goal:
-            level[position.x * width + position.y] = new goal_cell();
-            break;
-        case Empty:
-            level[position.x * width + position.y] = new empty_cell(((empty_cell *) target)->isLocked());
-            break;
-        case Cell:
-
-        default :
-            assert(false);
-    }
-
+    level[position.x * width + position.y] = target->clone();
 }
 
 

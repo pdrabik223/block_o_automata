@@ -55,3 +55,8 @@ void barrier_cell::output_fo_file(std::ostream &out) {
     out << isMovable();
 }
 
+barrier_cell* barrier_cell::clone() {
+    return this;
+
+}
+

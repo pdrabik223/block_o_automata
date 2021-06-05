@@ -159,3 +159,7 @@ void spawn_cell::output_fo_file(std::ostream &out) {
     out << (int) getSpawnDirection();
 }
 
+spawn_cell *spawn_cell::clone() {
+    return this;
+}
+

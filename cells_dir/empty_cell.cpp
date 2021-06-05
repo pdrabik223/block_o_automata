@@ -67,5 +67,9 @@ void empty_cell::output_fo_file(std::ostream &out) {
     out << isLocked();
 }
 
+empty_cell *empty_cell::clone() {
+    return this;
+}
+
 
 

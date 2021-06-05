@@ -110,5 +110,9 @@ void move_cell::output_fo_file(std::ostream &out) {
     out << (int) getMoveDirection();
 }
 
+move_cell *move_cell::clone() {
+    return this;
+}
+
 
 

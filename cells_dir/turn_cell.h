@@ -36,7 +36,10 @@ public:
 
     void output_fo_file(std::ostream &out) override;
 
-    static type cell_type ;
+    static type cell_type;
+
+    turn_cell *clone() override;
+
 protected:
 
     /// the direction that incoming cell will leave with

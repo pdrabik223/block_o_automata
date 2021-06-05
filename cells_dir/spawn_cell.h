@@ -41,6 +41,9 @@ public:
     void output_fo_file(std::ostream &out) override;
 
     static type cell_type;
+
+    spawn_cell *clone() override;
+
 protected:
 
     /// the place where cell be spawned

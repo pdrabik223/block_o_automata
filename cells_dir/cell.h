@@ -78,6 +78,7 @@ public:
 
     virtual void output_fo_file(std::ostream &out) { assert(false); };
 
+    virtual cell* clone() { return this; };
 
     static type cell_type;
 protected:
@@ -85,7 +86,6 @@ protected:
     bool movable;
     /// can this cell be killed
     bool killable;
-
 
 
 };

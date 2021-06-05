@@ -31,6 +31,9 @@ public:
     void output_fo_file(std::ostream &out) override;
 
     static type cell_type ;
+
+    goal_cell *clone() override;
+
 protected:
 };
 

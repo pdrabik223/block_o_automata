@@ -38,6 +38,9 @@ public:
     void output_fo_file(std::ostream &out) override;
 
 static type cell_type;
+
+    move_cell *clone() override;
+
 protected:
     direction move_direction;
 

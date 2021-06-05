@@ -100,3 +100,7 @@ void turn_cell::output_fo_file(std::ostream &out) {
     out << (int) getTurnDirection();
 }
 
+turn_cell *turn_cell::clone() {
+    return this;
+}
+

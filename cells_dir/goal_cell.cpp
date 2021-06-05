@@ -56,3 +56,7 @@ void goal_cell::output_fo_file(std::ostream &out) {
     out <<(int) getCellType();
 }
 
+goal_cell *goal_cell::clone() {
+    return this;
+}
+
