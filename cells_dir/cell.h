@@ -15,8 +15,7 @@
 #include "../windows_console_tools/icon.h"
 
 
-//todo copy constructor
-// made it using clone() function
+
 //todo smart pointers to minimize mem leaks
 
 /// type of the cell, used to identify cell by it's role

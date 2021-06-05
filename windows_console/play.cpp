@@ -141,6 +141,8 @@ int win_console::play::run_sim() {
                 if (i->getCellType() == Empty)
                     if (!((empty_cell *) i)->isLocked())
                         empty_block_counter_copy++;
+
+
             for (auto i:original_level)
                 if (i->getCellType() == Empty)
                     if (!((empty_cell *) i)->isLocked())

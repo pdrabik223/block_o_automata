@@ -111,7 +111,7 @@ void move_cell::output_fo_file(std::ostream &out) {
 }
 
 move_cell *move_cell::clone() {
-    return this;
+    return new move_cell(*this);
 }
 
 

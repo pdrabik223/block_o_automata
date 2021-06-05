@@ -56,7 +56,8 @@ void barrier_cell::output_fo_file(std::ostream &out) {
 }
 
 barrier_cell* barrier_cell::clone() {
-    return this;
 
+
+    return new barrier_cell(*this);
 }
 

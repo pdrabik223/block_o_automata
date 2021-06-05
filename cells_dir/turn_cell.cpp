@@ -101,6 +101,6 @@ void turn_cell::output_fo_file(std::ostream &out) {
 }
 
 turn_cell *turn_cell::clone() {
-    return this;
+    return new turn_cell(*this);
 }
 

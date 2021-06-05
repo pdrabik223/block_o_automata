@@ -288,5 +288,3 @@ void level_info::copy_cell(coord position, cell *target) {
 
     level[position.x * width + position.y] = target->clone();
 }
-
-

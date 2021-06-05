@@ -53,7 +53,7 @@ void kill_cell::output_fo_file(std::ostream &out) {
 }
 
 kill_cell* kill_cell::clone() {
-    return this;
+    return new kill_cell(*this);
 }
 
 

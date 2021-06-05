@@ -57,6 +57,6 @@ void goal_cell::output_fo_file(std::ostream &out) {
 }
 
 goal_cell *goal_cell::clone() {
-    return this;
+    return new goal_cell(*this);
 }
 

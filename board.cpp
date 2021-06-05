@@ -39,9 +39,9 @@ bool board::goal_cells_left() {
 }
 
 board::board(level_info &played_level) {
-level = played_level;
-lock_cells();
-counter = 0;
+    level = played_level;
+    lock_cells();
+    counter = 0;
 }
 
 icon board::get_cell_icon(coord position) {

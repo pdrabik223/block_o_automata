@@ -68,7 +68,7 @@ void empty_cell::output_fo_file(std::ostream &out) {
 }
 
 empty_cell *empty_cell::clone() {
-    return this;
+    return new empty_cell(*this);
 }
 
 
