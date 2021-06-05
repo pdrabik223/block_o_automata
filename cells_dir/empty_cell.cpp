@@ -4,6 +4,8 @@
 
 #include "empty_cell.h"
 
+type empty_cell::cell_type = Empty;
+
 empty_cell::empty_cell() : cell(false, true), locked(true) {};
 
 

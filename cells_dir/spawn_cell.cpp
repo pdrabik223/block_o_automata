@@ -9,6 +9,8 @@
 #include "move_cell.h"
 #include "turn_cell.h"
 
+type spawn_cell::cell_type = Spawn;
+
 spawn_cell::spawn_cell() : cell(true, true),
                            spawn_direction(left) {}
 

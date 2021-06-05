@@ -3,7 +3,7 @@
 //
 
 #include "cell.h"
-
+type cell::cell_type = Cell;
 cell::cell(bool movable, bool killable) : movable(movable), killable(killable) {
 
 }

@@ -4,7 +4,7 @@
 
 #include "move_cell.h"
 #include "empty_cell.h"
-
+type move_cell::cell_type = Move;
 move_cell::move_cell() : cell(true, true),
                          move_direction(left) {}
 

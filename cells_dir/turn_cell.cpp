@@ -5,6 +5,7 @@
 #include "turn_cell.h"
 #include "move_cell.h"
 
+type turn_cell::cell_type = Turn;
 
 turn_cell::turn_cell() : cell(false, true),
 

@@ -4,6 +4,7 @@
 
 #include "goal_cell.h"
 #include "empty_cell.h"
+type goal_cell::cell_type = Goal;
 
 goal_cell::goal_cell() : cell(false, true) {}
 

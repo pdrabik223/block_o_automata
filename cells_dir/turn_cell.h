@@ -32,18 +32,16 @@ public:
 
     direction getTurnDirection() const;
 
-    friend std::ostream &operator<<(std::ostream &out, const turn_cell &ref);
-
     void rotateRight() noexcept override;
 
     void output_fo_file(std::ostream &out) override;
 
+    static type cell_type ;
 protected:
 
     /// the direction that incoming cell will leave with
     direction turn_direction;
 
-    type cell_type = Turn;
 };
 
 

@@ -33,8 +33,8 @@ public:
 
     void output_fo_file(std::ostream &out) override;
 
+    static  type cell_type ;
 protected:
-    const type cell_type = Barrier;
 
 };
 

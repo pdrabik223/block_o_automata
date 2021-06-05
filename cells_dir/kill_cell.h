@@ -8,7 +8,7 @@
 
 #include "cell.h"
 
-class kill_cell: public cell {
+class kill_cell : public cell {
 public:
 
     kill_cell();
@@ -18,7 +18,8 @@ public:
     void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
               unsigned int w) override;
 
-    void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
+    void
+    action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
 
     bool operator==(const type &rhs) const override;
 
@@ -32,9 +33,9 @@ public:
 
     void output_fo_file(std::ostream &out) override;
 
+    static type cell_type;
 protected:
 
-  const   type cell_type = Kill;
 };
 
 

@@ -4,6 +4,7 @@
 
 #include "barrier_cell.h"
 
+type barrier_cell::cell_type = Barrier;
 barrier_cell::barrier_cell() : cell(false, false) {}
 
 

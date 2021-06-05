@@ -37,10 +37,10 @@ public:
 
     void output_fo_file(std::ostream &out) override;
 
+static type cell_type;
 protected:
     direction move_direction;
 
-  const   type cell_type = Move;
 
 };
 

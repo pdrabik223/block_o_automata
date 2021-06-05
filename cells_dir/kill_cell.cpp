@@ -4,6 +4,7 @@
 
 #include "kill_cell.h"
 #include "empty_cell.h"
+type kill_cell::cell_type = Kill;
 
 kill_cell::kill_cell() : cell(false, true) {}
 

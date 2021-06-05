@@ -35,10 +35,10 @@ public:
 
     void output_fo_file(std::ostream &out) override;
 
+    static type cell_type ;
 protected:
     /// can player put cells in place this one
     bool locked;
-    const  type cell_type = Empty;
 };
 
 

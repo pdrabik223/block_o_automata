@@ -79,6 +79,7 @@ public:
     virtual void output_fo_file(std::ostream &out) { assert(false); };
 
 
+    static type cell_type;
 protected:
     /// can be moved/rotated by other cells
     bool movable;
@@ -86,7 +87,6 @@ protected:
     bool killable;
 
 
-    const type cell_type = Cell;
 
 };
 
