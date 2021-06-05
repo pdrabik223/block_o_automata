@@ -31,55 +31,6 @@ spawn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos,
 
         cell *cell_ptr = plane[curr_pos.reverse(spawn_direction, w)];
 
-//        switch (cell_ptr->getCellType()) {
-//            case Barrier: {
-//
-//                if ((barrier_cell *) (cell_ptr)->isMovable()) {
-//                    destination[curr_pos.go(spawn_direction, w)] = new barrier_cell(
-//                            (barrier_cell *) (cell_ptr)->isMovable());
-//                }
-//                break;
-//            }
-//            case Goal: {
-//
-//                destination[curr_pos.go(spawn_direction, w)] = new goal_cell();
-//                break;
-//            }
-//            case Kill: {
-//
-//                destination[curr_pos.go(spawn_direction, w)] = new kill_cell();
-//
-//                break;
-//            }
-//            case Move: {
-//
-//                destination[curr_pos.go(spawn_direction, w)] = new move_cell(
-//                        ((move_cell *) cell_ptr)->getMoveDirection());
-//
-//                break;
-//            }
-//            case Spawn: {
-//
-//
-//                destination[curr_pos.go(spawn_direction, w)] = new spawn_cell(
-//                        ((spawn_cell *) cell_ptr)->getSpawnDirection());
-//
-//                break;
-//            }
-//            case Turn: {
-//                turn_cell temp = *((turn_cell *) cell_ptr);
-//                destination[curr_pos.go(spawn_direction, w)] = new turn_cell(
-//                        ((turn_cell *) cell_ptr)->getTurnDirection());
-//                break;
-//            }
-//            case Empty:
-//                break;
-//
-//            default:
-//
-//                assert(false);
-//                return;
-//        }
         destination[curr_pos.go(spawn_direction, w)] = cell_ptr->clone();
 
     }

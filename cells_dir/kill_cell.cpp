@@ -17,7 +17,6 @@ kill_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destinati
                 unsigned int w) {
     if (plane[curr_pos.reverse(move_dir, w)]->isKillable()) {
         destination[curr_pos.reverse(move_dir, w)] = new empty_cell(false);
-
         return;
     } else {
 
