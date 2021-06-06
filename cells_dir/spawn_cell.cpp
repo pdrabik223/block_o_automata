@@ -38,12 +38,13 @@ spawn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos,
 
 void
 spawn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-                 unsigned int w) {
-    plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
+                 unsigned int width) {
 
-    if (*destination[curr_pos.go(move_dir, w)] == Empty) {
+    plane[curr_pos.go(move_dir, width)]->move(plane, destination, move_dir, curr_pos.go(move_dir), width);
+
+    if (*destination[curr_pos.go(move_dir, width)] == Empty) {
         // me                                      the one in front
-        std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_dir, w)]);
+        std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_dir, width)]);
     }
 }
 

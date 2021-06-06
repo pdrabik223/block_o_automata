@@ -18,7 +18,7 @@ public:
     turn_cell &operator=(const turn_cell &other) = default;
 
     void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-              unsigned int w) override;
+              unsigned int width) override;
 
     icon get_unicode() override;
 

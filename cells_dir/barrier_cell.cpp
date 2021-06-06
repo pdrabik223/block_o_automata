@@ -5,6 +5,7 @@
 #include "barrier_cell.h"
 
 type barrier_cell::cell_type = Barrier;
+
 barrier_cell::barrier_cell() : cell(false, false) {}
 
 
@@ -18,17 +19,19 @@ barrier_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_po
 void
 barrier_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir,
                    coord curr_pos,
-                   unsigned int w) {
+                   unsigned int width) {
 
-    if (movable) {
-        plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
+    if (!movable) return;
 
 
-        if (*destination[curr_pos.go(move_dir, w)] == Empty) {
-            // me                                      the one in front
-            std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_dir, w)]);
-        }
+    plane[curr_pos.go(move_dir, width)]->move(plane, destination, move_dir, curr_pos.go(move_dir), width);
+
+
+    if (*destination[curr_pos.go(move_dir, width)] == Empty) {
+        // me                                      the one in front
+        std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_dir, width)]);
     }
+
 
 }
 
@@ -55,7 +58,7 @@ void barrier_cell::output_fo_file(std::ostream &out) {
     out << isMovable();
 }
 
-barrier_cell* barrier_cell::clone() {
+barrier_cell *barrier_cell::clone() {
 
 
     return new barrier_cell(*this);

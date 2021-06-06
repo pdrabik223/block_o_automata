@@ -21,19 +21,19 @@ turn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, 
 
 void
 turn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-                unsigned int w) {
+                unsigned int width) {
 
-    plane[curr_pos.go(turn_direction, w)]->move(plane, destination, turn_direction, curr_pos.go(turn_direction), w);
+    plane[curr_pos.go(turn_direction, width)]->move(plane, destination, turn_direction, curr_pos.go(turn_direction), width);
 
 
-    if (*destination[curr_pos.go(turn_direction, w)] == Empty ||
-        curr_pos.go(turn_direction, w) == curr_pos.reverse(move_dir, w)) {
+    if (*destination[curr_pos.go(turn_direction, width)] == Empty ||
+        curr_pos.go(turn_direction, width) == curr_pos.reverse(move_dir, width)) {
 
         // me                                      the one in front
-        std::swap(destination[curr_pos.reverse(move_dir, w)], destination[curr_pos.go(turn_direction, w)]);
+        std::swap(destination[curr_pos.reverse(move_dir, width)], destination[curr_pos.go(turn_direction, width)]);
 
-        if (*destination[curr_pos.go(turn_direction, w)] == Move)
-            destination[curr_pos.go(turn_direction, w)] = new move_cell(turn_direction);
+        if (*destination[curr_pos.go(turn_direction, width)] == Move)
+            destination[curr_pos.go(turn_direction, width)] = new move_cell(turn_direction);
 
     }
 

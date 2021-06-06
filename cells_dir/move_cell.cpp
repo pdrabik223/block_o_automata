@@ -27,16 +27,15 @@ void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
 
 void
 move_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-                unsigned int w) {
+                unsigned int width) {
     //  has_been_moved = true;
-    plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
+    plane[curr_pos.go(move_dir, width)]->move(plane, destination, move_dir, curr_pos.go(move_dir), width);
 
 
-    if (*destination[curr_pos.go(move_dir, w)] == Empty) {
+    if (*destination[curr_pos.go(move_dir, width)] == Empty) {
         // me                                      the one in front
 
-        std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
-
+        std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_direction, width)]);
     }
 
 }

@@ -13,20 +13,20 @@ void goal_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
 
 void
 goal_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-                unsigned int w) {
+                unsigned int width) {
 
-    if (plane[curr_pos.reverse(move_dir, w)]->isKillable()) {
-        destination[curr_pos.reverse(move_dir, w)] = new empty_cell(true);
-        destination[curr_pos.toUint(w)] = new empty_cell(true);
+    if (plane[curr_pos.reverse(move_dir, width)]->isKillable()) {
+        destination[curr_pos.reverse(move_dir, width)] = new empty_cell(true);
+        destination[curr_pos.toUint(width)] = new empty_cell(true);
         return;
 
     } else {
 
-        plane[curr_pos.go(move_dir, w)]->move(plane, destination, move_dir, curr_pos.go(move_dir), w);
+        plane[curr_pos.go(move_dir, width)]->move(plane, destination, move_dir, curr_pos.go(move_dir), width);
 
-        if (*destination[curr_pos.go(move_dir, w)] == Empty) {
+        if (*destination[curr_pos.go(move_dir, width)] == Empty) {
             // me                                      the one in front
-            std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_dir, w)]);
+            std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_dir, width)]);
         }
     }
 }

@@ -24,7 +24,7 @@ public:
     action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
 
     void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-              unsigned int w) override;
+              unsigned int width) override;
 
     bool operator==(const type &rhs) const override;
 

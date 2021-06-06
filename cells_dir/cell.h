@@ -18,6 +18,8 @@
 
 //todo smart pointers to minimize mem leaks
 
+
+
 /// type of the cell, used to identify cell by it's role
 enum type {
 
@@ -60,7 +62,7 @@ public:
 
     virtual void
     move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-         unsigned int w) {
+         unsigned int width) {
         assert(false);
     };
 
@@ -88,6 +90,7 @@ protected:
 
 
 };
+
 
 
 #endif //BLOCK_O_AUTOMATA_CELL_H
