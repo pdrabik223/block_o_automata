@@ -12,11 +12,11 @@
 type spawn_cell::cell_type = Spawn;
 
 
-spawn_cell::spawn_cell() : cell(true, true),
+spawn_cell::spawn_cell() : cell(true, false),
                            spawn_direction(left) {}
 
 
-spawn_cell::spawn_cell(direction spawnDirection) : cell(true, true),
+spawn_cell::spawn_cell(direction spawnDirection) : cell(true, false),
                                                    spawn_direction(spawnDirection) {}
 
 
