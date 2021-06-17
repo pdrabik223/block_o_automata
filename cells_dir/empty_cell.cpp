@@ -10,14 +10,16 @@ EmptyCell::EmptyCell() : Cell(false, true), locked(true) {};
 
 EmptyCell::EmptyCell(bool locked) : Cell(false, true), locked(locked) {}
 
-void EmptyCell::Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) {}
+void EmptyCell::Action(const std::vector<Cell *> &plane, unsigned w,
+                       Coord curr_pos, std::vector<Cell *> &destination) {}
 
-void EmptyCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
+void EmptyCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, Direction move_dir,
+                     Coord curr_pos,
                  unsigned int width) {
 
-//    if (*plane[curr_pos.go(move_dir, w)] == Empty) {
+//    if (*plane[curr_pos.Go(move_dir, w)] == Empty) {
 //        // me                                      the one in front
-//        std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_dir, w)]);
+//        std::swap(destination[curr_pos.ToUint(w)], destination[curr_pos.Go(move_dir, w)]);
 //    }
 
 }
@@ -32,8 +34,8 @@ bool EmptyCell::operator!=(const Type &rhs) const {
 
 icon EmptyCell::GetUnicode() {
 
-    if (locked) return {' ', gray};
-    else return {8226, gray};
+    if (locked) return {' ', GRAY};
+    else return {8226, GRAY};
 
 }
 

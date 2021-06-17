@@ -33,25 +33,25 @@ PlayerAction LevelPlay::MainLoop() {
 PlayerAction LevelPlay::AnalyzeMovement(char key) {
   switch (key) {
   case 'a':
-    cursor_position_.y--;
+    cursor_position_.y_--;
     break;
   case 'w':
-    cursor_position_.x--;
+    cursor_position_.x_--;
     break;
   case 's':
-    cursor_position_.x++;
+    cursor_position_.x_++;
     break;
   case 'd':
-    cursor_position_.y++;
+    cursor_position_.y_++;
     break;
   case 13:
 
     // set pawn in place
-    if (cursor_position_.x < GetHeight() && cursor_position_.y < GetWidth()) {
+    if (cursor_position_.x_ < GetHeight() && cursor_position_.y_ < GetWidth()) {
       /// if the Cell was originally empty
-      if (*original_level_[cursor_position_.toUint(GetWidth())] == EMPTY) {
+      if (*original_level_[cursor_position_.ToUint(GetWidth())] == EMPTY) {
         /// and was assignable
-        if (!((EmptyCell *)original_level_[cursor_position_.toUint(GetWidth())])
+        if (!((EmptyCell *)original_level_[cursor_position_.ToUint(GetWidth())])
                  ->IsLocked()) {
 
           CopyCell(cursor_position_, all_blocks_[current_block_]);
@@ -63,26 +63,26 @@ PlayerAction LevelPlay::AnalyzeMovement(char key) {
     }
 
     /// if cursor is on "red < icon"
-    if (cursor_position_ == coord(0, GetWidth())) {
+    if (cursor_position_ == Coord(0, GetWidth())) {
 
       return QUIT_GAME;
     }
 
     /// if cursor is on "yellow >icon"
-    if (cursor_position_ == coord(1, GetWidth())) {
+    if (cursor_position_ == Coord(1, GetWidth())) {
       return RUN_SIMULATION;
     }
 
     /// if cursor is on "win trophy"
-    if (cursor_position_ == coord(4, GetWidth())) {
+    if (cursor_position_ == Coord(4, GetWidth())) {
       current_message_ = NONE;
     }
     /// if cursor is on "blocks trophy"
-    if (cursor_position_ == coord(5, GetWidth())) {
+    if (cursor_position_ == Coord(5, GetWidth())) {
       current_message_ = MINIMAL_COST_TROFEUM;
     }
     /// if cursor is on "iterations trophy"
-    if (cursor_position_ == coord(6, GetWidth())) {
+    if (cursor_position_ == Coord(6, GetWidth())) {
       current_message_ = MINIMAL_ITERATIONS_TROFEUM;
     }
 
@@ -107,28 +107,28 @@ PlayerAction LevelPlay::AnalyzeMovement(char key) {
     break;
   case 'x':
     CopyCell(cursor_position_,
-             original_level_[cursor_position_.toUint(GetWidth())]);
+             original_level_[cursor_position_.ToUint(GetWidth())]);
     break;
   default:
     return NOTHING;
   }
-  if (cursor_position_.y > GetWidth())
-    cursor_position_.y = GetWidth();
-  if (cursor_position_.x >= GetHeight())
-    cursor_position_.x = GetHeight() - 1;
+  if (cursor_position_.y_ > GetWidth())
+    cursor_position_.y_ = GetWidth();
+  if (cursor_position_.x_ >= GetHeight())
+    cursor_position_.x_ = GetHeight() - 1;
 
-  if (cursor_position_.y < 0)
-    cursor_position_.y = 0;
-  if (cursor_position_.x < 0)
-    cursor_position_.x = 0;
+  if (cursor_position_.y_ < 0)
+    cursor_position_.y_ = 0;
+  if (cursor_position_.x_ < 0)
+    cursor_position_.x_ = 0;
 
   /// if cursor is on "red < icon"
-  if (cursor_position_ == coord(0, GetWidth())) {
+  if (cursor_position_ == Coord(0, GetWidth())) {
     current_message_ = EXIT;
   }
 
   /// if cursor is on "yellow >icon"
-  else if (cursor_position_ == coord(1, GetWidth())) {
+  else if (cursor_position_ == Coord(1, GetWidth())) {
     current_message_ = START_SIMULATION;
   }
 

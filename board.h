@@ -28,7 +28,7 @@ public:
   /// used to Move functions displaying the cells outside board
   /// \param position at witch wanted Cell is stored
   /// \return information needed to proper display Cell
-  icon GetCellIcon(coord position);
+  icon GetCellIcon(Coord position);
 
   unsigned int GetCounter() const;
 

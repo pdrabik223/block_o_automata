@@ -16,72 +16,72 @@ void win_console::Pick::DisplayUi() {
   for (; j < levels.size(); j++) {
 
     if (cursor_position_ == j) {
-      std::wcout << cc(red, gray) << " " << j << ".   ";
-      std::wcout << cc(yellow, gray) << levels[j].GetInfo();
+      std::wcout << Cc(RED, GRAY) << " " << j << ".   ";
+      std::wcout << Cc(YELLOW, GRAY) << levels[j].GetInfo();
 
       if (levels[j].level_beaten_)
-        std::wcout << cc(purple, gray) << L" " << (wchar_t)11201 << L"  ";
+        std::wcout << Cc(PURPLE, GRAY) << L" " << (wchar_t)11201 << L"  ";
       else
-        std::wcout << cc(yellow, gray) << L"    ";
+        std::wcout << Cc(YELLOW, GRAY) << L"    ";
 
       if (levels[j].max_piece_cost_beaten_)
-        std::wcout << cc(yellow, gray) << L" " << (wchar_t)11202 << L"  ";
+        std::wcout << Cc(YELLOW, GRAY) << L" " << (wchar_t)11202 << L"  ";
       else
-        std::wcout << cc(yellow, gray) << L"    ";
+        std::wcout << Cc(YELLOW, GRAY) << L"    ";
 
       if (levels[j].max_iteration_beaten_)
-        std::wcout << cc(red, gray) << L" " << (wchar_t)11042 << L"  ";
+        std::wcout << Cc(RED, GRAY) << L" " << (wchar_t)11042 << L"  ";
       else
-        std::wcout << cc(yellow, gray) << L"    ";
+        std::wcout << Cc(YELLOW, GRAY) << L"    ";
 
-      std::wcout << cc(white, black);
+      std::wcout << Cc(WHITE, BLACK);
     } else {
-      std::wcout << cc(red, black) << j << ".   ";
-      std::wcout << cc(yellow, black) << levels[j].GetInfo();
+      std::wcout << Cc(RED, BLACK) << j << ".   ";
+      std::wcout << Cc(YELLOW, BLACK) << levels[j].GetInfo();
 
       if (levels[j].level_beaten_)
-        std::wcout << cc(purple, black) << L" " << (wchar_t)11201 << L"  ";
+        std::wcout << Cc(PURPLE, BLACK) << L" " << (wchar_t)11201 << L"  ";
       else
-        std::wcout << cc(yellow, black) << L"    ";
+        std::wcout << Cc(YELLOW, BLACK) << L"    ";
 
       if (levels[j].max_piece_cost_beaten_)
-        std::wcout << cc(yellow, black) << L" " << (wchar_t)11202 << L"  ";
+        std::wcout << Cc(YELLOW, BLACK) << L" " << (wchar_t)11202 << L"  ";
       else
-        std::wcout << cc(yellow, black) << L"    ";
+        std::wcout << Cc(YELLOW, BLACK) << L"    ";
 
       if (levels[j].max_iteration_beaten_)
-        std::wcout << cc(red, black) << L" " << (wchar_t)11042 << L"  ";
+        std::wcout << Cc(RED, BLACK) << L" " << (wchar_t)11042 << L"  ";
       else
-        std::wcout << cc(yellow, black) << L"    ";
-      std::wcout << cc(white, black);
+        std::wcout << Cc(YELLOW, BLACK) << L"    ";
+      std::wcout << Cc(WHITE, BLACK);
     }
     std::wcout << L"\n";
   }
 
   if (cursor_position_ == levels.size()) {
 
-    std::wcout << cc(red, gray) << " " << j << ".   ";
-    std::wcout << cc(yellow, gray) << L"create level...\n";
-    std::wcout << cc(white, black);
+    std::wcout << Cc(RED, GRAY) << " " << j << ".   ";
+    std::wcout << Cc(YELLOW, GRAY) << L"create level...\n";
+    std::wcout << Cc(WHITE, BLACK);
 
   } else {
 
-    std::wcout << cc(red, black) << j << ".   ";
-    std::wcout << cc(yellow, black) << L"create level...\n";
-    std::wcout << cc(white, black);
+    std::wcout << Cc(RED, BLACK) << j << ".   ";
+    std::wcout << Cc(YELLOW, BLACK) << L"create level...\n";
+    std::wcout << Cc(WHITE, BLACK);
   }
 
   if (cursor_position_ == levels.size() + 1) {
 
-    std::wcout << cc(red, gray) << " " << j + 1 << ".   ";
-    std::wcout << cc(yellow, gray) << L"exit game";
-    std::wcout << cc(white, black);
+    std::wcout << Cc(RED, GRAY) << " " << j + 1 << ".   ";
+    std::wcout << Cc(YELLOW, GRAY) << L"exit game";
+    std::wcout << Cc(WHITE, BLACK);
 
   } else {
 
-    std::wcout << cc(red, black) << j + 1 << ".   ";
-    std::wcout << cc(yellow, black) << L"exit game";
-    std::wcout << cc(white, black);
+    std::wcout << Cc(RED, BLACK) << j + 1 << ".   ";
+    std::wcout << Cc(YELLOW, BLACK) << L"exit game";
+    std::wcout << Cc(WHITE, BLACK);
   }
 }
 

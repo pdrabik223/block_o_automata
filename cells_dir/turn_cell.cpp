@@ -9,29 +9,31 @@ Type TurnCell::cell_type_ = TURN;
 
 TurnCell::TurnCell() : Cell(false, true),
 
-                         turn_direction(left) {}
+                         turn_direction(LEFT) {}
 
-TurnCell::TurnCell(direction turn_direction) : Cell(false, true),
+TurnCell::TurnCell(Direction turn_direction) : Cell(false, true),
 
                                                 turn_direction(turn_direction) {}
 
-void TurnCell::Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) {}
+void TurnCell::Action(const std::vector<Cell *> &plane, unsigned w,
+                      Coord curr_pos, std::vector<Cell *> &destination) {}
 
-void TurnCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
+void TurnCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, Direction move_dir,
+                    Coord curr_pos,
                 unsigned int width) {
 
-  plane[curr_pos.go(turn_direction, width)]->Move(
-      plane, destination, turn_direction, curr_pos.go(turn_direction), width);
+  plane[curr_pos.Go(turn_direction, width)]->Move(
+      plane, destination, turn_direction, curr_pos.Go(turn_direction), width);
 
 
-    if (*destination[curr_pos.go(turn_direction, width)] == EMPTY ||
-        curr_pos.go(turn_direction, width) == curr_pos.reverse(move_dir, width)) {
+    if (*destination[curr_pos.Go(turn_direction, width)] == EMPTY ||
+      curr_pos.Go(turn_direction, width) == curr_pos.Reverse(move_dir, width)) {
 
         // me                                      the one in front
-        std::swap(destination[curr_pos.reverse(move_dir, width)], destination[curr_pos.go(turn_direction, width)]);
+        std::swap(destination[curr_pos.Reverse(move_dir, width)], destination[curr_pos.Go(turn_direction, width)]);
 
-        if (*destination[curr_pos.go(turn_direction, width)] == MOVE)
-            destination[curr_pos.go(turn_direction, width)] = new MoveCell(turn_direction);
+        if (*destination[curr_pos.Go(turn_direction, width)] == MOVE)
+            destination[curr_pos.Go(turn_direction, width)] = new MoveCell(turn_direction);
 
     }
 
@@ -48,24 +50,24 @@ bool TurnCell::operator!=(const Type &rhs) const {
 
 icon TurnCell::GetUnicode() {
     switch (turn_direction) {
-        case left:
-            return {11164, blue};
+        case LEFT:
+            return {11164, BLUE};
 
-        case right:
-            return {11166, blue};
+        case RIGHT:
+            return {11166, BLUE};
 
-        case up:
-            return {11165, blue};
+        case UP:
+            return {11165, BLUE};
 
-        case down:
-            return {11167, blue};
+        case DOWN:
+            return {11167, BLUE};
         default:
             return icon();
     }
 
 }
 
-direction TurnCell::GetTurnDirection() const {
+Direction TurnCell::GetTurnDirection() const {
     return turn_direction;
 }
 
@@ -76,17 +78,17 @@ Type TurnCell::GetCellType() const {
 
 void TurnCell::RotateRight() noexcept {
     switch (turn_direction) {
-        case left:
-            turn_direction = up;
+        case LEFT:
+            turn_direction = UP;
             break;
-        case right:
-            turn_direction = down;
+        case RIGHT:
+            turn_direction = DOWN;
             break;
-        case down:
-            turn_direction = left;
+        case DOWN:
+            turn_direction = LEFT;
             break;
-        case up:
-            turn_direction = right;
+        case UP:
+            turn_direction = RIGHT;
             break;
 
     }

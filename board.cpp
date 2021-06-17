@@ -63,7 +63,7 @@ Board::Board(LevelInfo &played_level) {
   counter_ = 0;
 }
 
-icon Board::GetCellIcon(coord position) {
+icon Board::GetCellIcon(Coord position) {
   return level_[position]->GetUnicode();
 }
 

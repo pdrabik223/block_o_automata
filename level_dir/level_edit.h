@@ -57,13 +57,13 @@ protected:
 
   Message current_message_ = NONE;
 
-  coord cursor_position_ = {0, 0};
+  Coord cursor_position_ = {0, 0};
 
   std::array<Cell *, 8> all_blocks_ = {new BarrierCell(),     //
                                        new BarrierCell(true), //
-                                       new MoveCell(up),      //
-                                       new TurnCell(up),      //
-                                       new SpawnCell(up),     //
+                                       new MoveCell(UP),      //
+                                       new TurnCell(UP),      //
+                                       new SpawnCell(UP),     //
                                        new KillCell(),        new GoalCell(),
                                        new EmptyCell(false)};
 };

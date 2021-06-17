@@ -13,9 +13,10 @@ public:
 
   GoalCell &operator=(const GoalCell &other) = default;
 
-    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) override;
+    void Action(const std::vector<Cell *> &plane, unsigned w, Coord curr_pos, std::vector<Cell *> &destination) override;
 
-    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, Direction move_dir,
+              Coord curr_pos,
               unsigned int width) override;
 
     icon GetUnicode() override;

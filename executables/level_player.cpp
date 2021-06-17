@@ -33,16 +33,16 @@ LevelInfo dummy_level() {
   level[{3, 6}] = new GoalCell();
   level[{3, 5}] = new KillCell();
 
-  level[{5, 8}] = new TurnCell(down);
+  level[{5, 8}] = new TurnCell(DOWN);
 
   level[{0, 7}] = new BarrierCell(true);
-  level[{1, 7}] = new SpawnCell(down);
+  level[{1, 7}] = new SpawnCell(DOWN);
 
-  level[{1, 1}] = new TurnCell(right);
+  level[{1, 1}] = new TurnCell(RIGHT);
 
-  level[{1, level.GetWidth() - 4}] = new TurnCell(down);
-  level[{level.GetHeight() - 2, level.GetWidth() - 2}] = new TurnCell(left);
-  level[{level.GetHeight() - 2, 1}] = new TurnCell(up);
+  level[{1, level.GetWidth() - 4}] = new TurnCell(DOWN);
+  level[{level.GetHeight() - 2, level.GetWidth() - 2}] = new TurnCell(LEFT);
+  level[{level.GetHeight() - 2, 1}] = new TurnCell(UP);
 
   level[{2, 2}] = new KillCell();
   level[{2, 3}] = new KillCell();
@@ -58,7 +58,7 @@ LevelInfo dummy_level() {
     level[{5, i}] = new EmptyCell(false);
   }
 
-  level[{5, 4}] = new MoveCell(right);
+  level[{5, 4}] = new MoveCell(RIGHT);
 
   return level;
 }

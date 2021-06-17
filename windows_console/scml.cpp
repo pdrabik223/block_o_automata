@@ -12,12 +12,12 @@
 #define LOW_BIT 32768
 
 Scml::Scml() {
-  text_color_ = white;
-  background_color_ = black;
+  text_color_ = WHITE;
+  background_color_ = BLACK;
   w = 0;
   h_ = 0;
-  message_text_color_ = white;
-  message_background_color_ = black;
+  message_text_color_ = WHITE;
+  message_background_color_ = BLACK;
 
   message_ = {};
   hc_ = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -25,19 +25,19 @@ Scml::Scml() {
 }
 
 Scml::Scml(unsigned int width, unsigned int height) : w(width), h_(height) {
-  text_color_ = white;
-  background_color_ = black;
+  text_color_ = WHITE;
+  background_color_ = BLACK;
   /// it ain't the fastest
   for (int x = 0; x < h_; x++) {
     std::vector<icon> temp;
     for (int y = 0; y < w; y++) {
-      temp.emplace_back(' ', white, black);
+      temp.emplace_back(' ', WHITE, BLACK);
     }
     buffer_.push_back(temp);
   }
 
-  message_text_color_ = white;
-  message_background_color_ = black;
+  message_text_color_ = WHITE;
+  message_background_color_ = BLACK;
 
   message_ = {};
 
@@ -87,8 +87,8 @@ void Scml::Clear() {
   for (auto &i : buffer_) {
     for (auto &j : i) {
       j.image = ' ';
-      j.text_color = white;
-      j.background_color = black;
+      j.text_color = WHITE;
+      j.background_color = BLACK;
     }
   }
   message_ = {};
@@ -165,9 +165,9 @@ key_pressed Scml::AwaitKeyPress() {
   }
 }
 
-void Scml::SetPixel(coord position, icon new_pixel) {
-  assert(position.x < h_ && position.y < w);
-  buffer_[position.x][position.y] = new_pixel;
+void Scml::SetPixel(Coord position, icon new_pixel) {
+  assert(position.x_ < h_ && position.y_ < w);
+  buffer_[position.x_][position.y_] = new_pixel;
 }
 
 void Scml::UpdateScreen() {
@@ -185,7 +185,7 @@ void Scml::UpdateScreen() {
       text_color_ = buffer_[x][y].text_color;
       background_color_ = buffer_[x][y].background_color;
 
-      std::wcout << cc(text_color_, background_color_);
+      std::wcout << Cc(text_color_, background_color_);
       /// don't forget that space brother
       std::wcout << buffer_[x][y].image << ' ';
     }
@@ -193,15 +193,15 @@ void Scml::UpdateScreen() {
   }
 
   std::wcout
-      << cc(white, black)
+      << Cc(WHITE, BLACK)
       << L"                                                               \r";
-  std::wcout << cc(message_text_color_, message_background_color_) << message_;
-  std::wcout << cc(white, black);
+  std::wcout << Cc(message_text_color_, message_background_color_) << message_;
+  std::wcout << Cc(WHITE, BLACK);
 }
 
-icon &Scml::GetPixel(coord position) {
-  assert(position.x < h_ && position.y < w);
-  return buffer_[position.x][position.y];
+icon &Scml::GetPixel(Coord position) {
+  assert(position.x_ < h_ && position.y_ < w);
+  return buffer_[position.x_][position.y_];
 }
 
 void Scml::Resize(unsigned int new_height, unsigned int new_width) {
@@ -245,7 +245,7 @@ void Scml::DownsizeH(unsigned int new_height) {
   message_ = {};
   for (int i = new_height; i < h_; i++)
     for (auto &j : buffer_[i])
-      j = {' ', white, black};
+      j = {' ', WHITE, BLACK};
   UpdateScreen();
 
   buffer_.resize(new_height);
@@ -258,12 +258,12 @@ void Scml::UpsizeH(unsigned int new_height) {
   buffer_.resize(new_height);
   for (auto &i : buffer_)
     for (int j = 0; j < w; j++)
-      i.emplace_back(' ', white, black);
+      i.emplace_back(' ', WHITE, BLACK);
 
   h_ = new_height;
 }
 
-void Scml::SetMessage(color text_color, color background_color,
+void Scml::SetMessage(Color text_color, Color background_color,
                       std::wstring message) {
 
   this->message_ = message;

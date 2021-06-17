@@ -9,45 +9,43 @@
 
 #include <fcntl.h>
 #include <io.h>
-#include <stdio.h> /// for unicode purposes
 #include <iostream>
+#include <stdio.h> /// for unicode purposes
 #pragma once
 
-
-
-enum color {
-    black = 0,
-    blue = 1,
-    green = 2,
-    aqua = 3,
-    red = 4,
-    purple = 5,
-    yellow = 6,
-    white = 7,
-    gray = 8,
-    light_blue = 9,
-    light_green = 10,
-    light_aqua = 11,
-    light_red = 12,
-    light_purple = 13,
-    light_yellow = 14,
-    bright_white = 15
+enum Color {
+  BLACK = 0,
+  BLUE = 1,
+  GREEN = 2,
+  AQUA = 3,
+  RED = 4,
+  PURPLE = 5,
+  YELLOW = 6,
+  WHITE = 7,
+  GRAY = 8,
+  LIGHT_BLUE = 9,
+  LIGHT_GREEN = 10,
+  LIGHT_AQUA = 11,
+  LIGHT_RED = 12,
+  LIGHT_PURPLE = 13,
+  LIGHT_YELLOW = 14,
+  BRIGHT_WHITE = 15
 
 };
 /// console color
 /// changes the console colors to given in constructor
-class cc{
+class Cc {
 public:
-    cc(color text, color background);
-    cc(color text);
+  Cc(Color text, Color background);
+  Cc(Color text);
 
-    friend std::ostream &operator<<(std::ostream &out,const cc& ref );
-    friend std::wostream &operator<<(std::wostream &out,const cc& ref );
+  friend std::ostream &operator<<(std::ostream &out, const Cc &ref);
+  friend std::wostream &operator<<(std::wostream &out, const Cc &ref);
 
 private:
-    color text;
-    color background;
+  Color text_;
+  Color background_;
 };
 
 #endif
-#endif //BLOCK_O_AUTOMATA_WIN_COLORS_H
+#endif // BLOCK_O_AUTOMATA_WIN_COLORS_H

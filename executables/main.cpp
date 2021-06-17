@@ -23,31 +23,31 @@ int main() {
   /// allow using chart in console
   _setmode(_fileno(stdout), _O_U16TEXT);
 
-  std::wcout << cc(gray) << "barrier_cell\t" << (wchar_t)(9635) << " \n";
-  std::wcout << cc(gray) << "movable_barrier_cell\t" << (wchar_t)(9634)
+  std::wcout << Cc(GRAY) << "barrier_cell\t" << (wchar_t)(9635) << " \n";
+  std::wcout << Cc(GRAY) << "movable_barrier_cell\t" << (wchar_t)(9634)
              << " \n";
-  std::wcout << cc(red) << "KillCell\t" << (wchar_t)10006 << " \n";
+  std::wcout << Cc(RED) << "KillCell\t" << (wchar_t)10006 << " \n";
 
-  std::wcout << cc(yellow) << "MoveCell\t" << (wchar_t)11166 << " \n\t\t"
+  std::wcout << Cc(YELLOW) << "MoveCell\t" << (wchar_t)11166 << " \n\t\t"
              << (wchar_t)11164 << " \n\t\t" << (wchar_t)11165 << " \n\t\t"
              << (wchar_t)11167 << std::endl;
 
-  std::wcout << cc(green) << "spawn_cell\t" << (wchar_t)11166 << " \n\t\t"
+  std::wcout << Cc(GREEN) << "spawn_cell\t" << (wchar_t)11166 << " \n\t\t"
              << (wchar_t)11164 << " \n\t\t" << (wchar_t)11165 << " \n\t\t"
              << (wchar_t)11167 << std::endl;
 
-  std::wcout << cc(blue) << "turn_cell\t" << (wchar_t)11166 << " \n\t\t"
+  std::wcout << Cc(BLUE) << "turn_cell\t" << (wchar_t)11166 << " \n\t\t"
              << (wchar_t)11164 << " \n\t\t" << (wchar_t)11165 << " \n\t\t"
              << (wchar_t)11167 << std::endl;
 
   wchar_t goal = 11044;
-  std::wcout << cc(purple) << "GoalCell\t" << goal << L" \n";
+  std::wcout << Cc(PURPLE) << "GoalCell\t" << goal << L" \n";
 
-  std::wcout << cc(yellow) << "trophy1\t" << (wchar_t)11201 << L" \n";
+  std::wcout << Cc(YELLOW) << "trophy1\t" << (wchar_t)11201 << L" \n";
 
-  std::wcout << cc(purple) << "trophy2\t" << (wchar_t)11202 << L" \n";
+  std::wcout << Cc(PURPLE) << "trophy2\t" << (wchar_t)11202 << L" \n";
 
-  std::wcout << cc(red) << "trophy3\t" << (wchar_t)11042 << L" \n";
+  std::wcout << Cc(RED) << "trophy3\t" << (wchar_t)11042 << L" \n";
 
   LevelInfo level{10, 10};
 
@@ -65,16 +65,16 @@ int main() {
   level[{3, 6}] = new GoalCell();
   level[{3, 5}] = new KillCell();
 
-  level[{5, 8}] = new TurnCell(down);
+  level[{5, 8}] = new TurnCell(DOWN);
 
   level[{0, 7}] = new BarrierCell(true);
-  level[{1, 7}] = new SpawnCell(down);
+  level[{1, 7}] = new SpawnCell(DOWN);
 
-  level[{1, 1}] = new TurnCell(right);
+  level[{1, 1}] = new TurnCell(RIGHT);
 
-  level[{1, level.GetWidth() - 4}] = new TurnCell(down);
-  level[{level.GetHeight() - 2, level.GetWidth() - 2}] = new TurnCell(left);
-  level[{level.GetHeight() - 2, 1}] = new TurnCell(up);
+  level[{1, level.GetWidth() - 4}] = new TurnCell(DOWN);
+  level[{level.GetHeight() - 2, level.GetWidth() - 2}] = new TurnCell(LEFT);
+  level[{level.GetHeight() - 2, 1}] = new TurnCell(UP);
 
   level[{2, 2}] = new KillCell();
   level[{2, 3}] = new KillCell();
@@ -90,7 +90,7 @@ int main() {
     level[{5, i}] = new EmptyCell(false);
   }
 
-  level[{5, 4}] = new MoveCell(right);
+  level[{5, 4}] = new MoveCell(RIGHT);
 
   Board first(level);
 
@@ -101,10 +101,10 @@ int main() {
     for (unsigned h = 0; h < level.GetHeight(); h++) {
       for (unsigned w = 0; w < level.GetWidth(); w++) {
 
-        color text_color = first.GetCellIcon({h, w}).text_color;
-        color background_color = black;
+        Color text_color = first.GetCellIcon({h, w}).text_color;
+        Color background_color = BLACK;
         first.GetCellIcon({h, w});
-        std::wcout << cc(text_color, background_color)
+        std::wcout << Cc(text_color, background_color)
                    << first.GetCellIcon({h, w}).image << " ";
       }
       std::wcout << "\n";
@@ -112,7 +112,7 @@ int main() {
 
     std::wcout << "\n\n";
     first.Iterate();
-    std::wcout << cc(yellow, black) << "frame counter :" << cc(red)
+    std::wcout << Cc(YELLOW, BLACK) << "frame counter :" << Cc(RED)
                << frame_counter << std::endl;
     ++frame_counter;
     WAIT(2);

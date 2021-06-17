@@ -3,27 +3,27 @@
 //
 
 #include "coord.h"
-unsigned coord::toUint(unsigned int w) const {
-    assert(y < w);
+unsigned Coord::ToUint(unsigned int w) const {
+    assert(y_ < w);
     assert(w != 0);
-    return x * w + y;
+    return x_ * w + y_;
 }
 
-void coord::move_by(direction dir) {
+void Coord::MoveBy(Direction dir) {
     switch (dir) {
-        case left:
-            assert(y >= 0);
-            --y;
+        case LEFT:
+            assert(y_ >= 0);
+            --y_;
             break;
-        case right:
-            ++y;
+        case RIGHT:
+            ++y_;
             break;
-        case up:
-            assert(x >= 0);
-            --x;
+        case UP:
+            assert(x_ >= 0);
+            --x_;
             break;
-        case down:
-            ++x;
+        case DOWN:
+            ++x_;
             break;
         default:
             assert(false);
@@ -33,24 +33,24 @@ void coord::move_by(direction dir) {
 
 }
 
-unsigned coord::reverse(direction dir, unsigned int w) const {
-    assert(y < w);
+unsigned Coord::Reverse(Direction dir, unsigned int w) const {
+    assert(y_ < w);
     assert(w != 0);
 
     switch (dir) {
-        case right:
-            assert(y >= 0);
-            return x * w + y - 1;
+        case RIGHT:
+            assert(y_ >= 0);
+            return x_ * w + y_ - 1;
 
-        case left:
-            return x * w + y + 1;
+        case LEFT:
+            return x_ * w + y_ + 1;
 
-        case down:
-            assert(x >= 0);
-            return (x - 1) * w + y;
+        case DOWN:
+            assert(x_ >= 0);
+            return (x_ - 1) * w + y_;
 
-        case up:
-            return (x + 1) * w + y;
+        case UP:
+            return (x_ + 1) * w + y_;
 
         default:
             assert(false);
@@ -59,24 +59,24 @@ unsigned coord::reverse(direction dir, unsigned int w) const {
     }
 }
 
-unsigned coord::go(direction dir, unsigned int w) const {
-    assert(y <= w);
+unsigned Coord::Go(Direction dir, unsigned int w) const {
+    assert(y_ <= w);
     assert(w != 0);
 
     switch (dir) {
-        case left:
-            assert(y >= 0);
-            return x * w + y - 1;
+        case LEFT:
+            assert(y_ >= 0);
+            return x_ * w + y_ - 1;
 
-        case right:
-            return x * w + y + 1;
+        case RIGHT:
+            return x_ * w + y_ + 1;
 
-        case up:
-            assert(x >= 0);
-            return (x - 1) * w + y;
+        case UP:
+            assert(x_ >= 0);
+            return (x_ - 1) * w + y_;
 
-        case down:
-            return (x + 1) * w + y;
+        case DOWN:
+            return (x_ + 1) * w + y_;
 
         default:
             assert(false);
@@ -84,21 +84,21 @@ unsigned coord::go(direction dir, unsigned int w) const {
     }
 }
 
-coord coord::reverse(direction dir) const {
+Coord Coord::Reverse(Direction dir) const {
     switch (dir) {
-        case right:
-            assert(y >= 0);
-            return {x, y - 1};
+        case RIGHT:
+            assert(y_ >= 0);
+            return {x_, y_ - 1};
 
-        case left:
-            return {x, y + 1};
+        case LEFT:
+            return {x_, y_ + 1};
 
-        case down:
-            assert(x >= 0);
-            return {x - 1, y};
+        case DOWN:
+            assert(x_ >= 0);
+            return {x_ - 1, y_};
 
-        case up:
-            return {x + 1, y};
+        case UP:
+            return {x_ + 1, y_};
 
         default:
             assert(false);
@@ -107,21 +107,21 @@ coord coord::reverse(direction dir) const {
     }
 }
 
-coord coord::go(direction dir) const {
+Coord Coord::Go(Direction dir) const {
     switch (dir) {
-        case left:
-            assert(y >= 0);
-            return {x, y - 1};
+        case LEFT:
+            assert(y_ >= 0);
+            return {x_, y_ - 1};
 
-        case right:
-            return {x, y + 1};
+        case RIGHT:
+            return {x_, y_ + 1};
 
-        case up:
-            assert(x >= 0);
-            return {x - 1, y};
+        case UP:
+            assert(x_ >= 0);
+            return {x_ - 1, y_};
 
-        case down:
-            return {x + 1, y};
+        case DOWN:
+            return {x_ + 1, y_};
 
         default:
             assert(false);
@@ -130,12 +130,11 @@ coord coord::go(direction dir) const {
     }
 }
 
-bool coord::operator==(const coord &rhs) const {
-    return y == rhs.y &&
-           x == rhs.x;
+bool Coord::operator==(const Coord &rhs) const {
+    return y_ == rhs.y_ && x_ == rhs.x_;
 }
 
-bool coord::operator!=(const coord &rhs) const {
+bool Coord::operator!=(const Coord &rhs) const {
     return !(rhs == *this);
 }
 

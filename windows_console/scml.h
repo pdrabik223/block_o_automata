@@ -65,21 +65,21 @@ public:
 
   key_pressed AwaitKeyPress(std::chrono::milliseconds await_time);
 
-  void SetMessage(color text_color, color background_color,
+  void SetMessage(Color text_color, Color background_color,
                   std::wstring message);
 
   void UpdateScreen();
 
-  void SetPixel(coord position, icon new_pixel);
+  void SetPixel(Coord position, icon new_pixel);
 
-  icon &GetPixel(coord position);
+  icon &GetPixel(Coord position);
 
   void Resize(unsigned int new_width, unsigned int new_height);
 
   void Clear();
 
   ~Scml() {
-    std::wcout << cc(white, black);
+    std::wcout << Cc(WHITE, BLACK);
     system("cls");
   }
 
@@ -94,11 +94,11 @@ private:
 
   unsigned h_;
   unsigned w;
-  color text_color_;
-  color background_color_;
+  Color text_color_;
+  Color background_color_;
   std::vector<std::vector<icon>> buffer_;
-  color message_text_color_;
-  color message_background_color_;
+  Color message_text_color_;
+  Color message_background_color_;
 
   std::wstring message_;
   HANDLE hc_;

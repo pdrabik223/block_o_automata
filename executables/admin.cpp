@@ -12,7 +12,7 @@ int main() {
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     std::wcout << L"1\t";
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    std::wcout << L"go!\n";
+    std::wcout << L"Go!\n";
 
 
     int futore = (int)con.AwaitKeyPress(std::chrono::milliseconds(1000));

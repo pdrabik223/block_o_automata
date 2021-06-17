@@ -24,41 +24,41 @@ void win_console::Play::ControlledView() {
     }
   }
   /// display quit icon a.k.a. little red < in the right top corner
-  console_handle_.SetPixel({0, GetWidth()}, {(wchar_t)11164, red, black});
+  console_handle_.SetPixel({0, GetWidth()}, {(wchar_t)11164, RED, BLACK});
 
   /// display run simulation icon a.k.a. little red > in the right top corner
-  console_handle_.SetPixel({1, GetWidth()}, {(wchar_t)11166, yellow, black});
+  console_handle_.SetPixel({1, GetWidth()}, {(wchar_t)11166, YELLOW, BLACK});
 
   /// display win trophy
   if (level_beaten_)
-    console_handle_.SetPixel({4, GetWidth()}, {(wchar_t)11201, purple, black});
+    console_handle_.SetPixel({4, GetWidth()}, {(wchar_t)11201, PURPLE, BLACK});
   else
-    console_handle_.SetPixel({4, GetWidth()}, {(wchar_t)11201, gray, black});
+    console_handle_.SetPixel({4, GetWidth()}, {(wchar_t)11201, GRAY, BLACK});
 
   /// display blocks trophy
   if (max_piece_cost_beaten_)
-    console_handle_.SetPixel({5, GetWidth()}, {(wchar_t)11202, yellow, black});
+    console_handle_.SetPixel({5, GetWidth()}, {(wchar_t)11202, YELLOW, BLACK});
   else
-    console_handle_.SetPixel({5, GetWidth()}, {(wchar_t)11202, gray, black});
+    console_handle_.SetPixel({5, GetWidth()}, {(wchar_t)11202, GRAY, BLACK});
 
   /// display iterations trophy
   if (max_iteration_beaten_)
-    console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, red, black});
+    console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, RED, BLACK});
   else
-    console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, gray, black});
+    console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, GRAY, BLACK});
 
   for (unsigned i = 0; i < all_blocks_.size() * 2; i += 2) {
-    console_handle_.SetPixel({GetHeight() + 1, i}, {' ', white, black});
+    console_handle_.SetPixel({GetHeight() + 1, i}, {' ', WHITE, BLACK});
     console_handle_.SetPixel({GetHeight() + 1, i + 1},
                              all_blocks_[(i / 2)]->GetUnicode());
   }
 
   /// display cursor
-  console_handle_.GetPixel(cursor_position_).background_color = light_aqua;
+  console_handle_.GetPixel(cursor_position_).background_color = LIGHT_AQUA;
 
   /// display cursor
   console_handle_.GetPixel({GetHeight() + 1, (current_block_ * 2) + 1})
-      .background_color = light_aqua;
+      .background_color = LIGHT_AQUA;
 
   DisplayMessage();
 
@@ -68,7 +68,7 @@ void win_console::Play::ControlledView() {
 int win_console::Play::RunSim() {
 
   Board game(*this);
-  cursor_position_.x--;
+  cursor_position_.x_--;
   bool activate_quit = false;
   while (2 > 1) {
 
@@ -84,27 +84,27 @@ int win_console::Play::RunSim() {
     }
 
     /// display quit icon a.k.a. little red < in the right top corner
-    console_handle_.SetPixel({0, GetWidth()}, {(wchar_t)11164, red, black});
+    console_handle_.SetPixel({0, GetWidth()}, {(wchar_t)11164, RED, BLACK});
 
     /// display win trophy
     if (level_beaten_)
       console_handle_.SetPixel({4, GetWidth()},
-                               {(wchar_t)11201, purple, black});
+                               {(wchar_t)11201, PURPLE, BLACK});
     else
-      console_handle_.SetPixel({4, GetWidth()}, {(wchar_t)11201, gray, black});
+      console_handle_.SetPixel({4, GetWidth()}, {(wchar_t)11201, GRAY, BLACK});
 
     /// display blocks trophy
     if (max_piece_cost_beaten_)
       console_handle_.SetPixel({5, GetWidth()},
-                               {(wchar_t)11202, yellow, black});
+                               {(wchar_t)11202, YELLOW, BLACK});
     else
-      console_handle_.SetPixel({5, GetWidth()}, {(wchar_t)11202, gray, black});
+      console_handle_.SetPixel({5, GetWidth()}, {(wchar_t)11202, GRAY, BLACK});
 
     /// display iterations trophy
     if (max_iteration_beaten_)
-      console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, red, black});
+      console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, RED, BLACK});
     else
-      console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, gray, black});
+      console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, GRAY, BLACK});
 
     key_pressed input = null;
 
@@ -113,12 +113,12 @@ int win_console::Play::RunSim() {
     switch (input) {
     case key_space:
     case key_enter:
-      if (cursor_position_ == coord(0, GetWidth()) && activate_quit)
+      if (cursor_position_ == Coord(0, GetWidth()) && activate_quit)
         return 2;
     }
 
     /// display cursor
-    console_handle_.GetPixel(cursor_position_).background_color = light_aqua;
+    console_handle_.GetPixel(cursor_position_).background_color = LIGHT_AQUA;
 
     DisplayMessage();
 
@@ -127,7 +127,7 @@ int win_console::Play::RunSim() {
     if (!game.GoalCellsLeft()) {
       system("cls");
 
-      std::wcout << cc(yellow, black) << "u are winner!";
+      std::wcout << Cc(YELLOW, BLACK) << "u are winner!";
       level_beaten_ = true;
       if (game.GetCounter() <= max_iteration_)
         max_iteration_beaten_ = true;
@@ -194,29 +194,29 @@ unsigned char win_console::Play::GetKey() {
 void win_console::Play::DisplayMessage() {
   switch (current_message_) {
   case lp::EXIT:
-    console_handle_.SetMessage(red, black, L"exit");
+    console_handle_.SetMessage(RED, BLACK, L"exit");
     break;
 
   case lp::START_SIMULATION:
-    console_handle_.SetMessage(yellow, black, L"run simulation");
+    console_handle_.SetMessage(YELLOW, BLACK, L"run simulation");
     break;
   case lp::CANT_PLACE_BLOCK_HERE:
-    console_handle_.SetMessage(red, black,
+    console_handle_.SetMessage(RED, BLACK,
                                L"Cell can't be placed on this square");
     break;
   case lp::NO_MORE_BLOCKS_LEFT:
 
-    console_handle_.SetMessage(red, black, L"no more blocks of this Type");
+    console_handle_.SetMessage(RED, BLACK, L"no more blocks of this Type");
     break;
 
   case lp::LOSE:
-    console_handle_.SetMessage(red, black, L"you lost");
+    console_handle_.SetMessage(RED, BLACK, L"you lost");
     break;
   case lp::WIN:
-    console_handle_.SetMessage(yellow, black, L"congratulations you won!");
+    console_handle_.SetMessage(YELLOW, BLACK, L"congratulations you won!");
     break;
   case lp::WIN_TROFEUM:
-    console_handle_.SetMessage(yellow, black,
+    console_handle_.SetMessage(YELLOW, BLACK,
                                L"congratulations you won trofeum!");
     break;
     // todo display the range
@@ -224,19 +224,19 @@ void win_console::Play::DisplayMessage() {
 
     if (max_piece_cost_beaten_)
       console_handle_.SetMessage(
-          blue, black, L"finishing level using minimal number of cells");
+          BLUE, BLACK, L"finishing level using minimal number of cells");
     else
-      console_handle_.SetMessage(blue, black,
+      console_handle_.SetMessage(BLUE, BLACK,
                                  L"finish level using minimal number of cells");
 
     break;
   case lp::MINIMAL_ITERATIONS_TROFEUM:
     if (max_iteration_beaten_)
       console_handle_.SetMessage(
-          blue, black, L"finishing level in minimal number of iterations");
+          BLUE, BLACK, L"finishing level in minimal number of iterations");
     else
       console_handle_.SetMessage(
-          blue, black, L"finish level in minimal number of iterations");
+          BLUE, BLACK, L"finish level in minimal number of iterations");
     break;
   case lp::NONE:
 

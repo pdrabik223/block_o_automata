@@ -11,16 +11,17 @@ class TurnCell : public Cell {
 public:
   TurnCell();
 
-  TurnCell(direction turn_direction);
+  TurnCell(Direction turn_direction);
 
   TurnCell &operator=(const TurnCell &other) = default;
 
-    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination,
+            Direction move_dir, Coord curr_pos,
               unsigned int width) override;
 
     icon GetUnicode() override;
 
-    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) override;
+    void Action(const std::vector<Cell *> &plane, unsigned w, Coord curr_pos, std::vector<Cell *> &destination) override;
 
     bool operator==(const Type & rhs) const override;
 
@@ -28,7 +29,7 @@ public:
 
     Type GetCellType() const override;
 
-    direction GetTurnDirection() const;
+    Direction GetTurnDirection() const;
 
     void RotateRight() noexcept override;
 
@@ -41,7 +42,7 @@ public:
 protected:
 
     /// the direction that incoming Cell will leave with
-    direction turn_direction;
+  Direction turn_direction;
 
 };
 

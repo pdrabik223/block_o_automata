@@ -24,40 +24,40 @@ void win_console::Edit::ControlledView() {
   }
 
   /// display quit icon a.k.a. little red < in the right top corner
-  console_handle_.SetPixel({0, GetWidth()}, {(wchar_t)11164, red, black});
+  console_handle_.SetPixel({0, GetWidth()}, {(wchar_t)11164, RED, BLACK});
 
   /// display run simulation icon a.k.a. little red > in the right top corner
-  console_handle_.SetPixel({1, GetWidth()}, {(wchar_t)11166, yellow, black});
+  console_handle_.SetPixel({1, GetWidth()}, {(wchar_t)11166, YELLOW, BLACK});
 
   /// display Save icon a.k.a \/
   if (level_name_ == "noname")
-    console_handle_.SetPixel({2, GetWidth()}, {(wchar_t)11167, gray, black});
+    console_handle_.SetPixel({2, GetWidth()}, {(wchar_t)11167, GRAY, BLACK});
   else
-    console_handle_.SetPixel({2, GetWidth()}, {(wchar_t)11167, blue, black});
+    console_handle_.SetPixel({2, GetWidth()}, {(wchar_t)11167, BLUE, BLACK});
 
   /// display info icon a.k.a. little blue i on the right bottom
-  console_handle_.SetPixel({GetHeight(), GetWidth()}, {'i', blue, black});
+  console_handle_.SetPixel({GetHeight(), GetWidth()}, {'i', BLUE, BLACK});
 
   /// display width controls:
-  console_handle_.SetPixel({GetHeight() - 2, GetWidth()}, {'-', yellow, black});
-  console_handle_.SetPixel({GetHeight() - 1, GetWidth()}, {'+', yellow, black});
+  console_handle_.SetPixel({GetHeight() - 2, GetWidth()}, {'-', YELLOW, BLACK});
+  console_handle_.SetPixel({GetHeight() - 1, GetWidth()}, {'+', YELLOW, BLACK});
 
   /// display height controls:
-  console_handle_.SetPixel({GetHeight(), GetWidth() - 2}, {'-', yellow, black});
-  console_handle_.SetPixel({GetHeight(), GetWidth() - 1}, {'+', yellow, black});
+  console_handle_.SetPixel({GetHeight(), GetWidth() - 2}, {'-', YELLOW, BLACK});
+  console_handle_.SetPixel({GetHeight(), GetWidth() - 1}, {'+', YELLOW, BLACK});
 
   for (unsigned i = 0; i < all_blocks_.size() * 2; i += 2) {
-    console_handle_.SetPixel({GetHeight() + 1, i}, {' ', white, black});
+    console_handle_.SetPixel({GetHeight() + 1, i}, {' ', WHITE, BLACK});
     console_handle_.SetPixel({GetHeight() + 1, i + 1},
                              all_blocks_[(i / 2)]->GetUnicode());
   }
 
   /// display cursor
-  console_handle_.GetPixel(cursor_position_).background_color = light_aqua;
+  console_handle_.GetPixel(cursor_position_).background_color = LIGHT_AQUA;
 
   /// display cursor
   console_handle_.GetPixel({GetHeight() + 1, (current_block_ * 2) + 1})
-      .background_color = light_aqua;
+      .background_color = LIGHT_AQUA;
 
   DisplayMessage();
 
@@ -73,7 +73,7 @@ void win_console::Edit::ControlledView() {
 void win_console::Edit::RunSim() {
   Board game(*this);
   console_handle_.Resize(GetHeight() + 1, GetWidth() + 1);
-  cursor_position_.x += 2;
+  cursor_position_.x_ += 2;
   bool activate_quit = false;
 
   while (2 > 1) {
@@ -88,7 +88,7 @@ void win_console::Edit::RunSim() {
     }
     /// display quit icon a.k.a. little red < in the right top corner
     console_handle_.SetPixel({0, GetWidth()},
-                             {(wchar_t)11164, red, light_aqua});
+                             {(wchar_t)11164, RED, LIGHT_AQUA});
 
     key_pressed input = null;
 
@@ -116,7 +116,7 @@ void win_console::Edit::RunSim() {
 void win_console::Edit::SetAdditionalInfo() {
 
   system("cls");
-  std::wcout << cc(blue, black);
+  std::wcout << Cc(BLUE, BLACK);
   std::wcout << "\nlevel name :";
   std::cin >> level_name_;
 
@@ -125,7 +125,7 @@ void win_console::Edit::SetAdditionalInfo() {
 
   int temp_int;
 
-  std::wcout << cc(yellow, black);
+  std::wcout << Cc(YELLOW, BLACK);
   std::wcout << "\nmax iterations  :";
   std::cin >> temp_int;
 
@@ -144,7 +144,7 @@ void win_console::Edit::SetAdditionalInfo() {
     temp_int = 0;
   max_piece_cost_ = temp_int;
 
-  std::wcout << cc(yellow, black);
+  std::wcout << Cc(YELLOW, BLACK);
 
   system("cls");
   std::wcout << "changes saved";
@@ -204,36 +204,36 @@ unsigned char win_console::Edit::GetKey() {
 void win_console::Edit::DisplayMessage() {
   switch (current_message_) {
   case le::EXIT:
-    console_handle_.SetMessage(red, black, L"exit");
+    console_handle_.SetMessage(RED, BLACK, L"exit");
     break;
 
   case le::START_SIMULATION:
-    console_handle_.SetMessage(yellow, black, L"run simulation");
+    console_handle_.SetMessage(YELLOW, BLACK, L"run simulation");
     break;
   case le::SAVE_CHANGES_TO_FILE:
-    console_handle_.SetMessage(blue, black, L"Save current changes");
+    console_handle_.SetMessage(BLUE, BLACK, L"Save current changes");
     break;
   case le::ADDITIONAL_INFO_REQUEST:
-    console_handle_.SetMessage(red, black, L"additional info is needed ");
+    console_handle_.SetMessage(RED, BLACK, L"additional info is needed ");
     break;
   case le::INCREASE_WIDTH:
-    console_handle_.SetMessage(yellow, black,
+    console_handle_.SetMessage(YELLOW, BLACK,
                                L"increase width of the playing field");
     break;
   case le::INCREASE_HEIGHT:
-    console_handle_.SetMessage(yellow, black,
+    console_handle_.SetMessage(YELLOW, BLACK,
                                L"increase height of the playing field");
     break;
   case le::DECREASE_WIDTH:
-    console_handle_.SetMessage(yellow, black,
+    console_handle_.SetMessage(YELLOW, BLACK,
                                L"decrease width of the playing field");
     break;
   case le::DECREASE_HEIGHT:
-    console_handle_.SetMessage(yellow, black,
+    console_handle_.SetMessage(YELLOW, BLACK,
                                L"decrease height of the playing field");
     break;
   case le::ADDITIONAL_INFO:
-    console_handle_.SetMessage(blue, black, L"input additional info");
+    console_handle_.SetMessage(BLUE, BLACK, L"input additional info");
     break;
   case le::NONE:
     break;

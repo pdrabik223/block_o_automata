@@ -4,22 +4,18 @@
 
 #include "win_colors.h"
 
-cc::cc(color text, color background) : text(text), background(background) {
-    HANDLE hc;
-    hc = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hc, text+background*16);
+Cc::Cc(Color text, Color background) : text_(text), background_(background) {
+  HANDLE hc;
+  hc = GetStdHandle(STD_OUTPUT_HANDLE);
+  SetConsoleTextAttribute(hc, text + background * 16);
 }
 
-cc::cc(color text) : text(text), background(black) {
-    HANDLE hc;
-    hc = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hc, text+background*16);
+Cc::Cc(Color text) : text_(text), background_(BLACK) {
+  HANDLE hc;
+  hc = GetStdHandle(STD_OUTPUT_HANDLE);
+  SetConsoleTextAttribute(hc, text + background_ * 16);
 }
 
-std::ostream &operator<<(std::ostream &out, const cc &ref) {
-    return out;
-}
+std::ostream &operator<<(std::ostream &out, const Cc &ref) { return out; }
 
-std::wostream &operator<<(std::wostream &out, const cc &ref) {
-    return out;
-}
+std::wostream &operator<<(std::wostream &out, const Cc &ref) { return out; }

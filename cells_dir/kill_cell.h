@@ -13,10 +13,11 @@ public:
 
   KillCell &operator=(const KillCell &other) = default;
 
-    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination,
+            Direction move_dir, Coord curr_pos,
               unsigned int width) override;
 
-    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos,
+    void Action(const std::vector<Cell *> &plane, unsigned w, Coord curr_pos,
                 std::vector<Cell *> &destination) override;
 
     bool operator==(const Type &rhs) const override;

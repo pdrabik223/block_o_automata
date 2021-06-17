@@ -54,13 +54,13 @@ public:
   };
 
   virtual void Move(const std::vector<Cell *> &plane,
-                    std::vector<Cell *> &destination, direction move_dir,
-                    coord curr_pos, unsigned int width) {
+                    std::vector<Cell *> &destination, Direction move_dir,
+                    Coord curr_pos, unsigned int width) {
     assert(false);
   };
 
   virtual void Action(const std::vector<Cell *> &plane, unsigned w,
-                      coord curr_pos, std::vector<Cell *> &destination) {
+                      Coord curr_pos, std::vector<Cell *> &destination) {
     assert(false);
   };
 

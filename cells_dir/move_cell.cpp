@@ -6,35 +6,37 @@
 #include "empty_cell.h"
 Type MoveCell::cell_type_ = MOVE;
 MoveCell::MoveCell() : Cell(true, true),
-                         move_direction(left) {}
+                         move_direction(LEFT) {}
 
-MoveCell::MoveCell(direction move_direction) : Cell(true, true),
+MoveCell::MoveCell(Direction move_direction) : Cell(true, true),
                                                 move_direction(move_direction) {}
 
-void MoveCell::Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) {
+void MoveCell::Action(const std::vector<Cell *> &plane, unsigned w,
+                      Coord curr_pos, std::vector<Cell *> &destination) {
 
-  plane[curr_pos.go(move_direction, w)]->Move(
-      plane, destination, move_direction, curr_pos.go(move_direction), w);
+  plane[curr_pos.Go(move_direction, w)]->Move(
+      plane, destination, move_direction, curr_pos.Go(move_direction), w);
 
-    if (*plane[curr_pos.go(move_direction, w)] == EMPTY) {
+    if (*plane[curr_pos.Go(move_direction, w)] == EMPTY) {
         // me                                      the one in front
-        std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
+        std::swap(destination[curr_pos.ToUint(w)], destination[curr_pos.Go(move_direction, w)]);
     }
 
 
 }
 
-void MoveCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
+void MoveCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, Direction move_dir,
+                    Coord curr_pos,
                 unsigned int width) {
     //  has_been_moved = true;
-    plane[curr_pos.go(move_dir, width)]->Move(plane, destination, move_dir,
-                                              curr_pos.go(move_dir), width);
+    plane[curr_pos.Go(move_dir, width)]->Move(plane, destination, move_dir,
+                                              curr_pos.Go(move_dir), width);
 
 
-    if (*destination[curr_pos.go(move_dir, width)] == EMPTY) {
+    if (*destination[curr_pos.Go(move_dir, width)] == EMPTY) {
         // me                                      the one in front
 
-        std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_direction, width)]);
+        std::swap(destination[curr_pos.ToUint(width)], destination[curr_pos.Go(move_direction, width)]);
     }
 
 }
@@ -47,7 +49,7 @@ bool MoveCell::operator!=(const Type &rhs) const {
     return cell_type_ != rhs;
 }
 
-void MoveCell::SetMoveDirection(direction move_direction) {
+void MoveCell::SetMoveDirection(Direction move_direction) {
     move_direction = move_direction;
 }
 
@@ -55,17 +57,17 @@ icon MoveCell::GetUnicode() {
 
     switch (move_direction) {
 
-        case left:
-            return {11164, yellow};
+        case LEFT:
+            return {11164, YELLOW};
 
-        case right:
-            return {11166, yellow};
+        case RIGHT:
+            return {11166, YELLOW};
 
-        case up:
-            return {11165, yellow};
+        case UP:
+            return {11165, YELLOW};
 
-        case down:
-            return {11167, yellow};
+        case DOWN:
+            return {11167, YELLOW};
         default:
             return icon();
 
@@ -73,7 +75,7 @@ icon MoveCell::GetUnicode() {
 
 }
 
-direction MoveCell::GetMoveDirection() const {
+Direction MoveCell::GetMoveDirection() const {
     return move_direction;
 }
 
@@ -84,17 +86,17 @@ Type MoveCell::GetCellType() const {
 void MoveCell::RotateRight() noexcept {
 
     switch (move_direction) {
-        case left:
-            move_direction = up;
+        case LEFT:
+            move_direction = UP;
             break;
-        case right:
-            move_direction = down;
+        case RIGHT:
+            move_direction = DOWN;
             break;
-        case down:
-            move_direction = left;
+        case DOWN:
+            move_direction = LEFT;
             break;
-        case up:
-            move_direction = right;
+        case UP:
+            move_direction = RIGHT;
             break;
 
     }

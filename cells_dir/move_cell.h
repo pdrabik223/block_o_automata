@@ -12,24 +12,25 @@ class MoveCell : public Cell {
 public:
   MoveCell();
 
-  MoveCell(direction move_direction);
+  MoveCell(Direction move_direction);
 
   MoveCell &operator=(const MoveCell &other) = default;
 
     icon GetUnicode() override;
 
-    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) override;
+    void Action(const std::vector<Cell *> &plane, unsigned w, Coord curr_pos, std::vector<Cell *> &destination) override;
 
-    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, Direction move_dir,
+              Coord curr_pos,
               unsigned int width) override;
 
     bool operator==(const Type &rhs) const override;
 
     bool operator!=(const Type &rhs) const override;
 
-    void SetMoveDirection(direction move_direction);
+    void SetMoveDirection(Direction move_direction);
 
-    direction GetMoveDirection() const;
+    Direction GetMoveDirection() const;
 
     Type GetCellType() const override;
 
@@ -42,7 +43,7 @@ static Type cell_type_;
 MoveCell *Clone() override;
 
 protected:
-    direction move_direction;
+  Direction move_direction;
 
 
 };

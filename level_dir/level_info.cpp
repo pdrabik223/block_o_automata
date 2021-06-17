@@ -203,7 +203,7 @@ void LevelInfo::Load(const std::string &path) {
                 int move_direction;
                 myfile >> move_direction;
 
-                level_.push_back(new MoveCell((direction) move_direction));
+                level_.push_back(new MoveCell((Direction) move_direction));
             }
                 break;
             case KILL: {
@@ -217,7 +217,7 @@ void LevelInfo::Load(const std::string &path) {
                 int spawn_direction;
                 myfile >> spawn_direction;
 
-                level_.push_back(new SpawnCell((direction) spawn_direction));
+                level_.push_back(new SpawnCell((Direction) spawn_direction));
             }
                 break;
             case TURN: {
@@ -225,7 +225,7 @@ void LevelInfo::Load(const std::string &path) {
                 int turn_direction;
                 myfile >> turn_direction;
 
-                level_.push_back(new TurnCell((direction) turn_direction));
+                level_.push_back(new TurnCell((Direction) turn_direction));
 
             }
                 break;
@@ -260,28 +260,28 @@ Cell &LevelInfo::GetCell(unsigned int h, unsigned int w) {
     return *level_[h * width_ + w];
 }
 
-Cell &LevelInfo::GetCell(coord position) {
-    return *level_[position.x * width_ + position.y];
+Cell &LevelInfo::GetCell(Coord position) {
+    return *level_[position.x_ * width_ + position.y_];
 }
 
 Cell *&LevelInfo::operator[](unsigned position) {
     return level_[position];
 }
 
-Cell *&LevelInfo::operator[](coord position) {
-    return level_[position.x * width_ + position.y];
+Cell *&LevelInfo::operator[](Coord position) {
+    return level_[position.x_ * width_ + position.y_];
 }
 
 const std::vector<Cell *> &LevelInfo::GetLevel() const {
     return level_;
 }
 
-void LevelInfo::SetCell(coord position, Cell *target) {
-  level_[position.x * width_ + position.y] = new Cell(*target);
+void LevelInfo::SetCell(Coord position, Cell *target) {
+  level_[position.x_ * width_ + position.y_] = new Cell(*target);
 }
 
 
-void LevelInfo::CopyCell(coord position, Cell *target) {
+void LevelInfo::CopyCell(Coord position, Cell *target) {
 
-  level_[position.x * width_ + position.y] = target->Clone();
+  level_[position.x_ * width_ + position.y_] = target->Clone();
 }

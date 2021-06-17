@@ -11,24 +11,25 @@ class SpawnCell : public Cell {
 public:
   SpawnCell();
 
-  SpawnCell(direction spawn_direction);
+  SpawnCell(Direction spawn_direction);
 
   SpawnCell &operator=(const SpawnCell &other) = default;
 
     icon GetUnicode() override;
 
-    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) override;
+    void Action(const std::vector<Cell *> &plane, unsigned w, Coord curr_pos, std::vector<Cell *> &destination) override;
 
-    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, Direction move_dir,
+              Coord curr_pos,
               unsigned int width) override;
 
     bool operator==(const Type &rhs) const override;
 
     bool operator!=(const Type &rhs) const override;
 
-    direction GetSpawnDirection() const;
+    Direction GetSpawnDirection() const;
 
-    void SetSpawnDirection(direction spawn_direction);
+    void SetSpawnDirection(Direction spawn_direction);
 
     Type GetCellType() const override;
 
@@ -43,7 +44,7 @@ public:
 protected:
 
     /// the place where Cell be spawned
-    direction spawn_direction_;
+  Direction spawn_direction_;
 
 };
 

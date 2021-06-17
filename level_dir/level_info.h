@@ -54,9 +54,9 @@ public:
   /// \param path to a desired level
   void Load(const std::string &path);
 
-  void SetCell(coord position, Cell *target);
+  void SetCell(Coord position, Cell *target);
 
-  void CopyCell(coord position, Cell *target);
+  void CopyCell(Coord position, Cell *target);
 
   /// \return reference to a chosen Cell in level
   /// \param w of a chosen Cell
@@ -65,11 +65,11 @@ public:
 
   /// \return reference to a chosen Cell in level
   /// \param position coordinates of wanted Cell
-  Cell &GetCell(coord position);
+  Cell &GetCell(Coord position);
 
   Cell *&operator[](unsigned position);
 
-  Cell *&operator[](coord position);
+  Cell *&operator[](Coord position);
 
   unsigned Size() { return width_ * height_; }
 

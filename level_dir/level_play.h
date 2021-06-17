@@ -52,11 +52,11 @@ protected:
 
   Message current_message_ = NONE;
 
-  coord cursor_position_ = {0, 0};
+  Coord cursor_position_ = {0, 0};
 
   std::array<Cell *, 5> all_blocks_ = {new BarrierCell(), new BarrierCell(true),
-                                       new MoveCell(up), new TurnCell(up),
-                                       new SpawnCell(up)};
+                                       new MoveCell(UP), new TurnCell(UP),
+                                       new SpawnCell(UP)};
   std::vector<Cell *> original_level_;
 };
 } // namespace lp

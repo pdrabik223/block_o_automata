@@ -6,13 +6,13 @@
 
 icon::icon() {
     image =  ' ';
-    text_color = white;
-    background_color = black;
+    text_color = WHITE;
+    background_color = BLACK;
 }
 
-icon::icon(wchar_t image, color iconColor) : image(image), text_color(iconColor),background_color(black) {}
+icon::icon(wchar_t image, Color icon_color) : image(image), text_color(icon_color),background_color(BLACK) {}
 
-icon::icon(wchar_t image, color text_color, color background_color) :
+icon::icon(wchar_t image, Color text_color, Color background_color) :
         image(image),
         text_color(text_color),
         background_color(background_color) {}
