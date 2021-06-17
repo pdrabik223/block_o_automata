@@ -8,16 +8,14 @@
 #include "level_dir/level_pick.h"
 
 namespace win_console {
-    class Pick : public lc::LevelPick {
-    public:
-      Pick() : lc::LevelPick() {    _setmode(_fileno(stdout), _O_U16TEXT);
-        }
+class Pick : public lc::LevelPick {
+public:
+  Pick() : lc::LevelPick() { _setmode(_fileno(stdout), _O_U16TEXT); }
 
-        void DisplayUi() override;
+  void DisplayUi() override;
 
-        unsigned char GetKey() override;
-
-    };
-}
+  unsigned char GetKey() override;
+};
+} // namespace win_console
 
 #endif // BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_PICK_H_

@@ -2,8 +2,8 @@
 // Created by pc on 04.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_CELLS_DIR_EMPTYCELL_H_
-#define BLOCK_O_AUTOMATA_CELLS_DIR_EMPTYCELL_H_
+#ifndef BLOCK_O_AUTOMATA_CELLS_DIR_EMPTY_CELL_H_
+#define BLOCK_O_AUTOMATA_CELLS_DIR_EMPTY_CELL_H_
 #include "cell.h"
 
 class EmptyCell : public Cell {
@@ -45,4 +45,4 @@ protected:
 };
 
 
-#endif // BLOCK_O_AUTOMATA_CELLS_DIR_EMPTYCELL_H_
+#endif // BLOCK_O_AUTOMATA_CELLS_DIR_EMPTY_CELL_H_

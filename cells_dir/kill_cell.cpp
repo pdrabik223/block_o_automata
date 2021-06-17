@@ -3,7 +3,7 @@
 //
 
 #include "kill_cell.h"
-#include "EmptyCell.h"
+#include "empty_cell.h"
 Type KillCell::cell_type_ = KILL;
 
 KillCell::KillCell() : Cell(false, true) {}

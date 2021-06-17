@@ -7,7 +7,7 @@ include_directories(.)
 set(CELL
         cells_dir/barrier_cell.h cells_dir/barrier_cell.cpp
         cells_dir/cell.h cells_dir/cell.cpp
-        cells_dir/EmptyCell.h cells_dir/EmptyCell.cpp
+        cells_dir/empty_cell.h cells_dir/empty_cell.cpp
         cells_dir/goal_cell.h cells_dir/goal_cell.cpp
         cells_dir/kill_cell.h cells_dir/kill_cell.cpp
         cells_dir/move_cell.h cells_dir/move_cell.cpp

@@ -5,8 +5,8 @@
 #ifndef BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_INFO_H_
 #define BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_INFO_H_
 
-#include "../cells_dir/EmptyCell.h"
 #include "../cells_dir/barrier_cell.h"
+#include "../cells_dir/empty_cell.h"
 #include "../cells_dir/goal_cell.h"
 #include "../cells_dir/kill_cell.h"
 #include "../cells_dir/move_cell.h"

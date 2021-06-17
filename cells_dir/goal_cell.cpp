@@ -3,7 +3,7 @@
 //
 
 #include "goal_cell.h"
-#include "EmptyCell.h"
+#include "empty_cell.h"
 Type GoalCell::cell_type_ = GOAL;
 
 GoalCell::GoalCell() : Cell(false, true) {}

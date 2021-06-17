@@ -2,7 +2,7 @@
 // Created by pc on 04.05.2021.
 //
 
-#include "EmptyCell.h"
+#include "empty_cell.h"
 
 Type EmptyCell::cell_type_ = EMPTY;
 

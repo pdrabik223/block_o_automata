@@ -3,7 +3,7 @@
 //
 
 #include "move_cell.h"
-#include "EmptyCell.h"
+#include "empty_cell.h"
 Type MoveCell::cell_type_ = MOVE;
 MoveCell::MoveCell() : Cell(true, true),
                          move_direction(left) {}
