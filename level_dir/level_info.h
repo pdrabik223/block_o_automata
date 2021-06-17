@@ -2,110 +2,98 @@
 // Created by pc on 05.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_LEVEL_INFO_H
-#define BLOCK_O_AUTOMATA_LEVEL_INFO_H
+#ifndef BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_INFO_H_
+#define BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_INFO_H_
 
-
-#include "../cells_dir/empty_cell.h"
+#include "../cells_dir/EmptyCell.h"
 #include "../cells_dir/barrier_cell.h"
-#include "../cells_dir/move_cell.h"
+#include "../cells_dir/goal_cell.h"
 #include "../cells_dir/kill_cell.h"
+#include "../cells_dir/move_cell.h"
 #include "../cells_dir/spawn_cell.h"
 #include "../cells_dir/turn_cell.h"
-#include "../cells_dir/goal_cell.h"
 
 #include <fstream>
 
-#include <chrono>  // chrono::system_clock
-#include <ctime>   // localtime
-#include <sstream> // stringstream
-#include <iomanip> // put_time
-#include <string>
-#include <vector>
-#include <array>
 #include "windows_console_tools/coord.h"
 #include "windows_console_tools/icon.h"
+#include <array>
+#include <chrono>  // chrono::system_clock
+#include <ctime>   // localtime
+#include <iomanip> // put_time
+#include <sstream> // stringstream
+#include <string>
+#include <vector>
 
 /// \return current date in form of a string
-std::string current_date();
+std::string CurrentDate();
 
 //  todo strong and safe copy constructor
 
-class level_info {
+class LevelInfo {
 public:
-    /// \brief used to get level-identifying info
-    /// \return string containing basic info about level
-    std::wstring get_info() const;
+  /// \brief used to get level-identifying info
+  /// \return string containing basic info about level
+  std::wstring GetInfo() const;
 
-    /// \brief constructor is simple
-    ///  all of the fields will be accessed by set adn get functions
-    level_info(unsigned int height, unsigned int width);
+  /// \brief constructor is simple
+  ///  all of the fields will be accessed by set adn get functions
+  LevelInfo(unsigned int height, unsigned int width);
 
-    /// \brief no param constructor
-    /// level will be as default as it gets
-    level_info();
+  /// \brief no param constructor
+  /// level will be as default as it gets
+  LevelInfo();
 
-    /// \return resizes field without losing data
-    void resize(unsigned int new_height,unsigned int new_width);
+  /// \return resizes field without losing data
+  void Resize(unsigned int new_height, unsigned int new_width);
 
-    /// \brief save current state of the level on drive
-    void save();
+  /// \brief Save current state of the level on drive
+  void Save();
 
+  /// Load level to memory
+  /// \param path to a desired level
+  void Load(const std::string &path);
 
-    /// load level to memory
-    /// \param path to a desired level
-    void load(const std::string &path);
+  void SetCell(coord position, Cell *target);
 
-    void set_cell(coord position, cell *target);
+  void CopyCell(coord position, Cell *target);
 
-    void copy_cell(coord position, cell *target);
+  /// \return reference to a chosen Cell in level
+  /// \param w of a chosen Cell
+  /// \param wight  of a chosen Cell
+  Cell &GetCell(unsigned h, unsigned w);
 
-    /// \return reference to a chosen cell in level
-    /// \param w of a chosen cell
-    /// \param wight  of a chosen cell
-    cell &get_cell(unsigned h, unsigned w);
+  /// \return reference to a chosen Cell in level
+  /// \param position coordinates of wanted Cell
+  Cell &GetCell(coord position);
 
-    /// \return reference to a chosen cell in level
-    /// \param position coordinates of wanted cell
-    cell &get_cell(coord position);
+  Cell *&operator[](unsigned position);
 
-    cell *&operator[](unsigned position);
+  Cell *&operator[](coord position);
 
-    cell *&operator[](coord position);
+  unsigned Size() { return width_ * height_; }
 
-    unsigned size() { return width * height; }
+  unsigned int GetWidth() const;
 
+  unsigned int GetHeight() const;
 
-    unsigned int getWidth() const;
+  const std::vector<Cell *> &GetLevel() const;
 
-    unsigned int getHeight() const;
+  std::string level_name_;
+  std::string author_;
+  bool level_beaten_;
 
-    const std::vector<cell *> &getLevel() const;
+  unsigned max_iteration_;
+  bool max_iteration_beaten_;
 
-
-    std::string level_name;
-    std::string author;
-    bool level_beaten;
-
-    unsigned max_iteration;
-    bool max_iteration_beaten;
-
-    unsigned max_piece_cost;
-    bool max_piece_cost_beaten;
-
-
-
-
-
+  unsigned max_piece_cost_;
+  bool max_piece_cost_beaten_;
 
 protected:
+  unsigned width_;
+  unsigned height_;
 
-    unsigned width;
-    unsigned height;
-
-    std::vector<cell *> level;
-
-
+  std::vector<Cell *> level_;
 };
 
-#endif //BLOCK_O_AUTOMATA_LEVEL_INFO_H
+#endif // BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_INFO_H_

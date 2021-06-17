@@ -8,34 +8,33 @@
 #define BLOCK_O_AUTOMATA_BARRIER_CELL_H
 
 
-class barrier_cell:public cell {
+class BarrierCell :public Cell {
 public:
-    barrier_cell();
-    barrier_cell(bool movable);
+  BarrierCell();
+  BarrierCell(bool movable);
 
-    type getCellType() const override;
+    Type GetCellType() const override;
 
-    icon get_unicode() override;
+    icon GetUnicode() override;
 
-    barrier_cell &operator=(const barrier_cell &other)  = default;
+    BarrierCell &operator=(const BarrierCell &other)  = default;
 
-    void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
+    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) override;
 
-    void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
               unsigned int width) override;
 
-    bool operator==(const type &rhs) const override;
+    bool operator==(const Type &rhs) const override;
 
-    bool operator!=(const type &rhs) const override;
+    bool operator!=(const Type &rhs) const override;
 
-    void rotateRight()  noexcept override{};
+    void RotateRight()  noexcept override{};
 
+    void OutputFoFile(std::ostream &out) override;
 
-    void output_fo_file(std::ostream &out) override;
+    static Type cell_type_;
 
-    static  type cell_type ;
-
-    barrier_cell* clone() override;
+    BarrierCell * Clone() override;
 
 protected:
 

@@ -17,17 +17,17 @@ I'll try to recreate the idea on my own
 
 <ol>
 <li> create plane class containing array of cells
-<li> create cell class
+<li> create Cell class
 
-- un movable block cell #
-- movable block cell
-- kill cell
-- create/spawn cell
-- move forward cell
-- goal cell
+- un movable block Cell #
+- movable block Cell
+- kill Cell
+- create/spawn Cell
+- Move forward Cell
+- goal Cell
 - cells that can be accessed by player
 - calls that can not
-- turn cell
+- turn Cell
 
 <li>console version <- default one  
 <li>sdl version 
@@ -48,7 +48,7 @@ I'll try to recreate the idea on my own
 
 ### cells
 
-tp teleport cell
+tp teleport Cell
 
 # TODO
 
@@ -80,5 +80,5 @@ we have some bugs there
 
 
 ## Engine 
-- unmovable block can be moved by crushing into it with move block
+- unmovable block can be moved by crushing into it with Move block
 

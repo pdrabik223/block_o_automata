@@ -3,21 +3,20 @@
 //
 
 #include "move_cell.h"
-#include "empty_cell.h"
-type move_cell::cell_type = Move;
-move_cell::move_cell() : cell(true, true),
+#include "EmptyCell.h"
+Type MoveCell::cell_type_ = MOVE;
+MoveCell::MoveCell() : Cell(true, true),
                          move_direction(left) {}
 
-move_cell::move_cell(direction moveDirection) : cell(true, true),
-                                                move_direction(moveDirection) {}
+MoveCell::MoveCell(direction move_direction) : Cell(true, true),
+                                                move_direction(move_direction) {}
 
-void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
+void MoveCell::Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) {
 
+  plane[curr_pos.go(move_direction, w)]->Move(
+      plane, destination, move_direction, curr_pos.go(move_direction), w);
 
-    plane[curr_pos.go(move_direction, w)]->move(plane, destination, move_direction,
-                                                curr_pos.go(move_direction), w);
-
-    if (*plane[curr_pos.go(move_direction, w)] == Empty) {
+    if (*plane[curr_pos.go(move_direction, w)] == EMPTY) {
         // me                                      the one in front
         std::swap(destination[curr_pos.toUint(w)], destination[curr_pos.go(move_direction, w)]);
     }
@@ -25,14 +24,14 @@ void move_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_
 
 }
 
-void
-move_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+void MoveCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
                 unsigned int width) {
     //  has_been_moved = true;
-    plane[curr_pos.go(move_dir, width)]->move(plane, destination, move_dir, curr_pos.go(move_dir), width);
+    plane[curr_pos.go(move_dir, width)]->Move(plane, destination, move_dir,
+                                              curr_pos.go(move_dir), width);
 
 
-    if (*destination[curr_pos.go(move_dir, width)] == Empty) {
+    if (*destination[curr_pos.go(move_dir, width)] == EMPTY) {
         // me                                      the one in front
 
         std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_direction, width)]);
@@ -40,19 +39,19 @@ move_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destinati
 
 }
 
-bool move_cell::operator==(const type &rhs) const {
-    return cell_type == rhs;
+bool MoveCell::operator==(const Type &rhs) const {
+    return cell_type_ == rhs;
 }
 
-bool move_cell::operator!=(const type &rhs) const {
-    return cell_type != rhs;
+bool MoveCell::operator!=(const Type &rhs) const {
+    return cell_type_ != rhs;
 }
 
-void move_cell::setMoveDirection(direction moveDirection) {
-    move_direction = moveDirection;
+void MoveCell::SetMoveDirection(direction move_direction) {
+    move_direction = move_direction;
 }
 
-icon move_cell::get_unicode() {
+icon MoveCell::GetUnicode() {
 
     switch (move_direction) {
 
@@ -74,15 +73,15 @@ icon move_cell::get_unicode() {
 
 }
 
-direction move_cell::getMoveDirection() const {
+direction MoveCell::GetMoveDirection() const {
     return move_direction;
 }
 
-type move_cell::getCellType() const {
-    return cell_type;
+Type MoveCell::GetCellType() const {
+    return cell_type_;
 }
 
-void move_cell::rotateRight() noexcept {
+void MoveCell::RotateRight() noexcept {
 
     switch (move_direction) {
         case left:
@@ -103,14 +102,14 @@ void move_cell::rotateRight() noexcept {
 
 }
 
-void move_cell::output_fo_file(std::ostream &out) {
-    out << (int) getCellType();
+void MoveCell::OutputFoFile(std::ostream &out) {
+    out << (int)GetCellType();
     out << " ";
-    out << (int) getMoveDirection();
+    out << (int)GetMoveDirection();
 }
 
-move_cell *move_cell::clone() {
-    return new move_cell(*this);
+MoveCell *MoveCell::Clone() {
+    return new MoveCell(*this);
 }
 
 

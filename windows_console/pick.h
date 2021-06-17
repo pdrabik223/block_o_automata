@@ -2,22 +2,22 @@
 // Created by studio25 on 20.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_PICK_H
-#define BLOCK_O_AUTOMATA_PICK_H
+#ifndef BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_PICK_H_
+#define BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_PICK_H_
 
 #include "level_dir/level_pick.h"
 
 namespace win_console {
-    class pick : public lc::level_pick {
+    class Pick : public lc::LevelPick {
     public:
-        pick() : lc::level_pick() {    _setmode(_fileno(stdout), _O_U16TEXT);
+      Pick() : lc::LevelPick() {    _setmode(_fileno(stdout), _O_U16TEXT);
         }
 
-        void display_ui() override;
+        void DisplayUi() override;
 
-        unsigned char get_key() override;
+        unsigned char GetKey() override;
 
     };
 }
 
-#endif //BLOCK_O_AUTOMATA_PICK_H
+#endif // BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_PICK_H_

@@ -6,102 +6,103 @@
 
 using namespace lc;
 
-player_action level_pick::select_level() {
+PlayerAction LevelPick::SelectLevel() {
 
-    loaded_levels = {};
+  loaded_levels_ = {};
 
-    player_action command = ui();
+  PlayerAction command = Ui();
 
-    if (command == quit_game) return quit_game;
-    else if (command == enter_editor) return enter_editor;
+  if (command == QUIT_GAME)
+    return QUIT_GAME;
+  else if (command == ENTER_EDITOR)
+    return ENTER_EDITOR;
 
-    load(directory_path + loaded_levels[cursor_position]);
+  Load(directory_path_ + loaded_levels_[cursor_position_]);
 
-    return play_level;
+  return PLAY_LEVEL;
 }
 
+PlayerAction LevelPick::Ui() {
 
-player_action level_pick::ui() {
+  Levelvec levels;
 
-    levelvec levels;
+  ReadDirectory(directory_path_, loaded_levels_);
 
-    read_directory(directory_path, loaded_levels);
+  LoadLevels(loaded_levels_, levels, directory_path_);
 
-    load_levels(loaded_levels, levels, directory_path);
+  unsigned char k;
 
-    unsigned char k;
+  while (2 > 1) {
 
-    while (2 > 1) {
+    DisplayUi();
 
-        display_ui();
+    k = GetKey();
 
-        k = get_key();
+    switch (k) {
+    case 'w':
+      --cursor_position_;
+      if (cursor_position_ < 0)
+        cursor_position_ =
+            levels.size() + 1; // keep cursor_position in (range of vector +1)
+      break;
 
+    case 's':
+      ++cursor_position_;
+      if (cursor_position_ > levels.size() + 1)
+        cursor_position_ = 0;
 
-        switch (k) {
-            case 'w':
-                --cursor_position;
-                if (cursor_position < 0)
-                    cursor_position = levels.size() + 1; // keep cursor_position in (range of vector +1)
-                break;
+      break;
+    case 'r':
 
-            case 's':
-                ++cursor_position;
-                if (cursor_position > levels.size() + 1) cursor_position = 0;
+      levels.clear();
+      loaded_levels_.clear();
 
-                break;
-            case 'r':
+      ReadDirectory(directory_path_, loaded_levels_);
 
-                levels.clear();
-                loaded_levels.clear();
+      LoadLevels(loaded_levels_, levels, directory_path_);
+      break;
 
-                read_directory(directory_path, loaded_levels);
+    case 'q':
+    case 27:
+      return QUIT_GAME;
 
-                load_levels(loaded_levels, levels, directory_path);
-                break;
+    case 'e':
+    case 13:
+      if (cursor_position_ < loaded_levels_.size())
+        return PLAY_LEVEL;
+      else if (cursor_position_ == loaded_levels_.size())
+        return ENTER_EDITOR;
 
-            case 'q':
-            case 27:
-                return quit_game;
+      else if (cursor_position_ == loaded_levels_.size() + 1)
+        return QUIT_GAME;
 
-            case 'e':
-            case 13:
-                if (cursor_position < loaded_levels.size())
-                    return play_level;
-                else if (cursor_position == loaded_levels.size()) return enter_editor;
-
-                else if (cursor_position == loaded_levels.size() + 1) return quit_game;
-
-            default:
-                break;
-        }
+    default:
+      break;
     }
+  }
 }
 
-level_info level_pick::get_level() {
-    return level_info(*this);
+LevelInfo LevelPick::GetLevel() { return LevelInfo(*this); }
+
+void ReadDirectory(const std::string &name, Stringvec &v) {
+  std::string pattern(name);
+  pattern.append("*.txt");
+  WIN32_FIND_DATA data;
+  HANDLE hFind;
+  if ((hFind = FindFirstFile(pattern.c_str(), &data)) != INVALID_HANDLE_VALUE) {
+
+    do {
+      v.push_back(data.cFileName);
+    } while (FindNextFile(hFind, &data) != 0);
+    FindClose(hFind);
+  }
 }
 
+void LoadLevels(Stringvec &file_paths, Levelvec &levels,
+                std::string &directory_path) {
 
-void read_directory(const std::string &name, stringvec &v) {
-    std::string pattern(name);
-    pattern.append("*.txt");
-    WIN32_FIND_DATA data;
-    HANDLE hFind;
-    if ((hFind = FindFirstFile(pattern.c_str(), &data)) != INVALID_HANDLE_VALUE) {
-
-        do {
-            v.push_back(data.cFileName);
-        } while (FindNextFile(hFind, &data) != 0);
-        FindClose(hFind);
-
-    }
-}
-
-void load_levels(stringvec &file_paths, levelvec &levels, std::string &directory_path) {
-
-    for (auto i:file_paths) {
-        levels.push_back(level_info());
-        levels.back().load(directory_path + i);
-    }
+  for (auto i : file_paths) {
+    levels.push_back(LevelInfo());
+    levels.back().Load(directory_path + i);
+  }
 }

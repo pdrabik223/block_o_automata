@@ -2,44 +2,44 @@
 // Created by pc on 04.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_MOVE_CELL_H
-#define BLOCK_O_AUTOMATA_MOVE_CELL_H
+#ifndef BLOCK_O_AUTOMATA_CELLS_DIR_MOVE_CELL_H_
+#define BLOCK_O_AUTOMATA_CELLS_DIR_MOVE_CELL_H_
 
 #include "cell.h"
 
-/// can move only in the move direction
-class move_cell : public cell {
+/// can move only in the Move direction
+class MoveCell : public Cell {
 public:
-    move_cell();
+  MoveCell();
 
-    move_cell(direction moveDirection);
+  MoveCell(direction move_direction);
 
-    move_cell &operator=(const move_cell &other) = default;
+  MoveCell &operator=(const MoveCell &other) = default;
 
-    icon get_unicode() override;
+    icon GetUnicode() override;
 
-    void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
+    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) override;
 
-    void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
               unsigned int width) override;
 
-    bool operator==(const type &rhs) const override;
+    bool operator==(const Type &rhs) const override;
 
-    bool operator!=(const type &rhs) const override;
+    bool operator!=(const Type &rhs) const override;
 
-    void setMoveDirection(direction moveDirection);
+    void SetMoveDirection(direction move_direction);
 
-    direction getMoveDirection() const;
+    direction GetMoveDirection() const;
 
-    type getCellType() const override;
+    Type GetCellType() const override;
 
-    void rotateRight()  noexcept override;
+    void RotateRight()  noexcept override;
 
-    void output_fo_file(std::ostream &out) override;
+    void OutputFoFile(std::ostream &out) override;
 
-static type cell_type;
+static Type cell_type_;
 
-    move_cell *clone() override;
+MoveCell *Clone() override;
 
 protected:
     direction move_direction;
@@ -48,4 +48,4 @@ protected:
 };
 
 
-#endif //BLOCK_O_AUTOMATA_MOVE_CELL_H
+#endif // BLOCK_O_AUTOMATA_CELLS_DIR_MOVE_CELL_H_

@@ -2,77 +2,70 @@
 // Created by pc on 13.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_LEVEL_EDIT_H
-#define BLOCK_O_AUTOMATA_LEVEL_EDIT_H
+#ifndef BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_EDIT_H_
+#define BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_EDIT_H_
 
-#include <iostream>
-#include <conio.h>
-#include <thread>
 #include "../board.h"
 #include "level_info.h"
-
+#include <conio.h>
+#include <iostream>
+#include <thread>
 
 namespace le {
-    enum player_action {
-        nothing,
-        quit_edit,
-        run_simulation,
-        set_info,
-        save
+enum PlayerAction {
+  NOTHING,
+  QUIT_EDIT,
+  RUN_SIMULATION
+};
 
-    };
+enum Message {
+  NONE,
+  EXIT,
+  START_SIMULATION,
+  SAVE_CHANGES_TO_FILE,
+  ADDITIONAL_INFO_REQUEST,
+  INCREASE_WIDTH,
+  INCREASE_HEIGHT,
+  DECREASE_WIDTH,
+  DECREASE_HEIGHT,
+  ADDITIONAL_INFO
+};
 
-    enum message{
-        none,
-        exit,
-        start_simulation,
-        save_changes_to_file,
-        additional_info_request,
-        increase_width,
-        increase_height,
-        decrease_width,
-        decrease_height,
-        additional_info
-    };
+class LevelEdit : public LevelInfo {
+public:
+  LevelEdit() : LevelInfo(10, 10) {}
 
-    class level_edit : public level_info {
-    public:
-        level_edit() : level_info(10, 10) {}
+  void MainLoop();
 
-        void main_loop();
+  PlayerAction AnalyzeMovement(char key);
 
-        player_action analyze_movement(char key);
+  virtual void ControlledView() { assert(false); };
 
-        virtual void controlled_view(){assert(false);};
+  virtual void RunSim() { assert(false); };
 
-        virtual void run_sim(){assert(false);};
+  virtual void SetAdditionalInfo() { assert(false); };
 
-        virtual void set_additional_info(){assert(false);};
+  virtual unsigned char GetKey() {
+    assert(false);
+    return -1;
+  };
 
-        virtual unsigned char get_key(){
-            assert(false);
-            return -1;
-        };
+protected:
+  void DisplayMessage();
 
-    protected:
-        void display_message();
+  unsigned current_block_ = 0;
 
-        unsigned current_block = 0;
+  Message current_message_ = NONE;
 
-        message current_message = none;
+  coord cursor_position_ = {0, 0};
 
-        coord cursor_position = {0, 0};
-
-
-        std::array<cell *, 8> all_blocks = {new barrier_cell(),              //
-                                            new barrier_cell(true),  //
-                                            new move_cell(up),   //
-                                            new turn_cell(up),    //
-                                            new spawn_cell(up), //
-                                            new kill_cell(),
-                                            new goal_cell(),
-                                            new empty_cell(false)};
-
-    };
-}
-#endif //BLOCK_O_AUTOMATA_LEVEL_EDIT_H
+  std::array<Cell *, 8> all_blocks_ = {new BarrierCell(),     //
+                                       new BarrierCell(true), //
+                                       new MoveCell(up),      //
+                                       new TurnCell(up),      //
+                                       new SpawnCell(up),     //
+                                       new KillCell(),        new GoalCell(),
+                                       new EmptyCell(false)};
+};
+} // namespace le
+#endif // BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_EDIT_H_

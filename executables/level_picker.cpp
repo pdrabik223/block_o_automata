@@ -3,25 +3,21 @@
 //
 #include <windows_console/pick.h>
 
-
-
 int main() {
-    level_info level;
-    win_console::pick cos;
+  LevelInfo level;
+  win_console::Pick cos;
 
-    lc::player_action command;
-    command = cos.select_level();
-    level = cos.get_level();
+  lc::PlayerAction command;
+  command = cos.SelectLevel();
+  level = cos.GetLevel();
 
+  _setmode(_fileno(stdout), _O_U16TEXT);
+  if (command == lc::PLAY_LEVEL)
+    std::wcout << "\nchosen_level:\n" << level.GetInfo();
+  if (command == lc::ENTER_EDITOR)
+    std::wcout << "\nenter editor";
 
-    _setmode(_fileno(stdout), _O_U16TEXT);
-    if (command == lc::play_level)
-        std::wcout << "\nchosen_level:\n" << level.get_info();
-    if (command == lc::enter_editor)
-        std::wcout << "\nenter editor";
+  getch();
 
-
-    getch();
-
-    return 0;
+  return 0;
 }

@@ -13,33 +13,33 @@
 
 
 
-class board {
+class Board {
 public:
-    board(level_info &level);
+  Board(LevelInfo &level);
 
     /// \brief the heart of this game
-    void iterate();
+    void Iterate();
 
     ///\brief changes state of all empty cells to locked
     /// so player can't access them, also board looks way better that way
-    void lock_cells();
+    void LockCells();
 
-    /// \return true if there is at least one goal_cell left on level
-    bool goal_cells_left();
+    /// \return true if there is at least one GoalCell left on level
+    bool GoalCellsLeft();
 
-    /// used to move functions displaying the cells outside board
-    /// \param position at witch wanted cell is stored
-    /// \return information needed to proper display cell
-    icon get_cell_icon(coord position);
+    /// used to Move functions displaying the cells outside board
+    /// \param position at witch wanted Cell is stored
+    /// \return information needed to proper display Cell
+    icon GetCellIcon(coord position);
 
-    unsigned int get_counter() const;
+    unsigned int GetCounter() const;
 
 private:
     /// frame counter
     /// may come handy later
-    unsigned counter;
-    /// cell array used to store current level state
-    level_info level;
+    unsigned counter_;
+    /// Cell array used to store current level state
+    LevelInfo level_;
 
 };
 

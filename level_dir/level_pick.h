@@ -2,73 +2,63 @@
 // Created by pc on 12.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_LEVEL_PICK_H
-#define BLOCK_O_AUTOMATA_LEVEL_PICK_H
+#ifndef BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_PICK_H_
+#define BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_PICK_H_
 
-#include "level_info.h"
 #include "../windows_console_tools/win_colors.h"
+#include "level_info.h"
 
-#include <string>
 #include <iostream>
+#include <string>
 
 #include <Windows.h>
-#include <vector>
-#include <thread>
 #include <chrono>
-
+#include <thread>
+#include <vector>
 
 #include <conio.h>
 
-typedef std::vector<std::string> stringvec;
+typedef std::vector<std::string> Stringvec;
 
-typedef std::vector<level_info> levelvec;
+typedef std::vector<LevelInfo> Levelvec;
 
-void read_directory(const std::string &name, stringvec &v);
+void ReadDirectory(const std::string &name, Stringvec &v);
 
-void load_levels(stringvec &file_paths, levelvec &levels, std::string &directory_path);
-
+void LoadLevels(Stringvec &file_paths, Levelvec &levels,
+                std::string &directory_path);
 
 namespace lc {
-    enum player_action {
-        play_level,
-        enter_editor,
-        quit_game
-    };
+enum PlayerAction { PLAY_LEVEL, ENTER_EDITOR, QUIT_GAME };
 
+class LevelPick : public LevelInfo {
+public:
+  LevelPick() : LevelInfo() {}
 
-    class level_pick : public level_info {
-    public:
+  PlayerAction SelectLevel();
 
-        level_pick() : level_info() {}
+  LevelInfo GetLevel();
 
-        player_action select_level();
+  virtual void DisplayUi(){};
 
-        level_info get_level();
+  virtual unsigned char GetKey() {
+    assert(false);
+    return -1;
+  };
 
-        virtual void display_ui(){};
+protected:
+  /// player Ui, it needs to be done better
+  /// \return  path to chosen folder
+  ///  or command to enter edit mode
+  ///  or command to quit game
+  PlayerAction Ui();
 
-        virtual unsigned char get_key() {
-            assert(false);
-            return -1;
-        };
+  unsigned cursor_position_ = 0;
 
-    protected :
-        /// player ui, it needs to be done better
-        /// \return  path to chosen folder
-        ///  or command to enter edit mode
-        ///  or command to quit game
-        player_action ui();
+  std::string directory_path_ =
+      "C:\\Users\\studio25\\Documents\\block_o_automata\\levels\\";
 
-        unsigned cursor_position = 0;
+  Stringvec loaded_levels_ = {};
+};
 
-        std::string directory_path = "C:\\Users\\studio25\\Documents\\block_o_automata\\levels\\";
-
-
-        stringvec loaded_levels = {};
-
-
-
-    };
-
-}
-#endif //BLOCK_O_AUTOMATA_LEVEL_PICK_H
+} // namespace lc
+#endif // BLOCK_O_AUTOMATA_LEVEL_DIR_LEVEL_PICK_H_

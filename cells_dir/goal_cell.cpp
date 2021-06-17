@@ -3,60 +3,60 @@
 //
 
 #include "goal_cell.h"
-#include "empty_cell.h"
-type goal_cell::cell_type = Goal;
+#include "EmptyCell.h"
+Type GoalCell::cell_type_ = GOAL;
 
-goal_cell::goal_cell() : cell(false, true) {}
+GoalCell::GoalCell() : Cell(false, true) {}
 
-void goal_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
+void GoalCell::Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) {
 }
 
-void
-goal_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+void GoalCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
                 unsigned int width) {
 
-    if (plane[curr_pos.reverse(move_dir, width)]->isKillable()) {
-        destination[curr_pos.reverse(move_dir, width)] = new empty_cell(true);
-        destination[curr_pos.toUint(width)] = new empty_cell(true);
+    if (plane[curr_pos.reverse(move_dir, width)]->IsKillable()) {
+        destination[curr_pos.reverse(move_dir, width)] = new EmptyCell(true);
+        destination[curr_pos.toUint(width)] = new EmptyCell(true);
         return;
 
     } else {
 
-        plane[curr_pos.go(move_dir, width)]->move(plane, destination, move_dir, curr_pos.go(move_dir), width);
+      plane[curr_pos.go(move_dir, width)]->Move(plane, destination, move_dir,
+                                                curr_pos.go(move_dir), width);
 
-        if (*destination[curr_pos.go(move_dir, width)] == Empty) {
+        if (*destination[curr_pos.go(move_dir, width)] == EMPTY) {
             // me                                      the one in front
             std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_dir, width)]);
         }
     }
 }
 
-bool goal_cell::operator==(const type &rhs) const {
-    return cell_type == rhs;
+bool GoalCell::operator==(const Type &rhs) const {
+    return cell_type_ == rhs;
 }
 
-bool goal_cell::operator!=(const type &rhs) const {
-    return cell_type != rhs;
+bool GoalCell::operator!=(const Type &rhs) const {
+    return cell_type_ != rhs;
 }
 
-icon goal_cell::get_unicode() {
+icon GoalCell::GetUnicode() {
 
     return {11044, purple};
 }
 
-type goal_cell::getCellType() const {
-    return cell_type;
+Type GoalCell::GetCellType() const {
+    return cell_type_;
 }
 
-std::istream &operator>>(std::istream &in, goal_cell &ref) {
+std::istream &operator>>(std::istream &in, GoalCell &ref) {
     return in;
 }
 
-void goal_cell::output_fo_file(std::ostream &out) {
-    out <<(int) getCellType();
+void GoalCell::OutputFoFile(std::ostream &out) {
+    out <<(int)GetCellType();
 }
 
-goal_cell *goal_cell::clone() {
-    return new goal_cell(*this);
+GoalCell *GoalCell::Clone() {
+    return new GoalCell(*this);
 }
 

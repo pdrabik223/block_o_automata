@@ -5,50 +5,48 @@
 #include "turn_cell.h"
 #include "move_cell.h"
 
-type turn_cell::cell_type = Turn;
+Type TurnCell::cell_type_ = TURN;
 
-turn_cell::turn_cell() : cell(false, true),
+TurnCell::TurnCell() : Cell(false, true),
 
                          turn_direction(left) {}
 
+TurnCell::TurnCell(direction turn_direction) : Cell(false, true),
 
-turn_cell::turn_cell(direction turnDirection) : cell(false, true),
+                                                turn_direction(turn_direction) {}
 
-                                                turn_direction(turnDirection) {}
+void TurnCell::Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) {}
 
-void
-turn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {}
-
-void
-turn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+void TurnCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
                 unsigned int width) {
 
-    plane[curr_pos.go(turn_direction, width)]->move(plane, destination, turn_direction, curr_pos.go(turn_direction), width);
+  plane[curr_pos.go(turn_direction, width)]->Move(
+      plane, destination, turn_direction, curr_pos.go(turn_direction), width);
 
 
-    if (*destination[curr_pos.go(turn_direction, width)] == Empty ||
+    if (*destination[curr_pos.go(turn_direction, width)] == EMPTY ||
         curr_pos.go(turn_direction, width) == curr_pos.reverse(move_dir, width)) {
 
         // me                                      the one in front
         std::swap(destination[curr_pos.reverse(move_dir, width)], destination[curr_pos.go(turn_direction, width)]);
 
-        if (*destination[curr_pos.go(turn_direction, width)] == Move)
-            destination[curr_pos.go(turn_direction, width)] = new move_cell(turn_direction);
+        if (*destination[curr_pos.go(turn_direction, width)] == MOVE)
+            destination[curr_pos.go(turn_direction, width)] = new MoveCell(turn_direction);
 
     }
 
 
 }
 
-bool turn_cell::operator==(const type &rhs) const {
-    return cell_type == rhs;
+bool TurnCell::operator==(const Type &rhs) const {
+    return cell_type_ == rhs;
 }
 
-bool turn_cell::operator!=(const type &rhs) const {
-    return cell_type != rhs;
+bool TurnCell::operator!=(const Type &rhs) const {
+    return cell_type_ != rhs;
 }
 
-icon turn_cell::get_unicode() {
+icon TurnCell::GetUnicode() {
     switch (turn_direction) {
         case left:
             return {11164, blue};
@@ -67,16 +65,16 @@ icon turn_cell::get_unicode() {
 
 }
 
-direction turn_cell::getTurnDirection() const {
+direction TurnCell::GetTurnDirection() const {
     return turn_direction;
 }
 
-type turn_cell::getCellType() const {
-    return cell_type;
+Type TurnCell::GetCellType() const {
+    return cell_type_;
 }
 
 
-void turn_cell::rotateRight() noexcept {
+void TurnCell::RotateRight() noexcept {
     switch (turn_direction) {
         case left:
             turn_direction = up;
@@ -94,13 +92,13 @@ void turn_cell::rotateRight() noexcept {
     }
 }
 
-void turn_cell::output_fo_file(std::ostream &out) {
-    out << (int) getCellType();
+void TurnCell::OutputFoFile(std::ostream &out) {
+    out << (int)GetCellType();
     out << " ";
-    out << (int) getTurnDirection();
+    out << (int)GetTurnDirection();
 }
 
-turn_cell *turn_cell::clone() {
-    return new turn_cell(*this);
+TurnCell *TurnCell::Clone() {
+    return new TurnCell(*this);
 }
 

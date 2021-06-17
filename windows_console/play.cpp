@@ -2,242 +2,246 @@
 // Created by studio25 on 20.05.2021.
 //
 
-
 #include "play.h"
 
+void win_console::Play::ControlledView() {
 
-void win_console::play::controlled_view() {
+  unsigned window_height = GetHeight() + 2;
+  unsigned window_width = (GetWidth() + 1) > (all_blocks_.size() * 2)
+                              ? (GetWidth() + 1)
+                              : (all_blocks_.size() * 2);
 
-    unsigned window_height = getHeight() + 2;
-    unsigned window_width = (getWidth() + 1) > (all_blocks.size() * 2) ? (getWidth() + 1) : (all_blocks.size() * 2);
+  console_handle_.Resize(window_height, window_width);
 
+  /// Clear buffer before overwriting it
+  console_handle_.Clear();
 
-    console_handle.resize(window_height, window_width);
+  /// display the level
+  for (unsigned i = 0; i < GetHeight(); i++) {
+    for (unsigned j = 0; j < GetWidth(); j++) {
 
-    /// clear buffer before overwriting it
-    console_handle.clear();
-
-    /// display the level
-    for (unsigned i = 0; i < getHeight(); i++) {
-        for (unsigned j = 0; j < getWidth(); j++) {
-
-            console_handle.set_pixel({i, j}, get_cell(i, j).get_unicode());
-
-        }
+      console_handle_.SetPixel({i, j}, GetCell(i, j).GetUnicode());
     }
-    /// display quit icon a.k.a. little red < in the right top corner
-    console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, black});
+  }
+  /// display quit icon a.k.a. little red < in the right top corner
+  console_handle_.SetPixel({0, GetWidth()}, {(wchar_t)11164, red, black});
 
-    /// display run simulation icon a.k.a. little red > in the right top corner
-    console_handle.set_pixel({1, getWidth()}, {(wchar_t) 11166, yellow, black});
+  /// display run simulation icon a.k.a. little red > in the right top corner
+  console_handle_.SetPixel({1, GetWidth()}, {(wchar_t)11166, yellow, black});
+
+  /// display win trophy
+  if (level_beaten_)
+    console_handle_.SetPixel({4, GetWidth()}, {(wchar_t)11201, purple, black});
+  else
+    console_handle_.SetPixel({4, GetWidth()}, {(wchar_t)11201, gray, black});
+
+  /// display blocks trophy
+  if (max_piece_cost_beaten_)
+    console_handle_.SetPixel({5, GetWidth()}, {(wchar_t)11202, yellow, black});
+  else
+    console_handle_.SetPixel({5, GetWidth()}, {(wchar_t)11202, gray, black});
+
+  /// display iterations trophy
+  if (max_iteration_beaten_)
+    console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, red, black});
+  else
+    console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, gray, black});
+
+  for (unsigned i = 0; i < all_blocks_.size() * 2; i += 2) {
+    console_handle_.SetPixel({GetHeight() + 1, i}, {' ', white, black});
+    console_handle_.SetPixel({GetHeight() + 1, i + 1},
+                             all_blocks_[(i / 2)]->GetUnicode());
+  }
+
+  /// display cursor
+  console_handle_.GetPixel(cursor_position_).background_color = light_aqua;
+
+  /// display cursor
+  console_handle_.GetPixel({GetHeight() + 1, (current_block_ * 2) + 1})
+      .background_color = light_aqua;
+
+  DisplayMessage();
+
+  console_handle_.UpdateScreen();
+}
+
+int win_console::Play::RunSim() {
+
+  Board game(*this);
+  cursor_position_.x--;
+  bool activate_quit = false;
+  while (2 > 1) {
+
+    game.Iterate();
+
+    /// Clear buffer before overwriting it
+    console_handle_.Clear();
+
+    for (unsigned i = 0; i < GetHeight(); i++) {
+      for (unsigned j = 0; j < GetWidth(); j++) {
+        console_handle_.SetPixel({i, j}, game.GetCellIcon({i, j}));
+      }
+    }
+
+    /// display quit icon a.k.a. little red < in the right top corner
+    console_handle_.SetPixel({0, GetWidth()}, {(wchar_t)11164, red, black});
 
     /// display win trophy
-    if (level_beaten)
-        console_handle.set_pixel({4, getWidth()}, {(wchar_t) 11201, purple, black});
+    if (level_beaten_)
+      console_handle_.SetPixel({4, GetWidth()},
+                               {(wchar_t)11201, purple, black});
     else
-        console_handle.set_pixel({4, getWidth()}, {(wchar_t) 11201, gray, black});
+      console_handle_.SetPixel({4, GetWidth()}, {(wchar_t)11201, gray, black});
 
     /// display blocks trophy
-    if (max_piece_cost_beaten)
-        console_handle.set_pixel({5, getWidth()}, {(wchar_t) 11202, yellow, black});
+    if (max_piece_cost_beaten_)
+      console_handle_.SetPixel({5, GetWidth()},
+                               {(wchar_t)11202, yellow, black});
     else
-        console_handle.set_pixel({5, getWidth()}, {(wchar_t) 11202, gray, black});
+      console_handle_.SetPixel({5, GetWidth()}, {(wchar_t)11202, gray, black});
 
     /// display iterations trophy
-    if (max_iteration_beaten)
-        console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, red, black});
+    if (max_iteration_beaten_)
+      console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, red, black});
     else
-        console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, gray, black});
+      console_handle_.SetPixel({6, GetWidth()}, {(wchar_t)11042, gray, black});
 
+    key_pressed input = null;
 
-    for (unsigned i = 0; i < all_blocks.size() * 2; i += 2) {
-        console_handle.set_pixel({getHeight() + 1, i}, {' ', white, black});
-        console_handle.set_pixel({getHeight() + 1, i + 1}, all_blocks[(i / 2)]->get_unicode());
+    input = console_handle_.AwaitKeyPress(std::chrono::milliseconds(200));
+
+    switch (input) {
+    case key_space:
+    case key_enter:
+      if (cursor_position_ == coord(0, GetWidth()) && activate_quit)
+        return 2;
     }
 
-    ///display cursor
-    console_handle.get_pixel(cursor_position).background_color = light_aqua;
+    /// display cursor
+    console_handle_.GetPixel(cursor_position_).background_color = light_aqua;
 
-    ///display cursor
-    console_handle.get_pixel({getHeight() + 1, (current_block * 2) + 1}).background_color = light_aqua;
+    DisplayMessage();
 
+    console_handle_.UpdateScreen();
 
-    display_message();
+    if (!game.GoalCellsLeft()) {
+      system("cls");
 
-    console_handle.update_screen();
+      std::wcout << cc(yellow, black) << "u are winner!";
+      level_beaten_ = true;
+      if (game.GetCounter() <= max_iteration_)
+        max_iteration_beaten_ = true;
 
+      int empty_block_counter_origin = 0;
+      int empty_block_counter_copy = 0;
+      for (auto i : level_)
+        if (i->GetCellType() == EMPTY)
+          if (!((EmptyCell *)i)->IsLocked())
+            empty_block_counter_copy++;
+
+      for (auto i : original_level_)
+        if (i->GetCellType() == EMPTY)
+          if (!((EmptyCell *)i)->IsLocked())
+            empty_block_counter_origin++;
+
+      if (empty_block_counter_origin - empty_block_counter_copy <=
+          max_piece_cost_)
+        ;
+      max_piece_cost_beaten_ = true;
+
+      std::swap(level_, original_level_);
+      Save();
+      std::swap(level_, original_level_);
+      GetKey();
+      return 1;
+    }
+    activate_quit = true;
+  }
 }
 
-int win_console::play::run_sim() {
+unsigned char win_console::Play::GetKey() {
+  switch (console_handle_.AwaitKeyPress()) {
 
-    board game(*this);
-    cursor_position.x--;
-    bool activate_quit = false;
-    while (2 > 1) {
+  case key_enter:
+    return 13;
+  case key_1:
+    return '1';
+  case key_2:
+    return '2';
+  case key_3:
+    return '3';
+  case key_4:
+    return '4';
+  case key_5:
+    return '5';
+  case key_a:
+    return 'a';
+  case key_w:
+    return 'w';
+  case key_s:
+    return 's';
+  case key_d:
+    return 'd';
+  case key_r:
+    return 'r';
 
-        game.iterate();
+  default:
 
-        /// clear buffer before overwriting it
-        console_handle.clear();
-
-        for (unsigned i = 0; i < getHeight(); i++) {
-            for (unsigned j = 0; j < getWidth(); j++) {
-                console_handle.set_pixel({i, j}, game.get_cell_icon({i, j}));
-            }
-        }
-
-        /// display quit icon a.k.a. little red < in the right top corner
-        console_handle.set_pixel({0, getWidth()}, {(wchar_t) 11164, red, black});
-
-        /// display win trophy
-        if (level_beaten)
-            console_handle.set_pixel({4, getWidth()}, {(wchar_t) 11201, purple, black});
-        else
-            console_handle.set_pixel({4, getWidth()}, {(wchar_t) 11201, gray, black});
-
-        /// display blocks trophy
-        if (max_piece_cost_beaten)
-            console_handle.set_pixel({5, getWidth()}, {(wchar_t) 11202, yellow, black});
-        else
-            console_handle.set_pixel({5, getWidth()}, {(wchar_t) 11202, gray, black});
-
-        /// display iterations trophy
-        if (max_iteration_beaten)
-            console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, red, black});
-        else
-            console_handle.set_pixel({6, getWidth()}, {(wchar_t) 11042, gray, black});
-
-
-        key_pressed input = null;
-
-
-        input = console_handle.await_key_press(std::chrono::milliseconds(200));
-
-        switch (input) {
-            case key_space:
-            case key_enter:
-                if (cursor_position == coord(0, getWidth()) && activate_quit) return 2;
-
-        }
-
-        ///display cursor
-        console_handle.get_pixel(cursor_position).background_color = light_aqua;
-
-        display_message();
-
-        console_handle.update_screen();
-
-        if (!game.goal_cells_left()) {
-            system("cls");
-
-            std::wcout << cc(yellow, black) << "u are winner!";
-            level_beaten = true;
-            if (game.get_counter() <= max_iteration)
-                max_iteration_beaten = true;
-
-            int empty_block_counter_origin = 0;
-            int empty_block_counter_copy = 0;
-            for (auto i:level)
-                if (i->getCellType() == Empty)
-                    if (!((empty_cell *) i)->isLocked())
-                        empty_block_counter_copy++;
-
-
-            for (auto i:original_level)
-                if (i->getCellType() == Empty)
-                    if (!((empty_cell *) i)->isLocked())
-                        empty_block_counter_origin++;
-
-            if (empty_block_counter_origin - empty_block_counter_copy <= max_piece_cost);
-            max_piece_cost_beaten = true;
-
-            std::swap(level, original_level);
-            save();
-            std::swap(level, original_level);
-            get_key();
-            return 1;
-        }
-        activate_quit = true;
-    }
+    return '\0';
+  }
 }
 
-unsigned char win_console::play::get_key() {
-    switch (console_handle.await_key_press()) {
+void win_console::Play::DisplayMessage() {
+  switch (current_message_) {
+  case lp::EXIT:
+    console_handle_.SetMessage(red, black, L"exit");
+    break;
 
-        case key_enter:
-            return 13;
-        case key_1:
-            return '1';
-        case key_2:
-            return '2';
-        case key_3:
-            return '3';
-        case key_4:
-            return '4';
-        case key_5:
-            return '5';
-        case key_a:
-            return 'a';
-        case key_w:
-            return 'w';
-        case key_s:
-            return 's';
-        case key_d:
-            return 'd';
-        case key_r:
-            return 'r';
+  case lp::START_SIMULATION:
+    console_handle_.SetMessage(yellow, black, L"run simulation");
+    break;
+  case lp::CANT_PLACE_BLOCK_HERE:
+    console_handle_.SetMessage(red, black,
+                               L"Cell can't be placed on this square");
+    break;
+  case lp::NO_MORE_BLOCKS_LEFT:
 
-        default:
+    console_handle_.SetMessage(red, black, L"no more blocks of this Type");
+    break;
 
-            return '\0';
-    }
-}
+  case lp::LOSE:
+    console_handle_.SetMessage(red, black, L"you lost");
+    break;
+  case lp::WIN:
+    console_handle_.SetMessage(yellow, black, L"congratulations you won!");
+    break;
+  case lp::WIN_TROFEUM:
+    console_handle_.SetMessage(yellow, black,
+                               L"congratulations you won trofeum!");
+    break;
+    // todo display the range
+  case lp::MINIMAL_COST_TROFEUM:
 
-void win_console::play::display_message() {
-    switch (current_message) {
-        case lp::exit:
-            console_handle.set_message(red, black, L"exit");
-            break;
+    if (max_piece_cost_beaten_)
+      console_handle_.SetMessage(
+          blue, black, L"finishing level using minimal number of cells");
+    else
+      console_handle_.SetMessage(blue, black,
+                                 L"finish level using minimal number of cells");
 
-        case lp::start_simulation:
-            console_handle.set_message(yellow, black, L"run simulation");
-            break;
-        case lp::cant_place_block_here:
-            console_handle.set_message(red, black, L"cell can't be placed on this square");
-            break;
-        case lp::no_more_blocks_left:
+    break;
+  case lp::MINIMAL_ITERATIONS_TROFEUM:
+    if (max_iteration_beaten_)
+      console_handle_.SetMessage(
+          blue, black, L"finishing level in minimal number of iterations");
+    else
+      console_handle_.SetMessage(
+          blue, black, L"finish level in minimal number of iterations");
+    break;
+  case lp::NONE:
 
-            console_handle.set_message(red, black, L"no more blocks of this type");
-            break;
+    break;
+  }
 
-        case lp::lose:
-            console_handle.set_message(red, black, L"you lost");
-            break;
-        case lp::win:
-            console_handle.set_message(yellow, black, L"congratulations you won!");
-            break;
-        case lp::win_trofeum:
-            console_handle.set_message(yellow, black, L"congratulations you won trofeum!");
-            break;
-            // todo display the range
-        case lp::minimal_cost_trofeum:
-
-            if (max_piece_cost_beaten)
-                console_handle.set_message(blue, black, L"finishing level using minimal number of cells");
-            else
-                console_handle.set_message(blue, black, L"finish level using minimal number of cells");
-
-            break;
-        case lp::minimal_iterations_trofeum:
-            if (max_iteration_beaten)
-                console_handle.set_message(blue, black, L"finishing level in minimal number of iterations");
-            else
-                console_handle.set_message(blue, black, L"finish level in minimal number of iterations");
-            break;
-        case lp::none:
-
-            break;
-    }
-
-    current_message = lp::none;
+  current_message_ = lp::NONE;
 }

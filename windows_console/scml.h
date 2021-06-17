@@ -5,37 +5,37 @@
 #ifndef BLOCK_O_AUTOMATA_SCML_H
 #define BLOCK_O_AUTOMATA_SCML_H
 
-#include "windows_console_tools/win_colors.h"
 #include "windows_console_tools/coord.h"
 #include "windows_console_tools/icon.h"
+#include "windows_console_tools/win_colors.h"
 #include <chrono>
-#include <vector>
 #include <future>
 #include <thread>
+#include <vector>
 
 enum key_pressed {
-    null = 0 ,
-    key_enter,
-    key_space,
-    key_delete,
-    key_0,
-    key_1,
-    key_2,
-    key_3,
-    key_4,
-    key_5,
-    key_6,
-    key_7,
-    key_8,
-    key_9,
-    key_a,
-    key_w,
-    key_s,
-    key_d,
-    key_q,
-    key_e,
-    key_r,
-    key_x
+  null = 0,
+  key_enter,
+  key_space,
+  key_delete,
+  key_0,
+  key_1,
+  key_2,
+  key_3,
+  key_4,
+  key_5,
+  key_6,
+  key_7,
+  key_8,
+  key_9,
+  key_a,
+  key_w,
+  key_s,
+  key_d,
+  key_q,
+  key_e,
+  key_r,
+  key_x
 
 };
 
@@ -44,71 +44,64 @@ enum key_pressed {
 /// contains buffer of wchar_t values that will be displayed on screen
 /// every character will be followed by space
 
-//todo better use press detection
-// idk how much time i want to spend at it
-// i guess we'll see
-// for now it runs of getch()
-// I'll try with getline
+// todo better use press detection
+//  idk how much time i want to spend at it
+//  i guess we'll see
+//  for now it runs of getch()
+//  I'll try with getline
 
-class scml {
+class Scml {
 
 public:
+  Scml();
 
-    scml();
+  Scml(const Scml &other);
 
-    scml(const scml &other);
+  Scml(unsigned int width, unsigned int height);
 
-    scml(unsigned int width, unsigned int height);
+  Scml &operator=(const Scml &other);
 
-    scml &operator=(const scml &other);
+  key_pressed AwaitKeyPress();
 
-    key_pressed await_key_press();
+  key_pressed AwaitKeyPress(std::chrono::milliseconds await_time);
 
-    key_pressed await_key_press(std::chrono::milliseconds await_time);
+  void SetMessage(color text_color, color background_color,
+                  std::wstring message);
 
+  void UpdateScreen();
 
-    void set_message(color text_color, color background_color, std::wstring message);
+  void SetPixel(coord position, icon new_pixel);
 
-    std::string await_string();
+  icon &GetPixel(coord position);
 
-    int await_int();
+  void Resize(unsigned int new_width, unsigned int new_height);
 
-    void update_screen();
+  void Clear();
 
-    void set_pixel(coord position, icon new_pixel);
-
-    icon &get_pixel(coord position);
-
-    void resize(unsigned int new_width, unsigned int new_height);
-
-    void clear();
-
-    ~scml() {
-        std::wcout << cc(white, black);
-        system("cls");
-    }
+  ~Scml() {
+    std::wcout << cc(white, black);
+    system("cls");
+  }
 
 private:
-    void downsize_w(unsigned new_width);
+  void DownsizeW(unsigned new_width);
 
-    void upsize_w(unsigned new_width);
+  void UpsizeW(unsigned new_width);
 
-    void downsize_h(unsigned new_height);
+  void DownsizeH(unsigned new_height);
 
-    void upsize_h(unsigned new_height);
+  void UpsizeH(unsigned new_height);
 
+  unsigned h_;
+  unsigned w;
+  color text_color_;
+  color background_color_;
+  std::vector<std::vector<icon>> buffer_;
+  color message_text_color_;
+  color message_background_color_;
 
-    unsigned h;
-    unsigned w;
-    color text_color;
-    color background_color;
-    std::vector<std::vector<icon>> buffer;
-    color message_text_color;
-    color message_background_color;
-
-    std::wstring message;
-    HANDLE hc;
-
+  std::wstring message_;
+  HANDLE hc_;
 };
 
-#endif //BLOCK_O_AUTOMATA_SCML_H
+#endif // BLOCK_O_AUTOMATA_SCML_H

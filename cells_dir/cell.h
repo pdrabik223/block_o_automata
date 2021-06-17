@@ -14,83 +14,73 @@
 #include "../windows_console_tools/coord.h"
 #include "../windows_console_tools/icon.h"
 
+// todo smart pointers to minimize mem leaks
 
+/// Type of the Cell, used to identify Cell by it's role
+enum Type {
 
-//todo smart pointers to minimize mem leaks
-
-
-
-/// type of the cell, used to identify cell by it's role
-enum type {
-
-    Cell = 1,
-    Barrier = 2,
-    Move = 3,
-    Kill = 4,
-    Spawn = 5,
-    Turn = 6,
-    Goal = 7,
-    Empty = 8
+  CELL = 1,
+  BARRIER = 2,
+  MOVE = 3,
+  KILL = 4,
+  SPAWN = 5,
+  TURN = 6,
+  GOAL = 7,
+  EMPTY = 8
 
 };
 
-class cell {
-
-
+class Cell {
 public:
-    cell();
+  Cell();
 
-    cell(bool movable, bool killable);
+  Cell(bool movable, bool killable);
 
-    virtual cell &operator=(const cell &other) = default;
+  bool IsMovable() const;
 
-    bool isMovable() const;
+  void SetMovable(bool movable);
 
-    void setMovable(bool movable);
+  void SetKillable(bool killable);
 
-    void setKillable(bool killable);
+  bool IsKillable() const;
 
-    virtual void rotateRight() noexcept { assert(false); };
+  virtual Cell &operator=(const Cell &other) = default;
 
-    bool isKillable() const;
+  virtual void RotateRight() noexcept { assert(false); };
 
-    virtual icon get_unicode() {
-        assert(false);
-        return icon();
-    };
+  virtual icon GetUnicode() {
+    assert(false);
+    return icon();
+  };
 
+  virtual void Move(const std::vector<Cell *> &plane,
+                    std::vector<Cell *> &destination, direction move_dir,
+                    coord curr_pos, unsigned int width) {
+    assert(false);
+  };
 
-    virtual void
-    move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
-         unsigned int width) {
-        assert(false);
-    };
+  virtual void Action(const std::vector<Cell *> &plane, unsigned w,
+                      coord curr_pos, std::vector<Cell *> &destination) {
+    assert(false);
+  };
 
-    virtual void
-    action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
-        assert(false);
-    };
+  virtual bool operator==(const Type &rhs) const;
 
-    virtual bool operator==(const type &rhs) const;
+  virtual bool operator!=(const Type &rhs) const;
 
-    virtual bool operator!=(const type &rhs) const;
+  virtual Type GetCellType() const;
 
-    virtual type getCellType() const;
+  virtual void OutputFoFile(std::ostream &out) { assert(false); };
 
-    virtual void output_fo_file(std::ostream &out) { assert(false); };
+  virtual Cell *Clone() { return this; };
 
-    virtual cell* clone() { return this; };
+  static Type cell_type_;
 
-    static type cell_type;
 protected:
-    /// can be moved/rotated by other cells
-    bool movable;
-    /// can this cell be killed
-    bool killable;
-
-
+  /// can be moved/rotated by other cells
+  bool movable_;
+  /// can this Cell be killed
+  bool killable_;
 };
 
-
-
-#endif //BLOCK_O_AUTOMATA_CELL_H
+#endif // BLOCK_O_AUTOMATA_CELL_H

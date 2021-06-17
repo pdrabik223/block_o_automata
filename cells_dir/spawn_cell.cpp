@@ -4,61 +4,52 @@
 
 #include "spawn_cell.h"
 #include "barrier_cell.h"
-#include "goal_cell.h"
-#include "kill_cell.h"
-#include "move_cell.h"
-#include "turn_cell.h"
 
-type spawn_cell::cell_type = Spawn;
+Type SpawnCell::cell_type_ = SPAWN;
 
+SpawnCell::SpawnCell() : Cell(true, false), spawn_direction_(left) {}
 
-spawn_cell::spawn_cell() : cell(true, false),
-                           spawn_direction(left) {}
+SpawnCell::SpawnCell(direction spawn_direction) : Cell(true, false), spawn_direction_(spawn_direction) {}
 
 
-spawn_cell::spawn_cell(direction spawnDirection) : cell(true, false),
-                                                   spawn_direction(spawnDirection) {}
+void SpawnCell::Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) {
+    if (*plane[curr_pos.go(spawn_direction_, w)] != EMPTY)
+      plane[curr_pos.go(spawn_direction_, w)]->Move(
+          plane, destination, spawn_direction_, curr_pos.go(spawn_direction_), w);
 
+    if (*destination[curr_pos.go(spawn_direction_, w)] == EMPTY &&
+        *destination[curr_pos.reverse(spawn_direction_, w)] != EMPTY) {
 
-void
-spawn_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
-    if (*plane[curr_pos.go(spawn_direction, w)] != Empty)
-        plane[curr_pos.go(spawn_direction, w)]->
-                move(plane, destination, spawn_direction, curr_pos.go(spawn_direction), w);
+      Cell *cell_ptr = plane[curr_pos.reverse(spawn_direction_, w)];
 
-    if (*destination[curr_pos.go(spawn_direction, w)] == Empty &&
-        *destination[curr_pos.reverse(spawn_direction, w)] != Empty) {
-
-        cell *cell_ptr = plane[curr_pos.reverse(spawn_direction, w)];
-
-        destination[curr_pos.go(spawn_direction, w)] = cell_ptr->clone();
+        destination[curr_pos.go(spawn_direction_, w)] = cell_ptr->Clone();
 
     }
 }
 
-void
-spawn_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+void SpawnCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
                  unsigned int width) {
 
-    plane[curr_pos.go(move_dir, width)]->move(plane, destination, move_dir, curr_pos.go(move_dir), width);
+  plane[curr_pos.go(move_dir, width)]->Move(plane, destination, move_dir,
+                                            curr_pos.go(move_dir), width);
 
-    if (*destination[curr_pos.go(move_dir, width)] == Empty) {
+    if (*destination[curr_pos.go(move_dir, width)] == EMPTY) {
         // me                                      the one in front
         std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_dir, width)]);
     }
 }
 
-bool spawn_cell::operator==(const type &rhs) const {
-    return cell_type == rhs;
+bool SpawnCell::operator==(const Type &rhs) const {
+    return cell_type_ == rhs;
 }
 
-bool spawn_cell::operator!=(const type &rhs) const {
-    return cell_type != rhs;
+bool SpawnCell::operator!=(const Type &rhs) const {
+    return cell_type_ != rhs;
 }
 
-icon spawn_cell::get_unicode() {
+icon SpawnCell::GetUnicode() {
 
-    switch (spawn_direction) {
+    switch (spawn_direction_) {
         case left:
             return {11164, green};
 
@@ -75,44 +66,44 @@ icon spawn_cell::get_unicode() {
     }
 }
 
-direction spawn_cell::getSpawnDirection() const {
-    return spawn_direction;
+direction SpawnCell::GetSpawnDirection() const {
+    return spawn_direction_;
 }
 
-void spawn_cell::setSpawnDirection(direction spawnDirection) {
-    spawn_direction = spawnDirection;
+void SpawnCell::SetSpawnDirection(direction spawn_direction) {
+    spawn_direction_ = spawn_direction;
 }
 
-type spawn_cell::getCellType() const {
-    return cell_type;
+Type SpawnCell::GetCellType() const {
+    return cell_type_;
 }
 
 
-void spawn_cell::rotateRight() noexcept {
-    switch (spawn_direction) {
+void SpawnCell::RotateRight() noexcept {
+    switch (spawn_direction_) {
         case left:
-            spawn_direction = up;
+          spawn_direction_ = up;
             break;
         case right:
-            spawn_direction = down;
+          spawn_direction_ = down;
             break;
         case down:
-            spawn_direction = left;
+          spawn_direction_ = left;
             break;
         case up:
-            spawn_direction = right;
+          spawn_direction_ = right;
             break;
 
     }
 }
 
-void spawn_cell::output_fo_file(std::ostream &out) {
-    out << (int) getCellType();
+void SpawnCell::OutputFoFile(std::ostream &out) {
+    out << (int)GetCellType();
     out << " ";
-    out << (int) getSpawnDirection();
+    out << (int)GetSpawnDirection();
 }
 
-spawn_cell *spawn_cell::clone() {
-    return new spawn_cell(*this);
+SpawnCell *SpawnCell::Clone() {
+    return new SpawnCell(*this);
 }
 

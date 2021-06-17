@@ -2,8 +2,8 @@
 // Created by studio25 on 20.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_PLAY_H
-#define BLOCK_O_AUTOMATA_PLAY_H
+#ifndef BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_PLAY_H_
+#define BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_PLAY_H_
 
 #include <thread>
 #include <board.h>
@@ -13,28 +13,28 @@
 
 namespace win_console {
 
-    class play : public lp::level_play {
+    class Play : public lp::LevelPlay {
 
     public:
-        play() : lp::level_play(), console_handle(10, 10 + 2) {};
+      Play() : lp::LevelPlay(), console_handle_(10, 10 + 2) {};
 
-        play(const level_info &other) : lp::level_play(other),
-                                        console_handle(other.getWidth(), other.getHeight() + 2) {};
+      Play(const LevelInfo &other) : lp::LevelPlay(other),
+            console_handle_(other.GetWidth(), other.GetHeight() + 2) {};
 
-        void controlled_view() override;
+        void ControlledView() override;
 
-        int run_sim() override;
+        int RunSim() override;
 
-        unsigned char get_key() override;
+        unsigned char GetKey() override;
 
 
     protected:
-        void display_message();
+        void DisplayMessage();
 
-        scml console_handle;
+        Scml console_handle_;
 
     };
 
 }
 
-#endif //BLOCK_O_AUTOMATA_PLAY_H
+#endif // BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_PLAY_H_

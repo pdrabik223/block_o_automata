@@ -2,50 +2,48 @@
 // Created by pc on 04.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_TURN_CELL_H
-#define BLOCK_O_AUTOMATA_TURN_CELL_H
+#ifndef BLOCK_O_AUTOMATA_CELLS_DIR_TURN_CELL_H_
+#define BLOCK_O_AUTOMATA_CELLS_DIR_TURN_CELL_H_
 
 #include "cell.h"
 
-class turn_cell : public cell{
+class TurnCell : public Cell {
 public:
+  TurnCell();
 
-    turn_cell();
+  TurnCell(direction turn_direction);
 
+  TurnCell &operator=(const TurnCell &other) = default;
 
-    turn_cell(direction turnDirection);
-
-    turn_cell &operator=(const turn_cell &other) = default;
-
-    void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
               unsigned int width) override;
 
-    icon get_unicode() override;
+    icon GetUnicode() override;
 
-    void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
+    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) override;
 
-    bool operator==(const type& rhs) const override;
+    bool operator==(const Type & rhs) const override;
 
-    bool operator!=(const type &rhs) const override;
+    bool operator!=(const Type &rhs) const override;
 
-    type getCellType() const override;
+    Type GetCellType() const override;
 
-    direction getTurnDirection() const;
+    direction GetTurnDirection() const;
 
-    void rotateRight() noexcept override;
+    void RotateRight() noexcept override;
 
-    void output_fo_file(std::ostream &out) override;
+    void OutputFoFile(std::ostream &out) override;
 
-    static type cell_type;
+    static Type cell_type_;
 
-    turn_cell *clone() override;
+    TurnCell *Clone() override;
 
 protected:
 
-    /// the direction that incoming cell will leave with
+    /// the direction that incoming Cell will leave with
     direction turn_direction;
 
 };
 
 
-#endif //BLOCK_O_AUTOMATA_TURN_CELL_H
+#endif // BLOCK_O_AUTOMATA_CELLS_DIR_TURN_CELL_H_

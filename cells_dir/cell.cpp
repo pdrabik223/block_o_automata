@@ -3,39 +3,22 @@
 //
 
 #include "cell.h"
-type cell::cell_type = Cell;
-cell::cell(bool movable, bool killable) : movable(movable), killable(killable) {
+Type Cell::cell_type_ = CELL;
+Cell::Cell(bool movable, bool killable)
+    : movable_(movable), killable_(killable) {}
 
-}
+Cell::Cell() : movable_(true), killable_(true) {}
 
-cell::cell(): movable(true), killable(true) {}
+bool Cell::IsMovable() const { return movable_; }
 
-bool cell::isMovable() const {
-    return movable;
-}
+bool Cell::IsKillable() const { return killable_; }
 
-bool cell::isKillable() const {
-    return killable;
-}
+void Cell::SetMovable(bool movable) { Cell::movable_ = movable; }
 
-void cell::setMovable(bool movable) {
-    cell::movable = movable;
-}
+void Cell::SetKillable(bool killable) { Cell::killable_ = killable; }
 
+bool Cell::operator==(const Type &rhs) const { return cell_type_ == rhs; }
 
-void cell::setKillable(bool killable) {
-    cell::killable = killable;
-}
+bool Cell::operator!=(const Type &rhs) const { return cell_type_ != rhs; }
 
-bool cell::operator==(const type& rhs) const {
-    return cell_type == rhs;
-}
-
-bool cell::operator!=(const type &rhs) const {
-    return cell_type != rhs;
-}
-
-type cell::getCellType() const {
-    return cell_type;
-}
-
+Type Cell::GetCellType() const { return cell_type_; }

@@ -4,12 +4,10 @@
 
 #include <windows_console/edit.h>
 
-
 int main() {
 
-    win_console::edit editor;
-    editor.main_loop();
+  win_console::Edit editor;
+  editor.MainLoop();
 
-    return 0;
+  return 0;
 }
-

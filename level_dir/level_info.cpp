@@ -5,7 +5,7 @@
 #include "level_info.h"
 
 
-std::string current_date() {
+std::string CurrentDate() {
     auto now = std::chrono::system_clock::now();
     auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
@@ -14,11 +14,11 @@ std::string current_date() {
     return ss.str();
 }
 
-std::wstring level_info::get_info() const {
+std::wstring LevelInfo::GetInfo() const {
     std::string line;
-    line += level_name;
+    line += level_name_;
     line += " by ";
-    line += author;
+    line += author_;
 
     std::wstring wline;
     for (auto i:line)
@@ -27,28 +27,26 @@ std::wstring level_info::get_info() const {
     return wline;
 }
 
-unsigned int level_info::getWidth() const {
-    return width;
+unsigned int LevelInfo::GetWidth() const {
+    return width_;
 }
 
-unsigned int level_info::getHeight() const {
-    return height;
+unsigned int LevelInfo::GetHeight() const {
+    return height_;
 }
 
+LevelInfo::LevelInfo(unsigned int height, unsigned int width) : width_(width), height_(height) {
 
-level_info::level_info(unsigned int height, unsigned int width) : width(width), height(height) {
+  level_name_ = "noname";
+  author_ = "noname";
 
+  level_beaten_ = false;
 
-    level_name = "noname";
-    author = "noname";
+  max_iteration_ = 0;
+  max_iteration_beaten_ = false;
 
-    level_beaten = false;
-
-    max_iteration = 0;
-    max_iteration_beaten = false;
-
-    max_piece_cost = 0;
-    max_piece_cost_beaten = false;
+  max_piece_cost_ = 0;
+  max_piece_cost_beaten_ = false;
 
 
 
@@ -58,74 +56,73 @@ level_info::level_info(unsigned int height, unsigned int width) : width(width), 
             i / width == 0 ||
             i / width == (height - 1) ||
             i % width == (height - 1))
-            level.push_back(new barrier_cell(false));
+          level_.push_back(new BarrierCell(false));
 
-        else level.push_back(new empty_cell(true));
+        else
+          level_.push_back(new EmptyCell(true));
     }
 
 }
 
 
-void level_info::resize(unsigned int new_height, unsigned int new_width) {
-    std::vector<cell *> level_copy = level;
+void LevelInfo::Resize(unsigned int new_height, unsigned int new_width) {
+    std::vector<Cell *> level_copy = level_;
     unsigned i = 0;
-    level.clear();
-    level.reserve(new_height * new_width);
+    level_.clear();
+    level_.reserve(new_height * new_width);
 
     for (int x = 0; x < new_height; x++) {
         for (int y = 0; y < new_width; y++) {
-            if (x < height && y < width) {
+            if (x < height_ && y < width_) {
 
-                level.push_back(level_copy[i]);
+              level_.push_back(level_copy[i]);
                 ++i;
 
-            } else level.push_back(new empty_cell(true));
+            } else
+              level_.push_back(new EmptyCell(true));
         }
-        if (new_width < width) i += width - new_width;
+        if (new_width < width_) i += width_ - new_width;
     }
 
-    width = new_width;
-    height = new_height;
+    width_ = new_width;
+    height_ = new_height;
 }
 
-level_info::level_info() {
+LevelInfo::LevelInfo() {
 
-    level_name = "noname";
-    author = "noname";
+  level_name_ = "noname";
+  author_ = "noname";
 
-    level_beaten = false;
+  level_beaten_ = false;
 
-    max_iteration = 0;
-    max_iteration_beaten = false;
+  max_iteration_ = 0;
+  max_iteration_beaten_ = false;
 
-    max_piece_cost = 0;
-    max_piece_cost_beaten = false;
+  max_piece_cost_ = 0;
+  max_piece_cost_beaten_ = false;
 
+  width_ = 1;
+  height_ = 1;
 
-
-
-    width = 1;
-    height = 1;
-
-    for (int i = 0; i < width * height; i++)
-        level.push_back(new empty_cell(false));
+    for (int i = 0; i < width_ * height_; i++)
+      level_.push_back(new EmptyCell(false));
 
 }
 
-void level_info::save() {
+void LevelInfo::Save() {
 
     std::ofstream myfile;
     std::string file_path;
 
-    if (level_name == "noname") {
-        std::string date = current_date().erase(0, 11);
+    if (level_name_ == "noname") {
+        std::string date = CurrentDate().erase(0, 11);
         for (char &i:date)
             if (i == ':') i = '_';
         file_path = "../\\levels\\" + date + ".txt";
-        level_name = "noname" + date;
+        level_name_ = "noname" + date;
 
     } else
-        file_path = "../\\levels\\" + level_name + ".txt";
+        file_path = "../\\levels\\" + level_name_ + ".txt";
 
 
     myfile.open(file_path);
@@ -135,29 +132,29 @@ void level_info::save() {
     }
 
 
-    myfile << level_name << "\n"; // every field is separated by new line
-    myfile << author << "\n";
+    myfile << level_name_ << "\n"; // every field is separated by new line
+    myfile << author_ << "\n";
 
-    myfile << level_beaten << "\n";
+    myfile << level_beaten_ << "\n";
 
-    myfile << max_iteration << "\n";
-    myfile << max_iteration_beaten << "\n";
+    myfile << max_iteration_ << "\n";
+    myfile << max_iteration_beaten_ << "\n";
 
-    myfile << max_piece_cost << "\n";
-    myfile << max_piece_cost_beaten << "\n";
+    myfile << max_piece_cost_ << "\n";
+    myfile << max_piece_cost_beaten_ << "\n";
 
-    myfile << width << "\n";
-    myfile << height << "\n";
+    myfile << width_ << "\n";
+    myfile << height_ << "\n";
 
-    for (cell *i : level) {
-        i->output_fo_file(myfile);
+    for (Cell *piece : level_) {
+      piece->OutputFoFile(myfile);
         myfile << " ";
 
     }
     myfile.close();
 }
 
-void level_info::load(const std::string &path) {
+void LevelInfo::Load(const std::string &path) {
     std::ifstream myfile;
     myfile.open(path);
     std::string file_header;
@@ -170,82 +167,82 @@ void level_info::load(const std::string &path) {
     }
 
 
-    myfile >> level_name; // every field is separated by new line
+    myfile >> level_name_; // every field is separated by new line
 
-    myfile >> author;
+    myfile >> author_;
 
 
-    myfile >> level_beaten;
+    myfile >> level_beaten_;
 
-    myfile >> max_iteration;
-    myfile >> max_iteration_beaten;
+    myfile >> max_iteration_;
+    myfile >> max_iteration_beaten_;
 
-    myfile >> max_piece_cost;
-    myfile >> max_piece_cost_beaten;
+    myfile >> max_piece_cost_;
+    myfile >> max_piece_cost_beaten_;
 
-    myfile >> width;
-    myfile >> height;
-    level = {};
+    myfile >> width_;
+    myfile >> height_;
+    level_ = {};
 
     int temp_int;
-    for (int i = 0; i < width * height; i++) {
+    for (int i = 0; i < width_ * height_; i++) {
 
         myfile >> temp_int;
 
-        switch ((type) temp_int) {
-            case Barrier: {
+        switch ((Type) temp_int) {
+            case BARRIER: {
 
                 bool is_movable;
                 myfile >> is_movable;
 
-                level.push_back(new barrier_cell(is_movable));
+                level_.push_back(new BarrierCell(is_movable));
             }
                 break;
-            case Move: {
+            case MOVE: {
 
                 int move_direction;
                 myfile >> move_direction;
 
-                level.push_back(new move_cell((direction) move_direction));
+                level_.push_back(new MoveCell((direction) move_direction));
             }
                 break;
-            case Kill: {
+            case KILL: {
 
-                level.push_back(new kill_cell());
+              level_.push_back(new KillCell());
 
             }
                 break;
-            case Spawn: {
+            case SPAWN: {
 
                 int spawn_direction;
                 myfile >> spawn_direction;
 
-                level.push_back(new spawn_cell((direction) spawn_direction));
+                level_.push_back(new SpawnCell((direction) spawn_direction));
             }
                 break;
-            case Turn: {
+            case TURN: {
 
                 int turn_direction;
                 myfile >> turn_direction;
 
-                level.push_back(new turn_cell((direction) turn_direction));
+                level_.push_back(new TurnCell((direction) turn_direction));
 
             }
                 break;
-            case Empty: {
+            case EMPTY: {
                 bool locked;
                 myfile >> locked;
-                level.push_back(new empty_cell(locked));
+                level_.push_back(new EmptyCell(locked));
 
             }
                 break;
-            case Goal: {
+            case GOAL: {
 
-                level.push_back(new goal_cell());
+              level_.push_back(new GoalCell());
 
             }
                 break;
-            case Cell: {
+            case CELL: {
                 assert(false);
                 /// here comes exception
             }
@@ -259,32 +256,32 @@ void level_info::load(const std::string &path) {
     myfile.close();
 }
 
-cell &level_info::get_cell(unsigned int h, unsigned int w) {
-    return *level[h * width + w];
+Cell &LevelInfo::GetCell(unsigned int h, unsigned int w) {
+    return *level_[h * width_ + w];
 }
 
-cell &level_info::get_cell(coord position) {
-    return *level[position.x * width + position.y];
+Cell &LevelInfo::GetCell(coord position) {
+    return *level_[position.x * width_ + position.y];
 }
 
-cell *&level_info::operator[](unsigned position) {
-    return level[position];
+Cell *&LevelInfo::operator[](unsigned position) {
+    return level_[position];
 }
 
-cell *&level_info::operator[](coord position) {
-    return level[position.x * width + position.y];
+Cell *&LevelInfo::operator[](coord position) {
+    return level_[position.x * width_ + position.y];
 }
 
-const std::vector<cell *> &level_info::getLevel() const {
-    return level;
+const std::vector<Cell *> &LevelInfo::GetLevel() const {
+    return level_;
 }
 
-void level_info::set_cell(coord position, cell *target) {
-    level[position.x * width + position.y] = new cell(*target);
+void LevelInfo::SetCell(coord position, Cell *target) {
+  level_[position.x * width_ + position.y] = new Cell(*target);
 }
 
 
-void level_info::copy_cell(coord position, cell *target) {
+void LevelInfo::CopyCell(coord position, Cell *target) {
 
-    level[position.x * width + position.y] = target->clone();
+  level_[position.x * width_ + position.y] = target->Clone();
 }

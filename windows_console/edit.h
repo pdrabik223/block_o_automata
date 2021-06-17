@@ -2,31 +2,32 @@
 // Created by studio25 on 20.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_EDIT_H
-#define BLOCK_O_AUTOMATA_EDIT_H
+#ifndef BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_EDIT_H_
+#define BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_EDIT_H_
 
 #include "level_dir/level_edit.h"
 #include "scml.h"
 #include <thread>
 
 namespace win_console {
-    class edit : public le::level_edit {
+    class Edit : public le::LevelEdit {
     public:
-        edit() : le::level_edit(), console_handle(getHeight() + 3, getWidth() + 2) {};
+      Edit() : le::LevelEdit(), console_handle_(GetHeight() + 3, GetWidth() + 2) {};
 
-        void controlled_view() override;
+        void ControlledView() override;
 
-        void run_sim() override;
+        void RunSim() override;
 
-        void set_additional_info() override;
+        void SetAdditionalInfo() override;
 
-        unsigned char get_key() override;
+        unsigned char GetKey() override;
 
     protected:
-        void display_message();
+        void DisplayMessage();
 
-        scml console_handle;
+        Scml console_handle_;
     };
 }
 
-#endif //BLOCK_O_AUTOMATA_EDIT_H
+
+#endif // BLOCK_O_AUTOMATA_WINDOWS_CONSOLE_EDIT_H_

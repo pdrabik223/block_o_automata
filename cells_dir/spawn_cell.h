@@ -2,54 +2,50 @@
 // Created by pc on 04.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_SPAWN_CELL_H
-#define BLOCK_O_AUTOMATA_SPAWN_CELL_H
-
+#ifndef BLOCK_O_AUTOMATA_CELLS_DIR_SPAWN_CELL_H_
+#define BLOCK_O_AUTOMATA_CELLS_DIR_SPAWN_CELL_H_
 
 #include "cell.h"
 
-class spawn_cell : public cell {
+class SpawnCell : public Cell {
 public:
+  SpawnCell();
 
-    spawn_cell();
+  SpawnCell(direction spawn_direction);
 
+  SpawnCell &operator=(const SpawnCell &other) = default;
 
-    spawn_cell(direction spawnDirection);
+    icon GetUnicode() override;
 
-    spawn_cell &operator=(const spawn_cell &other) = default;
+    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) override;
 
-    icon get_unicode() override;
-
-    void
-    action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
-
-    void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
               unsigned int width) override;
 
-    bool operator==(const type &rhs) const override;
+    bool operator==(const Type &rhs) const override;
 
-    bool operator!=(const type &rhs) const override;
+    bool operator!=(const Type &rhs) const override;
 
-    direction getSpawnDirection() const;
+    direction GetSpawnDirection() const;
 
-    void setSpawnDirection(direction spawnDirection);
+    void SetSpawnDirection(direction spawn_direction);
 
-    type getCellType() const override;
+    Type GetCellType() const override;
 
-    void rotateRight() noexcept override;
+    void RotateRight() noexcept override;
 
-    void output_fo_file(std::ostream &out) override;
+    void OutputFoFile(std::ostream &out) override;
 
-    static type cell_type;
+    static Type cell_type_;
 
-    spawn_cell *clone() override;
+    SpawnCell *Clone() override;
 
 protected:
 
-    /// the place where cell be spawned
-    direction spawn_direction;
+    /// the place where Cell be spawned
+    direction spawn_direction_;
 
 };
 
 
-#endif //BLOCK_O_AUTOMATA_SPAWN_CELL_H
+#endif // BLOCK_O_AUTOMATA_CELLS_DIR_SPAWN_CELL_H_

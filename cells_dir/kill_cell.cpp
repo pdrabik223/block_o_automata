@@ -3,26 +3,27 @@
 //
 
 #include "kill_cell.h"
-#include "empty_cell.h"
-type kill_cell::cell_type = Kill;
+#include "EmptyCell.h"
+Type KillCell::cell_type_ = KILL;
 
-kill_cell::kill_cell() : cell(false, true) {}
+KillCell::KillCell() : Cell(false, true) {}
 
-void kill_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
+void KillCell::Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) {
 
 }
 
-void
-kill_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+void KillCell::Move(const std::vector<Cell *> &plane,
+                    std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
                 unsigned int width) {
-    if (plane[curr_pos.reverse(move_dir, width)]->isKillable()) {
-        destination[curr_pos.reverse(move_dir, width)] = new empty_cell(true);
+    if (plane[curr_pos.reverse(move_dir, width)]->IsKillable()) {
+        destination[curr_pos.reverse(move_dir, width)] = new EmptyCell(true);
         return;
     } else {
 
-        plane[curr_pos.go(move_dir, width)]->move(plane, destination, move_dir, curr_pos.go(move_dir), width);
+      plane[curr_pos.go(move_dir, width)]->Move(plane, destination, move_dir,
+                                                curr_pos.go(move_dir), width);
 
-        if (*destination[curr_pos.go(move_dir, width)] == Empty) {
+        if (*destination[curr_pos.go(move_dir, width)] == EMPTY) {
             // me                                      the one in front
             std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_dir, width)]);
         }
@@ -30,29 +31,29 @@ kill_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destinati
 
 }
 
-bool kill_cell::operator==(const type &rhs) const {
-    return cell_type == rhs;
+bool KillCell::operator==(const Type &rhs) const {
+    return cell_type_ == rhs;
 }
 
-bool kill_cell::operator!=(const type &rhs) const {
-    return cell_type != rhs;
+bool KillCell::operator!=(const Type &rhs) const {
+    return cell_type_ != rhs;
 }
 
-icon kill_cell::get_unicode() {
+icon KillCell::GetUnicode() {
     return {10006, red};
 }
 
-type kill_cell::getCellType() const {
-    return cell_type;
+Type KillCell::GetCellType() const {
+    return cell_type_;
 }
 
-void kill_cell::output_fo_file(std::ostream &out) {
-    out << (int) getCellType();
+void KillCell::OutputFoFile(std::ostream &out) {
+    out << (int)GetCellType();
 
 }
 
-kill_cell* kill_cell::clone() {
-    return new kill_cell(*this);
+KillCell *KillCell::Clone() {
+    return new KillCell(*this);
 }
 
 

@@ -9,81 +9,84 @@ using namespace le;
 //todo make logs appear at the bottom of screen
 // when cursor is over functional icons display what they do
 //
-player_action level_edit::analyze_movement(char key) {
+PlayerAction LevelEdit::AnalyzeMovement(char key) {
     switch (key) {
         case 'a':
-            cursor_position.y--;
+          cursor_position_.y--;
             break;
         case 'w':
-            cursor_position.x--;
+          cursor_position_.x--;
             break;
         case 's':
-            cursor_position.x++;
+          cursor_position_.x++;
             break;
         case 'd':
-            cursor_position.y++;
+          cursor_position_.y++;
             break;
         case 32:
-            return run_simulation;
+            return RUN_SIMULATION;
         case 'q':
-            return quit_edit;
+            return QUIT_EDIT;
         case 'x':
-            if (cursor_position.x < getHeight() && cursor_position.y < getWidth())
-               level[cursor_position.toUint(getWidth())] = new empty_cell();
+            if (cursor_position_.x < GetHeight() &&
+              cursor_position_.y < GetWidth())
+              level_[cursor_position_.toUint(GetWidth())] = new EmptyCell();
         break;
         case 13:
             // set pawn in place
-            if (cursor_position.x < getHeight() && cursor_position.y < getWidth())
-                copy_cell(cursor_position, all_blocks[current_block]);
+            if (cursor_position_.x < GetHeight() &&
+                cursor_position_.y < GetWidth())
+              CopyCell(cursor_position_, all_blocks_[current_block_]);
             else {
 
 
                 /// if cursor is on " plus on the right"
-                if (cursor_position == coord(getHeight() - 1, getWidth())) {
-                    resize(getHeight(), getWidth() + 1);
-                    cursor_position.y++;
+                if (cursor_position_ == coord(GetHeight() - 1, GetWidth())) {
+                  Resize(GetHeight(), GetWidth() + 1);
+                  cursor_position_.y++;
                     /// i'm so sorry but I wanted to use it so much
                     /// and i know it's confusing so I couldn't
-                    /// but here is quite clear
+                    /// but here is quite Clear
                     goto skip;
                 }
                 /// if cursor is on " minus on the right"
-                if (cursor_position == coord(getHeight() - 2, getWidth())) {
-                    resize(getHeight(), getWidth() - 1);
-                    cursor_position.y--;
+                if (cursor_position_ == coord(GetHeight() - 2, GetWidth())) {
+                  Resize(GetHeight(), GetWidth() - 1);
+                  cursor_position_.y--;
                     goto skip;
                 }
 
                 /// if cursor is on " plus on the bottom"
-                if (cursor_position == coord(getHeight(), getWidth() - 1)) {
-                    resize(getHeight() + 1, getWidth());
-                    cursor_position.x++;
+                if (cursor_position_ == coord(GetHeight(), GetWidth() - 1)) {
+                  Resize(GetHeight() + 1, GetWidth());
+                  cursor_position_.x++;
                     goto skip;
                 }
                 /// if cursor is on " minus on the bottom"
-                if (cursor_position == coord(getHeight(), getWidth() - 2)) {
-                    resize(getHeight() - 1, getWidth());
-                    cursor_position.x--;
+                if (cursor_position_ == coord(GetHeight(), GetWidth() - 2)) {
+                  Resize(GetHeight() - 1, GetWidth());
+                  cursor_position_.x--;
                     goto skip;
                 }
 
                 /// if cursor is on "blue  i icon"
-                if (cursor_position == coord(getHeight(), getWidth())) {
-                    set_additional_info();
+                if (cursor_position_ == coord(GetHeight(), GetWidth())) {
+                  SetAdditionalInfo();
                     goto skip;
                 }
 
                 /// if cursor is on "red < icon"
-                if (cursor_position == coord(0, getWidth())) {
-                    return quit_edit;
+                if (cursor_position_ == coord(0, GetWidth())) {
+                    return QUIT_EDIT;
                 }
                 /// if cursor is on "blue \/ icon"
-                if (cursor_position == coord(2, getWidth())) {
-                    if (level_name != "noname") save();
+                if (cursor_position_ == coord(2, GetWidth())) {
+                    if (level_name_ != "noname")
+                      Save();
                 }
                 /// if cursor is on "yellow >icon"
-                if (cursor_position == coord(1, getWidth())) {
-                    return run_simulation;
+                if (cursor_position_ == coord(1, GetWidth())) {
+                    return RUN_SIMULATION;
                 }
 
 
@@ -91,109 +94,114 @@ player_action level_edit::analyze_movement(char key) {
         skip:
             break;
         case 'r':
-            level[cursor_position.toUint(getWidth())]->rotateRight();
+          level_[cursor_position_.toUint(GetWidth())]->RotateRight();
             break;
         case '1':
-            current_block = 0;
+          current_block_ = 0;
             break;
         case '2':
-            current_block = 1;
+          current_block_ = 1;
             break;
         case '3':
-            current_block = 2;
+          current_block_ = 2;
             break;
         case '4':
-            current_block = 3;
+          current_block_ = 3;
             break;
         case '5':
-            current_block = 4;
+          current_block_ = 4;
             break;
         case '6':
-            current_block = 5;
+          current_block_ = 5;
             break;
         case '7':
-            current_block = 6;
+          current_block_ = 6;
             break;
         case '8':
-            current_block = 7;
+          current_block_ = 7;
             break;
 
         default:
-            return nothing;
+            return NOTHING;
 
     }
 
 
-    if (cursor_position.y > getWidth()) cursor_position.y = getWidth();
-    if (cursor_position.x > getHeight()) cursor_position.x = getHeight();
+    if (cursor_position_.y > GetWidth())
+      cursor_position_.y = GetWidth();
+    if (cursor_position_.x > GetHeight())
+      cursor_position_.x = GetHeight();
 
-    if (cursor_position.y < 0) cursor_position.y = 0;
-    if (cursor_position.x < 0) cursor_position.x = 0;
+    if (cursor_position_.y < 0)
+      cursor_position_.y = 0;
+    if (cursor_position_.x < 0)
+      cursor_position_.x = 0;
 
     /// if cursor is on "red < icon"
-    if (cursor_position == coord(0, getWidth())) {
-        current_message = exit;
+    if (cursor_position_ == coord(0, GetWidth())) {
+      current_message_ = EXIT;
     }
 
         /// if cursor is on "yellow >icon"
-    else if (cursor_position == coord(1, getWidth())) {
-        current_message = start_simulation;
+    else if (cursor_position_ == coord(1, GetWidth())) {
+      current_message_ = START_SIMULATION;
     }
     /// if cursor is on "blue \/ icon"
-    if (cursor_position == coord(2, getWidth())) {
-        if (level_name != "noname")  current_message = save_changes_to_file;
-        else current_message =additional_info_request;
+    if (cursor_position_ == coord(2, GetWidth())) {
+        if (level_name_ != "noname")
+          current_message_ = SAVE_CHANGES_TO_FILE;
+        else
+          current_message_ = ADDITIONAL_INFO_REQUEST;
     }
 
     /// if cursor is on "blue  i icon"
-    if (cursor_position == coord(getHeight(), getWidth())) {
+    if (cursor_position_ == coord(GetHeight(), GetWidth())) {
 
-        current_message = additional_info;
+      current_message_ = ADDITIONAL_INFO;
     }
     /// if cursor is on " plus on the right"
-    if (cursor_position == coord(getHeight() - 1, getWidth())) {
+    if (cursor_position_ == coord(GetHeight() - 1, GetWidth())) {
 
-        current_message = increase_width;
+      current_message_ = INCREASE_WIDTH;
     }
     /// if cursor is on " minus on the right"
-    if (cursor_position == coord(getHeight() - 2, getWidth())) {
+    if (cursor_position_ == coord(GetHeight() - 2, GetWidth())) {
 
-        current_message = decrease_width;
+      current_message_ = DECREASE_WIDTH;
     }
     /// if cursor is on " plus on the bottom"
-    if (cursor_position == coord(getHeight(), getWidth() - 1)) {
+    if (cursor_position_ == coord(GetHeight(), GetWidth() - 1)) {
 
-        current_message = increase_height;
+      current_message_ = INCREASE_HEIGHT;
     }
     /// if cursor is on " minus on the bottom"
-    if (cursor_position == coord(getHeight(), getWidth() - 2)) {
+    if (cursor_position_ == coord(GetHeight(), GetWidth() - 2)) {
 
-        current_message = decrease_height;
+      current_message_ = DECREASE_HEIGHT;
     }
-    /// todo these abowe + resize window
-    return
-            nothing;
+    /// todo these abowe + Resize window
+    return NOTHING;
 }
 
 
-void level_edit::main_loop() {
+void LevelEdit::MainLoop() {
 
     char key_pressed = 0;
-    player_action operation;
+    PlayerAction operation;
 
     while (2 > 1) {
-        controlled_view();
+      ControlledView();
 
-        key_pressed = get_key();
+        key_pressed = GetKey();
 
-        operation = analyze_movement(key_pressed);
+        operation = AnalyzeMovement(key_pressed);
 
-        if (operation == quit_edit) break;
-        if (operation == run_simulation) run_sim();
-
+        if (operation == QUIT_EDIT) break;
+        if (operation == RUN_SIMULATION)
+          RunSim();
 
     }
-    //save();
+
 }
 
 

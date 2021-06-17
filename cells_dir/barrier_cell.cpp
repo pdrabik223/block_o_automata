@@ -4,63 +4,53 @@
 
 #include "barrier_cell.h"
 
-type barrier_cell::cell_type = Barrier;
+Type BarrierCell::cell_type_ = BARRIER;
 
-barrier_cell::barrier_cell() : cell(false, false) {}
+BarrierCell::BarrierCell() : Cell(false, false) {}
 
+BarrierCell::BarrierCell(bool movable) : Cell(movable, false) {}
 
-barrier_cell::barrier_cell(bool movable) : cell(movable, false) {}
+void BarrierCell::Action(const std::vector<Cell *> &plane, unsigned w,
+                         coord curr_pos, std::vector<Cell *> &destination) {}
 
-void
-barrier_cell::action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) {
+void BarrierCell::Move(const std::vector<Cell *> &plane,
+                       std::vector<Cell *> &destination, direction move_dir,
+                       coord curr_pos, unsigned int width) {
+
+  if (!movable_)
     return;
+
+  plane[curr_pos.go(move_dir, width)]->Move(plane, destination, move_dir,
+                                            curr_pos.go(move_dir), width);
+
+  if (*destination[curr_pos.go(move_dir, width)] == EMPTY) {
+    // me                                      the one in front
+    std::swap(destination[curr_pos.toUint(width)],
+              destination[curr_pos.go(move_dir, width)]);
+  }
 }
 
-void
-barrier_cell::move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir,
-                   coord curr_pos,
-                   unsigned int width) {
-
-    if (!movable) return;
-
-
-    plane[curr_pos.go(move_dir, width)]->move(plane, destination, move_dir, curr_pos.go(move_dir), width);
-
-
-    if (*destination[curr_pos.go(move_dir, width)] == Empty) {
-        // me                                      the one in front
-        std::swap(destination[curr_pos.toUint(width)], destination[curr_pos.go(move_dir, width)]);
-    }
-
-
+bool BarrierCell::operator==(const Type &rhs) const {
+  return cell_type_ == rhs;
 }
 
-bool barrier_cell::operator==(const type &rhs) const {
-    return cell_type == rhs;
+bool BarrierCell::operator!=(const Type &rhs) const {
+  return cell_type_ != rhs;
 }
 
-bool barrier_cell::operator!=(const type &rhs) const {
-    return cell_type != rhs;
+icon BarrierCell::GetUnicode() {
+  if (movable_)
+    return {9634, gray};
+  else
+    return {9635, gray};
 }
 
-icon barrier_cell::get_unicode() {
-    if (movable) return {9634, gray};
-    else return {9635, gray};
+Type BarrierCell::GetCellType() const { return cell_type_; }
+
+void BarrierCell::OutputFoFile(std::ostream &out) {
+  out << (int)GetCellType();
+  out << " ";
+  out << IsMovable();
 }
 
-type barrier_cell::getCellType() const {
-    return cell_type;
-}
-
-void barrier_cell::output_fo_file(std::ostream &out) {
-    out << (int) getCellType();
-    out << " ";
-    out << isMovable();
-}
-
-barrier_cell *barrier_cell::clone() {
-
-
-    return new barrier_cell(*this);
-}
-
+BarrierCell *BarrierCell::Clone() { return new BarrierCell(*this); }

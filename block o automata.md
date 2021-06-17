@@ -55,7 +55,7 @@ ikona:
 ![Mwall.png](images/movable_wall.png)
 
 - jest ruchomym blokiem
-- nie może zostać zabita przez enemy cell
+- nie może zostać zabita przez enemy Cell
 
 ## Enemy
 ikona:
@@ -66,7 +66,7 @@ ikona:
 
 ## Move 
 ikona:
-![move.png](images/move.png)
+![Move.png](images/Move.png)
 
 - jest ruchomym blokiem
 - co iteracje (jeżeli nie jest zablokowana) przesuwa się na pole komórki przed nią samą 
@@ -91,7 +91,7 @@ ikona:
 
 ## Clone 
 ikona:
-![clone.png](images/clone.png)
+![Clone.png](images/Clone.png)
 
 - jest ruchomym blokiem
 - może byc poruszony, ale tylko za pośrednictwem ruchomej ściany 
@@ -116,7 +116,7 @@ ikona:
 ![level1.png](images/demo_level.png)
 
 przed takim zadaniem staje gracz na początku każdej rundy
-celem jest ustawienie "move" pionka tak by bezpiecznie dotarł do pola goal
+celem jest ustawienie "Move" pionka tak by bezpiecznie dotarł do pola goal
 
 rozwiązanie:
 

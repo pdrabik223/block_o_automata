@@ -2,40 +2,40 @@
 // Created by pc on 05.05.2021.
 //
 
-#ifndef BLOCK_O_AUTOMATA_GOAL_CELL_H
-#define BLOCK_O_AUTOMATA_GOAL_CELL_H
+#ifndef BLOCK_O_AUTOMATA_CELLS_DIR_GOAL_CELL_H_
+#define BLOCK_O_AUTOMATA_CELLS_DIR_GOAL_CELL_H_
 
 #include "cell.h"
 
-class goal_cell : public cell {
+class GoalCell : public Cell {
 public:
-    goal_cell();
+  GoalCell();
 
-    goal_cell &operator=(const goal_cell &other) = default;
+  GoalCell &operator=(const GoalCell &other) = default;
 
-    void action(const std::vector<cell *> &plane, unsigned w, coord curr_pos, std::vector<cell *> &destination) override;
+    void Action(const std::vector<Cell *> &plane, unsigned w, coord curr_pos, std::vector<Cell *> &destination) override;
 
-    void move(const std::vector<cell *> &plane, std::vector<cell *> &destination, direction move_dir, coord curr_pos,
+    void Move(const std::vector<Cell *> &plane, std::vector<Cell *> &destination, direction move_dir, coord curr_pos,
               unsigned int width) override;
 
-    icon get_unicode() override;
+    icon GetUnicode() override;
 
-    type getCellType() const override;
+    Type GetCellType() const override;
 
-    void rotateRight()  noexcept override{};
+    void RotateRight()  noexcept override{};
 
-    bool operator==(const type &rhs) const override;
+    bool operator==(const Type &rhs) const override;
 
-    bool operator!=(const type &rhs) const override;
+    bool operator!=(const Type &rhs) const override;
 
-    void output_fo_file(std::ostream &out) override;
+    void OutputFoFile(std::ostream &out) override;
 
-    static type cell_type ;
+    static Type cell_type_;
 
-    goal_cell *clone() override;
+    GoalCell *Clone() override;
 
 protected:
 };
 
 
-#endif //BLOCK_O_AUTOMATA_GOAL_CELL_H
+#endif // BLOCK_O_AUTOMATA_CELLS_DIR_GOAL_CELL_H_
