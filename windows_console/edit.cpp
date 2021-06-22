@@ -7,8 +7,8 @@
 void win_console::Edit::ControlledView() {
 
   unsigned window_height = GetHeight() + 2;
-  unsigned window_width = (GetWidth() + 1) > (all_blocks_.size() * 2)
-                              ? (GetWidth() + 1)
+  unsigned window_width = (GetWidth() + 2) > (all_blocks_.size() * 2)
+                              ? (GetWidth() + 2)
                               : (all_blocks_.size() * 2);
 
   console_handle_.Resize(window_height, window_width);

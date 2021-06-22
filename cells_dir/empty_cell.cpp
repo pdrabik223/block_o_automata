@@ -17,9 +17,9 @@ void EmptyCell::Move(const std::vector<Cell *> &plane, std::vector<Cell *> &dest
                      Coord curr_pos,
                  unsigned int width) {
 
-//    if (*plane[curr_pos.Go(move_dir, w)] == Empty) {
+//    if (*plane[curr_pos.Go(move_dir, w_)] == Empty) {
 //        // me                                      the one in front
-//        std::swap(destination[curr_pos.ToUint(w)], destination[curr_pos.Go(move_dir, w)]);
+//        std::swap(destination[curr_pos.ToUint(w_)], destination[curr_pos.Go(move_dir, w_)]);
 //    }
 
 }

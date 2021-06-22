@@ -93,7 +93,7 @@ private:
   void UpsizeH(unsigned new_height);
 
   unsigned h_;
-  unsigned w;
+  unsigned w_;
   Color text_color_;
   Color background_color_;
   std::vector<std::vector<icon>> buffer_;

@@ -12,7 +12,7 @@
 namespace win_console {
     class Edit : public le::LevelEdit {
     public:
-      Edit() : le::LevelEdit(), console_handle_(GetHeight() + 3, GetWidth() + 2) {};
+        Edit() : le::LevelEdit(), console_handle_(GetHeight() + 3, GetWidth() + 2) {};
 
         void ControlledView() override;
 

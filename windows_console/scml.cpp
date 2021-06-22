@@ -14,7 +14,7 @@
 Scml::Scml() {
   text_color_ = WHITE;
   background_color_ = BLACK;
-  w = 0;
+  w_ = 0;
   h_ = 0;
   message_text_color_ = WHITE;
   message_background_color_ = BLACK;
@@ -24,13 +24,13 @@ Scml::Scml() {
   _setmode(_fileno(stdout), _O_U16TEXT);
 }
 
-Scml::Scml(unsigned int width, unsigned int height) : w(width), h_(height) {
+Scml::Scml(unsigned int width, unsigned int height) : w_(width), h_(height) {
   text_color_ = WHITE;
   background_color_ = BLACK;
   /// it ain't the fastest
   for (int x = 0; x < h_; x++) {
     std::vector<icon> temp;
-    for (int y = 0; y < w; y++) {
+    for (int y = 0; y < w_; y++) {
       temp.emplace_back(' ', WHITE, BLACK);
     }
     buffer_.push_back(temp);
@@ -52,7 +52,7 @@ Scml::Scml(unsigned int width, unsigned int height) : w(width), h_(height) {
 Scml::Scml(const Scml &other) {
   text_color_ = other.text_color_;
   background_color_ = other.background_color_;
-  w = other.w;
+  w_ = other.w_;
   h_ = other.h_;
   message_text_color_ = other.message_text_color_;
   message_background_color_ = other.message_background_color_;
@@ -69,7 +69,7 @@ Scml &Scml::operator=(const Scml &other) {
     return *this;
   text_color_ = other.text_color_;
   background_color_ = other.background_color_;
-  w = other.w;
+  w_ = other.w_;
   h_ = other.h_;
 
   message_text_color_ = other.message_text_color_;
@@ -166,7 +166,13 @@ key_pressed Scml::AwaitKeyPress() {
 }
 
 void Scml::SetPixel(Coord position, icon new_pixel) {
-  assert(position.x_ < h_ && position.y_ < w);
+if(position.y_ >= w_) {
+    std::wcout << position.x_ << "    " << h_ << "   ";
+    std::wcout << position.y_ << "    " << w_ << "   ";
+  system("pause");
+}
+  assert(position.x_ < h_);
+  assert(position.y_ < w_);
   buffer_[position.x_][position.y_] = new_pixel;
 }
 
@@ -180,7 +186,7 @@ void Scml::UpdateScreen() {
   SetConsoleCursorPosition(hc_, c);
 
   for (int x = 0; x < h_; x++) {
-    for (int y = 0; y < w; y++) {
+    for (int y = 0; y < w_; y++) {
 
       text_color_ = buffer_[x][y].text_color;
       background_color_ = buffer_[x][y].background_color;
@@ -200,14 +206,14 @@ void Scml::UpdateScreen() {
 }
 
 icon &Scml::GetPixel(Coord position) {
-  assert(position.x_ < h_ && position.y_ < w);
+  assert(position.x_ < h_ && position.y_ < w_);
   return buffer_[position.x_][position.y_];
 }
 
 void Scml::Resize(unsigned int new_height, unsigned int new_width) {
-  if (new_height < w)
+  if (new_height < w_)
     DownsizeW(new_height);
-  else if (new_height > w)
+  else if (new_height > w_)
     UpsizeW(new_height);
 
   if (new_width < h_)
@@ -217,28 +223,28 @@ void Scml::Resize(unsigned int new_height, unsigned int new_width) {
 }
 
 void Scml::DownsizeW(unsigned int new_width) {
-  int delta = w - new_width;
+  int delta = w_ - new_width;
   assert(delta >= 0);
   message_ = {};
   for (auto &i : buffer_)
     for (unsigned j = 0; j < delta; j++)
-      i[w - 1 - j].image = ' ';
+      i[w_ - 1 - j].image = ' ';
 
   UpdateScreen();
 
   for (auto &i : buffer_)
     i.resize(new_width);
 
-  w = new_width;
+  w_ = new_width;
 }
 
 void Scml::UpsizeW(unsigned int new_width) {
-  int delta = new_width - w;
+  int delta = new_width - w_;
   assert(delta >= 0);
   message_ = {};
   for (auto &i : buffer_)
     i.resize(new_width);
-  w = new_width;
+  w_ = new_width;
 }
 
 void Scml::DownsizeH(unsigned int new_height) {
@@ -257,7 +263,7 @@ void Scml::UpsizeH(unsigned int new_height) {
   UpdateScreen();
   buffer_.resize(new_height);
   for (auto &i : buffer_)
-    for (int j = 0; j < w; j++)
+    for (int j = 0; j < w_; j++)
       i.emplace_back(' ', WHITE, BLACK);
 
   h_ = new_height;
